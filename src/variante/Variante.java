@@ -51,4 +51,5 @@ public class Variante {
 	}
 	
 	public void addEffet(){}
+	public void test(){}
 }

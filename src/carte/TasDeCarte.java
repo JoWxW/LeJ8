@@ -29,6 +29,8 @@ public class TasDeCarte {
 			this.carteEnAttend.add(j);
 			this.carteEnAttend.add(j);
 		}
+		
+		//老师好像不推荐用这个形式的for循环，他说不visible
 		for(Forme f : Forme.values()){
 			for(Valeur v : Valeur.values()){
 				Carte c = new Carte(f, v);

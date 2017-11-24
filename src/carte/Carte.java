@@ -14,6 +14,8 @@ public class Carte {
 	private Valeur valeur;
 	//private int point;
 	private Etat etat;
+	
+	//Effet 是不是也可以做成Collection？	
 	private Effet[] effet;
 	/**
 	 * @param id

@@ -3,36 +3,61 @@
  */
 package carte;
 
+import enumeration.*;
+import java.util.*;
+
 /**
  * @author wxw
  *
  */
 public class TasDeCarte {
-	private Carte[] carteEnAttend;
+	//constante ид voir dans la classe Carte
+	public final static int sizeValeurs = Valeur.size;
+	public final static int sizeFormes = Forme.size;
+	//constante ид voir dans la classe Jouer
+	public final static int jeux = 2;
+	public final static int avecJoker = 1;
+	
+	
+	public final static int NOMBRE_DE_CARTES = TasDeCarte.jeux*(TasDeCarte.sizeFormes*TasDeCarte.sizeValeurs + TasDeCarte.avecJoker*2);
+	private LinkedList<Carte> carteEnAttend;
 
-	/**
-	 * @param carteEnAttend
-	 */
-	public TasDeCarte(Carte[] carteEnAttend) {
-		this.carteEnAttend = carteEnAttend;
+	public TasDeCarte(){
+		this.carteEnAttend = new LinkedList<Carte>();
+		if(TasDeCarte.avecJoker == 1){
+			Carte j = new Carte();
+			this.carteEnAttend.add(j);
+			this.carteEnAttend.add(j);
+		}
+		for(Forme f : Forme.values()){
+			for(Valeur v : Valeur.values()){
+				Carte c = new Carte(f, v);
+				this.carteEnAttend.add(c);
+			}
+		}
+		if(TasDeCarte.jeux == 2){
+			this.carteEnAttend.addAll(carteEnAttend);
+		}
 	}
 	
-	public TasDeCarte(){}
-
-	/**
-	 * @return the carteEnAttend
-	 */
-	public Carte[] getCarteEnAttend() {
-		return carteEnAttend;
-	}
-
-	/**
-	 * @param carteEnAttend the carteEnAttend to set
-	 */
-	public void setCarteEnAttend(Carte[] carteEnAttend) {
-		this.carteEnAttend = carteEnAttend;
+	public void melanger(){
+		for(int i=0; i<this.NOMBRE_DE_CARTES; i++){
+			int position = (int)Math.round((Math.random()*(TasDeCarte.NOMBRE_DE_CARTES - 1)));
+			Carte c = this.carteEnAttend.pop();
+			this.carteEnAttend.add(position, c);
+		}
+		
 	}
 	
-	public void addCarte(Carte c){}
-	public void deleteCarte(Carte c){}
+	public String toString(){
+		return this.carteEnAttend.toString();
+	}
+	
+	public static void main(String[] args){
+		//Carte c = new Carte(Forme.carreau, Valeur.AS);
+		//System.out.println(c.toString());
+		TasDeCarte tdc = new TasDeCarte();
+		tdc.melanger();
+		System.out.println(tdc.toString());
+	}
 }

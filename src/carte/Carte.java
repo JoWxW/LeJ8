@@ -9,10 +9,10 @@ import enumeration.*;
  *
  */
 public class Carte {
-	private String id;
+	//private String id;
 	private Forme forme;
-	private int valeur;
-	private int point;
+	private Valeur valeur;
+	//private int point;
 	private Etat etat;
 	private Effet[] effet;
 	/**
@@ -23,31 +23,30 @@ public class Carte {
 	 * @param etat
 	 * @param effet
 	 */
-	public Carte(String id, Forme forme, int valeur, int point, Etat etat, Effet[] effet) {
-		super();
-		this.id = id;
+	public Carte(/*String id, */Forme forme, Valeur valeur/*, int point, Etat etat*/) {
+		//this.id = id;
 		this.forme = forme;
 		this.valeur = valeur;
-		this.point = point;
-		this.etat = etat;
-		this.effet = effet;
+		//this.point = point;
+		this.etat = Etat.enAttend;
 	}
 	
 	public Carte(){}
+	
 
 	/**
 	 * @return the id
-	 */
+	 
 	public String getId() {
 		return id;
 	}
 
 	/**
 	 * @param id the id to set
-	 */
+	 
 	public void setId(String id) {
 		this.id = id;
-	}
+	}*/
 
 	/**
 	 * @return the forme
@@ -66,30 +65,30 @@ public class Carte {
 	/**
 	 * @return the valeur
 	 */
-	public int getValeur() {
+	public Valeur getValeur() {
 		return valeur;
 	}
 
 	/**
 	 * @param valeur the valeur to set
 	 */
-	public void setValeur(int valeur) {
+	public void setValeur(Valeur valeur) {
 		this.valeur = valeur;
 	}
 
 	/**
 	 * @return the point
-	 */
+	 
 	public int getPoint() {
 		return point;
 	}
 
 	/**
 	 * @param point the point to set
-	 */
+	 
 	public void setPoint(int point) {
 		this.point = point;
-	}
+	}*/
 
 	/**
 	 * @return the etat
@@ -107,17 +106,28 @@ public class Carte {
 
 	/**
 	 * @return the effet
-	 */
+	 
 	public Effet[] getEffet() {
 		return effet;
 	}
 
 	/**
 	 * @param effet the effet to set
-	 */
+	 
 	public void setEffet(Effet[] effet) {
 		this.effet = effet;
+	}*/
+	
+	public String toString(){
+		StringBuffer s = new StringBuffer();
+		
+		if(this.valeur == null){
+			s.append("Joker");
+		} else {
+			s.append(this.valeur);
+			s.append(" de ");
+			s.append(this.forme);
+		}
+		return s.toString();
 	}
-	
-	
 }

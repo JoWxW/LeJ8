@@ -9,42 +9,47 @@ public class StrategieMoyenne implements StrategieDeJoueur {
 
 	@Override
 	public Carte poser(LinkedList<Carte> carteCandidate, LinkedList<Carte> myCartes) {
-		int nbPique = 0;
-		int nbCoeur = 0;
-		int nbCarreau = 0;
-		int nbTrefle = 0;
-		Iterator<Carte> it = myCartes.iterator();
-		LinkedList<Carte> carteEffet = new LinkedList<Carte>();
-		while (it.hasNext()) {
-			Carte c = it.next();
-			switch (c.getForme().getId()) {
-			case 0:
-				nbPique++;
-			case 1:
-				nbCoeur++;
-			case 2:
-				nbCarreau++;
-			case 3:
-				nbTrefle++;
-			}
-			if (!(c.getEffet().isEmpty())) {
-				carteEffet.add(c);
-			}
-		}
-		if (carteEffet.isEmpty()) {
-			int nbMax = choisirMax(nbPique, nbCoeur, nbCarreau, nbTrefle);
-			Iterator<Carte> ite = carteCandidate.iterator();
-			while (ite.hasNext()) {
-				Carte c = ite.next();
-				if (c.getForme().getId() != nbMax) {
-					ite.remove();
+		if (carteCandidate.isEmpty()) {
+			return null;
+		} else {
+			int nbPique = 0;
+			int nbCoeur = 0;
+			int nbCarreau = 0;
+			int nbTrefle = 0;
+			Iterator<Carte> it = myCartes.iterator();
+			LinkedList<Carte> carteEffet = new LinkedList<Carte>();
+			while (it.hasNext()) {
+				Carte c = it.next();
+				switch (c.getForme().getId()) {
+				case 0:
+					nbPique++;
+				case 1:
+					nbCoeur++;
+				case 2:
+					nbCarreau++;
+				case 3:
+					nbTrefle++;
+				}
+				if (!(c.getEffet().isEmpty())) {
+					carteEffet.add(c);
 				}
 			}
-			int position = (int) (carteCandidate.size() * Math.random());
-			return carteCandidate.get(position);
-		} else {
-			int position = (int)(carteEffet.size()*Math.random());
-			return carteEffet.get(position);
+			if (carteEffet.isEmpty()) {
+				int nbMax = choisirMax(nbPique, nbCoeur, nbCarreau, nbTrefle);
+				Iterator<Carte> ite = carteCandidate.iterator();
+				while (ite.hasNext()) {
+					Carte c = ite.next();
+					if (c.getForme().getId() != nbMax) {
+						ite.remove();
+					}
+				}
+
+				int position = (int) (carteCandidate.size() * Math.random());
+				return carteCandidate.get(position);
+			} else {
+				int position = (int) (carteEffet.size() * Math.random());
+				return carteEffet.get(position);
+			}
 		}
 
 	}

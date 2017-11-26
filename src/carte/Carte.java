@@ -2,6 +2,7 @@
  * 
  */
 package carte;
+import java.util.ArrayList;
 import enumeration.*;
 
 /**
@@ -15,8 +16,10 @@ public class Carte {
 	//private int point;
 	private Etat etat;
 	
-	//Effet 是不是也可以做成Collection？	
-	private Effet[] effet;
+	//加一个effet valide?
+	private Effet effectValide;
+	//Collection	
+	private ArrayList<Effet> effet;
 	/**
 	 * @param id
 	 * @param forme
@@ -131,5 +134,21 @@ public class Carte {
 			s.append(this.forme);
 		}
 		return s.toString();
+	}
+
+	public ArrayList<Effet> getEffet() {
+		return effet;
+	}
+
+	public void setEffet(ArrayList<Effet> effet) {
+		this.effet = effet;
+	}
+
+	public Effet getEffectValide() {
+		return effectValide;
+	}
+
+	public void setEffectValide(Effet effectValide) {
+		this.effectValide = effectValide;
 	}
 }

@@ -8,7 +8,7 @@ package enumeration;
  *
  */
 public enum Forme {
-	Pique(0), Coeur(1),carreau(2), trefle(3);
+	Pique(0), Coeur(1),Carreau(2), Trefle(3);
 	
 	private final int id;
 	public final static int size = Forme.values().length;

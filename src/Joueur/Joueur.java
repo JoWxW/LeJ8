@@ -1,4 +1,5 @@
 package Joueur;
+
 import carte.*;
 import java.util.*;
 
@@ -11,7 +12,7 @@ public class Joueur {
 	// carte a la main(改一下diagramme de classe)
 	private LinkedList<Carte> cartes = new LinkedList<Carte>();
 
-	// piocher une carte et retouner la carte au jeux
+	// piocher une carte
 	public void piocher(Carte j) {
 		cartes.add(j);
 	}
@@ -33,21 +34,39 @@ public class Joueur {
 	// get les carte candidates pour ce tour par rapport a la carte preccedante
 	public LinkedList<Carte> getCarteCandidate(Carte c) {
 		LinkedList<Carte> carteCandidate = new LinkedList<Carte>();
-		Iterator<Carte> it = cartes.iterator();
-		while (it.hasNext()) {
-			Carte maCarte = it.next();
-			if (maCarte.getForme().equals(c.getForme()) || maCarte.getValeur().equals(c.getValeur())) {
-				carteCandidate.add(maCarte);
+		Iterator<Carte> it = getCartes().iterator();
+		if (c.getEffet().isEmpty()) {
+			while (it.hasNext()) {
+				Carte maCarte = it.next();
+				if (maCarte.getForme().equals(c.getForme()) || maCarte.getValeur().equals(c.getValeur())
+						|| (!maCarte.getEffet().isEmpty())) {
+					carteCandidate.add(maCarte);
+				}
 			}
+		} else {
+			Carte maCarte = it.next();
+			Iterator<Effet> ie = maCarte.getEffet().iterator();
+			while (ie.hasNext()) {
+				Effet myEffet = ie.next();
+				if (myEffet.getCarteAttaque() >= c.getEffectValide().getCarteAttaque()) {
+					carteCandidate.add(maCarte);
+				}
+			}
+
 		}
 		return carteCandidate;
+
 	}
 
 	// poser une carte, il faut redefinir dans la classe fille
 	public void poser() {
 	}
 
+	public void poser(Carte cartePrecedante, LinkedList<Carte> cartes) {
+	}
+
 	// annoncer carte ou contre carte
+	//
 	public boolean annoncer() {
 		System.out.println("Contre");
 		boolean aAnnonce = true;
@@ -71,19 +90,26 @@ public class Joueur {
 			Iterator<Carte> it = cartes.iterator();
 			while (it.hasNext()) {
 				Carte myCarte = it.next();
-				if (myCarte.getValeur().equals(12) || myCarte.getValeur().equals(13)) {
+				switch (myCarte.getValeur().getId()) {
+				case 12:
+				case 13:
 					point += 10;
-				} else if (myCarte.getValeur().equals(9) || myCarte.getValeur().equals(6)
-						|| myCarte.getValeur().equals(5) || myCarte.getValeur().equals(4)
-						|| myCarte.getValeur().equals(3)) {
-					// valeur 的类型还是设置成int比较合适
-					// point += myCarte.getValeur();
-				} else if (myCarte.getValeur().equals(10) || myCarte.getValeur().equals(7)
-						|| myCarte.getValeur().equals(2)) {
+				case 3:
+				case 4:
+				case 5:
+				case 6:
+				case 9:
+					point += myCarte.getValeur().getId();
+				case 2:
+				case 10:
+				case 7:
 					point += 20;
-				} else if (myCarte.getValeur().equals(1) || myCarte.getValeur().equals(8)) {
+				case 1:
+				case 8:
 					point += 50;
+
 				}
+
 			}
 		}
 		return point;
@@ -114,6 +140,10 @@ public class Joueur {
 
 	public void setNom(String nom) {
 		this.nom = nom;
+	}
+
+	public LinkedList<Carte> getCartes() {
+		return this.cartes;
 	}
 
 }

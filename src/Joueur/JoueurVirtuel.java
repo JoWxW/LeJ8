@@ -17,6 +17,11 @@ public class JoueurVirtuel extends Joueur{
     	this.strategie = s;
     }
     
-    
+    /*public static void main(String[] args){
+    	JoueurVirtuel jv = new JoueurVirtuel();
+    	StrategieSimple s = new StrategieSimple();
+    	jv.setStrategie(s);
+    	System.out.println(jv.strategie.toString());
+    }*/
     
 }

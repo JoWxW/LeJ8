@@ -44,10 +44,10 @@ public class StrategieMoyenne implements StrategieDeJoueur {
 					}
 				}
 
-				int position = (int) (carteCandidate.size() * Math.random());
+				int position = (int) ((carteCandidate.size()-1) * Math.random());
 				return carteCandidate.get(position);
 			} else {
-				int position = (int) (carteEffet.size() * Math.random());
+				int position = (int) ((carteEffet.size()-1) * Math.random());
 				return carteEffet.get(position);
 			}
 		}

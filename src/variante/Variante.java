@@ -15,7 +15,6 @@ public class Variante {
 	 * @param numero
 	 */
 	public Variante(String nom, String numero) {
-		super();
 		this.nom = nom;
 		this.numero = numero;
 	}
@@ -51,5 +50,5 @@ public class Variante {
 	}
 	
 	public void addEffet(){}
-	public void test(){}
+	//public void test(){}
 }

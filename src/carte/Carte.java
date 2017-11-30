@@ -3,6 +3,8 @@
  */
 package carte;
 import java.util.ArrayList;
+
+import effet.Effet;
 import enumeration.*;
 
 /**
@@ -34,6 +36,7 @@ public class Carte {
 		this.valeur = valeur;
 		//this.point = point;
 		this.etat = Etat.enAttend;
+		this.effet = new ArrayList<Effet>();
 	}
 	
 	public Carte(){}
@@ -137,11 +140,11 @@ public class Carte {
 	}
 
 	public ArrayList<Effet> getEffet() {
-		return effet;
+		return this.effet;
 	}
 
-	public void setEffet(ArrayList<Effet> effet) {
-		this.effet = effet;
+	public void addEffet(Effet effet) {
+		this.effet.add(effet);
 	}
 
 	public Effet getEffectValide() {

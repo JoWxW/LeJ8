@@ -1,6 +1,8 @@
-package Joueur;
+package joueur;
 
 import carte.*;
+import effet.Effet;
+
 import java.util.*;
 
 public class Joueur {

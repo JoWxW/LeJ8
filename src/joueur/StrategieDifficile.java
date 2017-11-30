@@ -1,4 +1,4 @@
-package Joueur;
+package joueur;
 
 import java.util.LinkedList;
 

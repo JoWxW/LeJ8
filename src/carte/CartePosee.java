@@ -2,37 +2,35 @@
  * 
  */
 package carte;
+import java.util.*;
 
 /**
  * @author wxw
  *
  */
-public class CartePosee {
-	private Carte cartePosee;
 
-	/**
-	 * @param cartePosee
-	 */
-	public CartePosee(Carte cartePosee) {
-		this.cartePosee = cartePosee;
+public class CartePosee {
+	private ArrayList<Carte> cartePosee;
+
+	public CartePosee(){
+		this.cartePosee = new ArrayList<Carte>();
 	}
-	
-	public CartePosee(){}
 
 	/**
 	 * @return the cartePosee
 	 */
-	public Carte getCartePosee() {
+	public ArrayList<Carte> getCartePosee() {
 		return cartePosee;
 	}
 
 	/**
 	 * @param cartePosee the cartePosee to set
 	 */
-	public void setCartePosee(Carte cartePosee) {
-		this.cartePosee = cartePosee;
+	public void addCartePosee(Carte cartePosee) {
+		this.cartePosee.add(cartePosee);
 	}
 	
-	public void addCarte(Carte c){}
-	public void deleteCarte(Carte c){}
+	public void clearCartePosee(){
+		this.cartePosee.clear();
+	}
 }

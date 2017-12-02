@@ -16,7 +16,9 @@ public class JoueurVirtuel extends Joueur{
     public void setStrategie(StrategieDeJoueur s) {
     	this.strategie = s;
     }
-    
+    public static void main(String[] args) {
+    	JoueurVirtuel jv = new JoueurVirtuel();
+    }
     
     
 }

@@ -16,12 +16,6 @@ public class JoueurVirtuel extends Joueur{
     public void setStrategie(StrategieDeJoueur s) {
     	this.strategie = s;
     }
-<<<<<<< HEAD:src/Joueur/JoueurVirtuel.java
-    public static void main(String[] args) {
-    	JoueurVirtuel jv = new JoueurVirtuel();
-    }
-    
-=======
     
     /*public static void main(String[] args){
     	JoueurVirtuel jv = new JoueurVirtuel();
@@ -29,6 +23,5 @@ public class JoueurVirtuel extends Joueur{
     	jv.setStrategie(s);
     	System.out.println(jv.strategie.toString());
     }*/
->>>>>>> 7e87a88cec2b4ed1204fcc845b86e3cd93c41a65:src/joueur/JoueurVirtuel.java
     
 }

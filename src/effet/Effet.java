@@ -1,13 +1,15 @@
 /**
  * 
  */
-package carte;
+package effet;
+import java.util.Observable;
+
 
 /**
  * @author wxw
  *
  */
-public class Effet {
+public class Effet extends Observable{
 	private String nom;
 	//加了一个attaque的牌数，便于统计，如果有更好的解决办法再删掉
 	private int carteAttaque;
@@ -20,7 +22,7 @@ public class Effet {
 	/**
 	 * @param nom
 	 */
-	public Effet(String nom) {
+	/*public Effet(String nom) {
 		super();
 		this.nom = nom;
 	}

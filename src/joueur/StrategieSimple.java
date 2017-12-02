@@ -1,4 +1,4 @@
-package Joueur;
+package joueur;
 
 import java.util.*;
 import carte.*;
@@ -11,7 +11,7 @@ public class StrategieSimple implements StrategieDeJoueur {
 		if (carteCandidate.isEmpty()) {
 			return null;
 		} else {
-			int position = (int) (carteCandidate.size() * Math.random());
+			int position = (int) ((carteCandidate.size()-1) * Math.random());
 			Carte carteChoisit = carteCandidate.get(position);
 			carteCandidate.remove(position);
 			return carteChoisit;

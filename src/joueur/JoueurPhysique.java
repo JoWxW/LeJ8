@@ -1,10 +1,10 @@
-package Joueur;
+package joueur;
 
 import java.util.Iterator;
 import java.util.LinkedList;
 
 import carte.Carte;
-import carte.Effet;
+import effet.Effet;
 
 public class JoueurPhysique extends Joueur {
 	public void arreter() {

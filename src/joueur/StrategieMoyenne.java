@@ -1,4 +1,4 @@
-package Joueur;
+package joueur;
 
 import java.util.*;
 
@@ -44,10 +44,10 @@ public class StrategieMoyenne implements StrategieDeJoueur {
 					}
 				}
 
-				int position = (int) (carteCandidate.size() * Math.random());
+				int position = (int) ((carteCandidate.size()-1) * Math.random());
 				return carteCandidate.get(position);
 			} else {
-				int position = (int) (carteEffet.size() * Math.random());
+				int position = (int) ((carteEffet.size()-1) * Math.random());
 				return carteEffet.get(position);
 			}
 		}
@@ -60,8 +60,8 @@ public class StrategieMoyenne implements StrategieDeJoueur {
 
 	}
 
-	public int choisirMax(int a, int b, int c, int d) {
-		if (a >= b && a >= c && a >= d) {
+	public int choisirMax(int a1, int a2, int a3, int a4) {
+		/*if (a >= b && a >= c && a >= d) {
 			return 0;
 		} else if (b > a && b >= c && b >= d) {
 			return 1;
@@ -69,8 +69,14 @@ public class StrategieMoyenne implements StrategieDeJoueur {
 			return 2;
 		} else {
 			return 3;
-		}
+		}*/
 
+		ArrayList<Integer> al = new ArrayList<Integer>();
+		al.add(a1);
+		al.add(a2);
+		al.add(a3);
+		al.add(a4);
+		return Collections.max(al);
 	}
 
 }

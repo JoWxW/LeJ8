@@ -18,6 +18,7 @@ public class FairePiocher extends Effet{
 		this.setNom("Faire piocher" + nbCarte + " cartes");
 	}
 	public void effectuer(Jeu j){
-		j.setNbcartePiocher(nbCarte);
+		int nbPiocher = j.getNbCartePiocher() + this.nbCarte;
+		j.setNbcartePiocher(nbPiocher);
 	}
 }

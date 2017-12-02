@@ -13,14 +13,15 @@ import jeu.*;
 public class ObligeRejouer extends Effet{
 	public ObligeRejouer(){
 		super();
-		this.setNom("Obliger ид rejouer");
+		this.setNom("Obliger ├а rejouer");
 	}
-	public void effectuer(Jeu j){
+	public Jeu effectuer(Jeu j){
 		Joueur joueurActuel = j.getJoueurActuel();
 		int nbCarte = joueurActuel.getCartes().size();
 		if(nbCarte == 0){
 			Carte carte = j.getCarteDepuisTas();
 			joueurActuel.piocher(carte);
 		}
+		return j;
 	}
 }

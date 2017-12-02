@@ -4,18 +4,19 @@
 package carte;
 
 import enumeration.*;
+import jeu.*;
 import java.util.*;
 
 /**
  * @author wxw
  *
  */
-//jeuÖÐ£¬Ã¿Ò»ÂÖ¿ªÊ¼Ö®Ç°verifier la taille de tas de carte, taille<5(?) Ôò´Ócartes poseesÀï¼ÓÅÆ½øÀ´
+//jeuï¿½Ð£ï¿½Ã¿Ò»ï¿½Ö¿ï¿½Ê¼Ö®Ç°verifier la taille de tas de carte, taille<5(?) ï¿½ï¿½ï¿½cartes poseesï¿½ï¿½ï¿½ï¿½Æ½ï¿½ï¿½ï¿½
 public class TasDeCarte {
-	//constante ¨¤ voir dans la classe Carte
+	//constante ï¿½ï¿½ voir dans la classe Carte
 	public final static int sizeValeurs = Valeur.size;
 	public final static int sizeFormes = Forme.size;
-	//constante ¨¤ voir dans la classe Jeu
+	//constante ï¿½ï¿½ voir dans la classe Jeu
 	//public final static int Jeu.jeux = 2;
 	//public final static int avecJoker = 1;
 	
@@ -24,23 +25,23 @@ public class TasDeCarte {
 	private LinkedList<Carte> carteEnAttend;
 
 
-	public TasDeCarte(int jeux, int avecJoker){
-		this.NOMBRE_DE_CARTES = jeux*(TasDeCarte.sizeFormes*TasDeCarte.sizeValeurs + avecJoker*2);
+	public TasDeCarte(){
+		this.NOMBRE_DE_CARTES = Jeu.NOMBRE_DE_JEUX*(TasDeCarte.sizeFormes*TasDeCarte.sizeValeurs + Jeu.AVEC_JOKER*2);
 		this.carteEnAttend = new LinkedList<Carte>();
-		if(avecJoker == 1){
+		if(Jeu.AVEC_JOKER == 1){
 			Carte j = new Carte();
 			this.carteEnAttend.add(j);
 			this.carteEnAttend.add(j);
 		}
 		
-		//ÀÏÊ¦ºÃÏñ²»ÍÆ¼öÓÃÕâ¸öÐÎÊ½µÄforÑ­»·£¬ËûËµ²»visible
+		//ï¿½ï¿½Ê¦ï¿½ï¿½ï¿½ï¿½ï¿½Æ¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½forÑ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½visible
 		for(Forme f : Forme.values()){
 			for(Valeur v : Valeur.values()){
 				Carte c = new Carte(f, v);
 				this.carteEnAttend.add(c);
 			}
 		}
-		if(jeux == 2){
+		if(Jeu.NOMBRE_DE_JEUX == 2){
 			this.carteEnAttend.addAll(carteEnAttend);
 		}
 	}
@@ -82,7 +83,7 @@ public class TasDeCarte {
 	public static void main(String[] args){
 		//Carte c = new Carte(Forme.carreau, Valeur.AS);
 		//System.out.println(c.toString());
-		TasDeCarte tdc = new TasDeCarte(1, 1);
+		TasDeCarte tdc = new TasDeCarte();
 		tdc.melanger();
 		System.out.println(tdc.toString());
 	}

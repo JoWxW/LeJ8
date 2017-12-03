@@ -4,7 +4,7 @@ import carte.*;
 import enumeration.*;
 
 public class JoueurVirtuel extends Joueur{
-    
+    //need an id to identify one to another
 	//la strategie de joueur virtuel
 	private StrategieDeJoueur strategie;
 	//choisir une carte parmi toutes les cartes candidates en fonction de sa strategie

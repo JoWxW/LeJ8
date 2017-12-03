@@ -11,12 +11,12 @@ import java.util.*;
  * @author wxw
  *
  */
-//jeu�У�ÿһ�ֿ�ʼ֮ǰverifier la taille de tas de carte, taille<5(?) ���cartes posees����ƽ���
+//jeu锟叫ｏ拷每一锟街匡拷始之前verifier la taille de tas de carte, taille<5(?) 锟斤拷锟絚artes posees锟斤拷锟斤拷平锟斤拷锟�
 public class TasDeCarte {
-	//constante �� voir dans la classe Carte
+	//constante 锟斤拷 voir dans la classe Carte
 	public final static int sizeValeurs = Valeur.size;
 	public final static int sizeFormes = Forme.size;
-	//constante �� voir dans la classe Jeu
+	//constante 锟斤拷 voir dans la classe Jeu
 	//public final static int Jeu.jeux = 2;
 	//public final static int avecJoker = 1;
 	
@@ -34,7 +34,7 @@ public class TasDeCarte {
 			this.carteEnAttend.add(j);
 		}
 		
-		//��ʦ�����Ƽ��������ʽ��forѭ������˵��visible
+		//锟斤拷师锟斤拷锟斤拷锟狡硷拷锟斤拷锟斤拷锟斤拷锟绞斤拷锟絝or循锟斤拷锟斤拷锟斤拷说锟斤拷visible
 		for(Forme f : Forme.values()){
 			for(Valeur v : Valeur.values()){
 				Carte c = new Carte(f, v);
@@ -57,7 +57,9 @@ public class TasDeCarte {
 	public LinkedList<Carte> getTasDeCarte(){
 		return this.carteEnAttend;
 	}
-	
+	public boolean estVide(){
+		return this.carteEnAttend.isEmpty();
+	}
 	public Carte getCarte(){
 		Carte c = this.carteEnAttend.pop();
 		return c;

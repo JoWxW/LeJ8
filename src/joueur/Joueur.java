@@ -2,6 +2,7 @@ package joueur;
 
 import carte.*;
 import effet.Effet;
+import jeu.*;
 
 import java.util.*;
 
@@ -79,8 +80,8 @@ public class Joueur {
 	// calculer le point en fonction de la facon de compter et retourner le point de
 	// ce joueur
 	// compte positif comme mode1,compte negatif comme mode2
-	public int calculerPoint(int modeDeCompter) {
-		if (modeDeCompter == 1) {
+	public int calculerPoint() {
+		if (Jeu.METHODE_COMPTE == 1) {
 			if (place == 1) {
 				point += 50;
 			} else if (place == 2) {
@@ -88,7 +89,7 @@ public class Joueur {
 			} else if (place == 3) {
 				point += 10;
 			}
-		} else if (modeDeCompter == 2) {
+		} else if (Jeu.METHODE_COMPTE == 2) {
 			Iterator<Carte> it = cartes.iterator();
 			while (it.hasNext()) {
 				Carte myCarte = it.next();

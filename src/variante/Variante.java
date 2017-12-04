@@ -3,11 +3,15 @@
  */
 package variante;
 
+import java.util.LinkedList;
+
+import carte.Carte;
+
 /**
  * @author wxw
  *
  */
-public class Variante {
+public abstract class Variante {
 	private String nom;
 	private String numero;
 	/**
@@ -20,6 +24,8 @@ public class Variante {
 	}
 	
 	public Variante(){}
+	
+	public abstract void addEffet(LinkedList<Carte> tas);
 
 	/**
 	 * @return the nom
@@ -49,6 +55,6 @@ public class Variante {
 		this.numero = numero;
 	}
 	
-	public void addEffet(){}
-	//public void test(){}
+	
+	
 }

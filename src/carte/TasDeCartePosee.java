@@ -9,17 +9,17 @@ import java.util.*;
  *
  */
 
-public class CartePosee {
-	private ArrayList<Carte> cartePosee;
+public class TasDeCartePosee {
+	private LinkedList<Carte> cartePosee;
 
-	public CartePosee(){
-		this.cartePosee = new ArrayList<Carte>();
+	public TasDeCartePosee(){
+		this.cartePosee = new LinkedList<Carte>();
 	}
 
 	/**
 	 * @return the cartePosee
 	 */
-	public ArrayList<Carte> getCartePosee() {
+	public LinkedList<Carte> getCartePosee() {
 		return cartePosee;
 	}
 

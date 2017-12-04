@@ -4,12 +4,15 @@
 package effet;
 import java.util.Observable;
 
+import exception.SaisiNonValideException;
+import jeu.Jeu;
+
 
 /**
  * @author wxw
  *
  */
-public class Effet extends Observable{
+public abstract class Effet extends Observable{
 	private String nom;
 	//加了一个attaque的牌数，便于统计，如果有更好的解决办法再删掉
 	private int carteAttaque;
@@ -21,11 +24,15 @@ public class Effet extends Observable{
 	public Effet(){}
 	/**
 	 * @param nom
+	 * @throws SaisiNonValideException 
 	 */
+	
+	public abstract Jeu validerSuperpower(Jeu j) throws SaisiNonValideException;
 	/*public Effet(String nom) {
 		super();
 		this.nom = nom;
 	}
+	
 	
 	public void effectuer(){}
 

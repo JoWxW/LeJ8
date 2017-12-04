@@ -22,11 +22,14 @@ public enum Valeur {
 	DAME(12),
 	ROI(13);
 	
+	
+	
 	private final int id;
 	public final static int size = Valeur.values().length;
 	
 	Valeur(int id){
 		this.id = id;
+		
 	}
 	public int getId(){
 		return this.id;

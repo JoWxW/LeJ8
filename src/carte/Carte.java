@@ -5,6 +5,7 @@ package carte;
 import java.util.ArrayList;
 
 import effet.Effet;
+import effet.NonEffet;
 import enumeration.*;
 
 /**
@@ -19,7 +20,7 @@ public class Carte {
 	private Etat etat;
 	
 	//¼ÓÒ»¸öeffet valide?
-	private Effet effectValide;
+	private Effet effectValide = new NonEffet();
 	//Collection	
 	private ArrayList<Effet> effet;
 	/**

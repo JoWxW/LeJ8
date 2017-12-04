@@ -24,5 +24,9 @@ public class StrategieSimple implements StrategieDeJoueur {
 		// TODO Auto-generated method stub
 
 	}
+	
+	public String toString() {
+    	return ("Strategie simples");
+    }
 
 }

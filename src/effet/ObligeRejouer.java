@@ -13,9 +13,12 @@ import jeu.*;
 public class ObligeRejouer extends Effet{
 	public ObligeRejouer(){
 		super();
-		this.setNom("Obliger à rejouer");
+		this.setNom("Obliger a rejouer");
 	}
-	public Jeu effectuer(Jeu j){
+	
+	@Override
+	public Jeu validerSuperpower(Jeu j) {
+		System.out.println("La carte a effectue son superpower:Obliger a rejouer!");
 		Joueur joueurActuel = j.getJoueurActuel();
 		int nbCarte = joueurActuel.getCartes().size();
 		if(nbCarte == 0){
@@ -23,5 +26,9 @@ public class ObligeRejouer extends Effet{
 			joueurActuel.piocher(carte);
 		}
 		return j;
+	}
+	
+	public String toString() {
+		return "Obliger a rejouer";
 	}
 }

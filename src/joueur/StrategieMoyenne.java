@@ -5,7 +5,7 @@ import java.util.*;
 import carte.Carte;
 
 public class StrategieMoyenne implements StrategieDeJoueur {
-	// 从carte candidate中选出自己最多的手牌出（颜色） 有功能牌先出功能牌
+	// selectionner la carte avec effet s'il y en a, sinon poser ce qui est de forme la plus frequente
 
 	@Override
 	public Carte poser(LinkedList<Carte> carteCandidate, LinkedList<Carte> myCartes) {

@@ -1,6 +1,10 @@
 eclipse.preferences.version=1
 <<<<<<< HEAD
+<<<<<<< HEAD
 encoding//src/carte/TasDeCarteEnAttente.java=UTF-8
 =======
 encoding//src/carte/TasDeCarte.java=UTF-8
 >>>>>>> ca675586e93af1bb5753feb2ea35e89104768ce5
+=======
+encoding//src/carte/TasDeCarte.java=UTF-8
+>>>>>>> 0136ec9f85779ead628430921979739fcad8785c

@@ -7,10 +7,9 @@ import exception.SaisiNonValideException;
 
 import jeu.*;
 
-
 import java.util.*;
 
-public abstract class  Joueur {
+public abstract class Joueur {
 
 	private String id;
 	private int point = 0;
@@ -18,18 +17,15 @@ public abstract class  Joueur {
 	private int place;
 	// carte a la main(diagramme de classe)
 	private LinkedList<Carte> cartes = new LinkedList<Carte>();
-	
-	
-	public Joueur() {}
-	
-	public Joueur(String id, String nom, int place ) {
+
+	public Joueur() {
+	}
+
+	public Joueur(String id, String nom, int place) {
 		this.setId(id);
 		this.setNom(nom);
 		this.setPlace(place);
 	}
-	
-	
-	
 
 	// piocher une carte
 	public void piocher(Carte j) {
@@ -37,7 +33,7 @@ public abstract class  Joueur {
 	}
 
 	// Verifier si le joueur a une carte correte a la main, retourne true s'il l'a
-	// inutile? 
+	// inutile?
 	public boolean aCarteCorrecte(Carte c) {
 		Iterator<Carte> it = cartes.iterator();
 		boolean res = false;
@@ -52,29 +48,26 @@ public abstract class  Joueur {
 	}
 
 	// get les carte candidates pour ce tour par rapport a la carte preccedante
-	//dans ce cas, la carte precedante ne sera jamais une carte avec effet
+	// dans ce cas, la carte precedante ne sera jamais une carte avec effet
 	public LinkedList<Carte> getCarteCandidate(Carte c) {
 		LinkedList<Carte> carteCandidate = new LinkedList<Carte>();
 		Iterator<Carte> it = getCartes().iterator();
-		//if (c.getEffet().isEmpty()) {
-			while (it.hasNext()) {
-				Carte maCarte = it.next();
-				if (maCarte.getForme().equals(c.getForme()) || maCarte.getValeur().equals(c.getValeur())
-						|| (!maCarte.getEffet().isEmpty())) {
-					carteCandidate.add(maCarte);
-				}
-			}
-		/*} else {
+		// if (c.getEffet().isEmpty()) {
+		while (it.hasNext()) {
 			Carte maCarte = it.next();
-			Iterator<Effet> ie = maCarte.getEffet().iterator();
-			while (ie.hasNext()) {
-				Effet myEffet = ie.next();
-				if (myEffet.getCarteAttaque() >= c.getEffectValide().getCarteAttaque()) {
-					carteCandidate.add(maCarte);
-				}
+			if (maCarte.getForme().equals(c.getForme()) || maCarte.getValeur().equals(c.getValeur())
+					|| (!maCarte.getEffet().isEmpty())) {
+				carteCandidate.add(maCarte);
 			}
-
-		}*/
+		}
+		/*
+		 * } else { Carte maCarte = it.next(); Iterator<Effet> ie =
+		 * maCarte.getEffet().iterator(); while (ie.hasNext()) { Effet myEffet =
+		 * ie.next(); if (myEffet.getCarteAttaque() >=
+		 * c.getEffectValide().getCarteAttaque()) { carteCandidate.add(maCarte); } }
+		 * 
+		 * }
+		 */
 		return carteCandidate;
 
 	}
@@ -82,18 +75,17 @@ public abstract class  Joueur {
 	// poser une carte, il faut redefinir dans la classe fille
 	public void poser() {
 	}
-    // 
-	//methode abstrait??????
+
 	//
-	public abstract Carte poserUneCarte(LinkedList<Carte> carteCandidate, LinkedList<Carte> myCartes) throws SaisiNonValideException;
+	// methode abstrait??????
+	//
+	public abstract Carte poserUneCarte(LinkedList<Carte> carteCandidate, LinkedList<Carte> myCartes)
+			throws SaisiNonValideException;
 
 	// annoncer carte ou contre carte
 	//
-	public boolean annoncer() {
-		System.out.println("Contre");
-		boolean aAnnonce = true;
-		return aAnnonce;
-
+	public void annoncer() {
+		System.out.println(this.toString()+ " annonce Carte");
 	}
 
 	// calculer le point en fonction de la facon de compter et retourner le point de
@@ -141,12 +133,12 @@ public abstract class  Joueur {
 		return point;
 
 	}
-	
+
 	public boolean aGagne() {
-		boolean res ;
-		if(cartes.isEmpty()) {
+		boolean res;
+		if (cartes.isEmpty()) {
 			return res = true;
-		}else {
+		} else {
 			return res = false;
 		}
 	}
@@ -180,11 +172,11 @@ public abstract class  Joueur {
 	public LinkedList<Carte> getCartes() {
 		return this.cartes;
 	}
-	
+
 	public void setPlace(int i) {
 		this.place = i;
 	}
-	
+
 	public int getPlace() {
 		return this.place;
 	}

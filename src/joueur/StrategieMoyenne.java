@@ -23,12 +23,16 @@ public class StrategieMoyenne implements StrategieDeJoueur {
 				switch (c.getForme().getId()) {
 				case 0:
 					nbPique++;
+					break;
 				case 1:
 					nbCoeur++;
+					break;
 				case 2:
 					nbCarreau++;
+					break;
 				case 3:
 					nbTrefle++;
+					break;
 				}
 				if (!(c.getEffet().isEmpty())) {
 					carteEffet.add(c);
@@ -76,7 +80,7 @@ public class StrategieMoyenne implements StrategieDeJoueur {
 		al.add(a2);
 		al.add(a3);
 		al.add(a4);
-		return Collections.max(al);
+		return al.indexOf(Collections.max(al));
 	}
 
 }

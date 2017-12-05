@@ -28,17 +28,7 @@ public abstract class Effet extends Observable{
 	 */
 	
 	public abstract Jeu validerSuperpower(Jeu j) throws SaisiNonValideException;
-	/*public Effet(String nom) {
-		super();
-		this.nom = nom;
-	}
 	
-	
-	public void effectuer(){}
-
-	/**
-	 * @return the nom
-	 */
 	public String getNom() {
 		return nom;
 	}

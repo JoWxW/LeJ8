@@ -33,6 +33,7 @@ public class JoueurVirtuel extends Joueur{
 	//choisir une carte parmi toutes les cartes candidates en fonction de sa strategie
 	public Carte poserUneCarte(LinkedList<Carte> carteCandidate,LinkedList<Carte> a) {		
 		Carte c = this.strategie.poser(carteCandidate, a);
+		this.getCartes().remove(c);
 		return c;
 	}
 	//1 pour simple,2 pour moyen,3 pour difficile

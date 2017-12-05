@@ -46,7 +46,6 @@ public class JoueurPhysique extends Joueur {
 		if (position >= 0 && position <= carteCandidate.size() - 1) {
 			// out.close();
 			Carte carteChoisie = carteCandidate.get(position);
-			carteCandidate.remove(position);
 			myCartes.remove(carteChoisie);
 			if (!(carteChoisie.getEffet().size() == 0)) {
 				Effet effetValide = choisirEffet(carteChoisie);

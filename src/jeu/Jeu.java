@@ -6,6 +6,7 @@ package jeu;
 import carte.*;
 import effet.*;
 import enumeration.*;
+import exception.SaisiNonValideException;
 import joueur.*;
 
 import variante.Minimale;
@@ -59,7 +60,7 @@ public class Jeu {
 		this.nbCartePiocher = 0;
 		scanner = new Scanner(System.in);
 		/*
-		 scanner = new Scanner(System.in); =======
+		 * scanner = new Scanner(System.in); =======
 		 */
 		this.jeuEnCours = false;
 
@@ -76,26 +77,46 @@ public class Jeu {
 		// Exception
 		if (jeuEnCours == false) {
 			// Scanner scanner = new Scanner(System.in);
-			Jeu.setNombreDeJeux(this.demandeUser(
-					"Combien de jeux de cartes voulez vous joueur? Veuilliez saisir '1' ou '2'.", scanner));
+			Jeu.setNombreDeJeux(this.validerUneSaisie(
+					"Combien de jeux de cartes voulez vous joueur? Veuilliez saisir '1' ou '2'.", 1, 2));
 			// toujours avec joker?
 			// Jeu.AVEC_JOKER = this.demandeUser("Voulez-vous ajouter les carte 'Joker'?
 			// Veuilliez saisir '1' pour oui ou '0' pour non.", scanner);
 			Jeu.setNombreDeJoueurs(
-					this.demandeUser("Veuillez saisir le nombre de joueurs en total dans votre jeu.", scanner));
-			Jeu.setVersionDeVariante(this.demandeUser("Veuillez choisir la version de variante.", scanner));
-			Jeu.setMethodeCompte(this.demandeUser(
-					"Veuillez choisir le methode de compter, 1 pour compte positif, 0 pour compte negatif", scanner));
-			Jeu.setDifficulte(this.demandeUser(
-					"Veuillez choisir la difficulte,1 pour simple,2 pour moyenne,3 pour difficile.", scanner));
+					this.validerUneSaisie("Veuillez saisir le nombre de joueurs en total dans votre jeu.", 2, 8));
+			Jeu.setVersionDeVariante(this.validerUneSaisie("Veuillez choisir la version de variante.", 0, 16));
+			Jeu.setMethodeCompte(this.validerUneSaisie(
+					"Veuillez choisir le methode de compter, 1 pour compte positif, 0 pour compte negatif", 0, 1));
+			Jeu.setDifficulte(this.validerUneSaisie(
+					"Veuillez choisir la difficulte,1 pour simple,2 pour moyenne,3 pour difficile.", 1, 3));
 			// scanner.close();
 		}
 	}
 
-	public int demandeUser(String phrase, Scanner scan) {
+	public int validerUneSaisie(String phrase, int min, int max) {
+		try {
+			int res = demandeUser(phrase, max, min);
+			return res;
+		} catch (SaisiNonValideException e) {
+			System.out.println("ERREUR!!" + e.getMessage());
+			int res;
+			do {
+				System.out.println(phrase);
+				res = scanner.nextInt();
+			} while (res > max || res < min);
+			return res;
+		}
+	}
+
+	public int demandeUser(String phrase, int max, int min) throws SaisiNonValideException {
 		System.out.println(phrase);
-		int resultat = scan.nextInt();
-		return resultat;
+		int resultat = scanner.nextInt();
+		if (resultat >= min && resultat <= max) {
+			return resultat;
+		} else {
+			throw new SaisiNonValideException("Mauvaise saisie, la valeur doit etre entre " + min + " et " + max);
+		}
+
 	}
 	/*
 	 * public void setJoueurActuel(Joueur j){ this.joueurActuel = j; }
@@ -106,7 +127,7 @@ public class Jeu {
 
 	public void setVariante(int i) {
 		switch (i) {
-		case 1:
+		case 0:
 			variante = new Minimale();
 		}
 	}
@@ -194,6 +215,25 @@ public class Jeu {
 			} else {
 				return res = false;
 			}
+		}
+	}
+
+	public void annoncer() {
+		Iterator<Joueur> it = joueurs.iterator();
+		while (it.hasNext()) {
+			Joueur j = it.next();
+			if (j.getCartes().size() == 1) {
+				j.annoncer();
+			}
+		}
+	}
+
+	public void compterPoint() {
+		System.out.println("Point des joueurs");
+		Iterator<Joueur> it = joueurs.iterator();
+		while (it.hasNext()) {
+			Joueur j = it.next();
+			System.out.println(j.toString() + " : " + j.calculerPoint());
 		}
 	}
 

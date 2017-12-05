@@ -30,7 +30,7 @@ public class TestJeu {
 						// verifier si la carte est bonne(pas besoin alors)
 						Carte c = jeu.getJoueurActuel().poserUneCarte(carteCandidate,
 								jeu.getJoueurActuel().getCartes());
-						jeu.getJoueurActuel().getCartes().remove(c);
+						//jeu.getJoueurActuel().getCartes().remove(c);
 						System.out.println(jeu.getJoueurActuel().toString() + " pose " + c.toString());
 						jeu.setCarteActuelle(c);
 						jeu.getTasDeCartePosee().addCartePosee(c);
@@ -46,10 +46,12 @@ public class TestJeu {
 				jeu.getTasDeCartePosee().clearCartePosee();
 
 			}
+			jeu.annoncer();
 			System.out.println("nombre en attente"+jeu.getTasDeCarteEnAttente().getTailleDeTas());
 			System.out.println("nombre de carte posee" + jeu.getTasDeCartePosee().getCartePosee().size());
 		}
 		jeu.afficherResultat();
+		jeu.compterPoint();
 		Jeu.getScanner().close();
 
 		//jeu.initialiserJeu();

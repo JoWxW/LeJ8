@@ -27,7 +27,6 @@ public class Minimale extends Variante{
 		Iterator<Carte> it = tas.iterator();
 		while(it.hasNext()){
 			Carte c = it.next();
-			System.out.println(c.getValeur().getId());
 			switch(c.getValeur().getId()){
 				case 2:
 					c.addEffet(fairePiocher);

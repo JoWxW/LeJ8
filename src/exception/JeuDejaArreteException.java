@@ -10,4 +10,8 @@ public class JeuDejaArreteException extends Exception{
 	public JeuDejaArreteException(String m) {
 		super(m);
 	}
+	
+	public JeuDejaArreteException() {
+		System.out.println("Le jeu est deja arrte");
+	}
 }

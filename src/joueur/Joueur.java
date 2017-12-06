@@ -134,11 +134,11 @@ public abstract class Joueur {
 	}
 
 	public boolean aGagne() {
-		boolean res;
+		//boolean res;
 		if (cartes.isEmpty()) {
-			return res = true;
+			return true;
 		} else {
-			return res = false;
+			return false;
 		}
 	}
 
@@ -147,8 +147,10 @@ public abstract class Joueur {
 		StringBuffer s = new StringBuffer();
 		s.append("Joueur ");
 		s.append(this.nom);
-		s.append(" id ");
-		s.append(this.id);
+		int nbCarte = this.cartes.size(); 
+		//s.append(" id ");
+		//s.append(this.id);
+		s.append(" " + nbCarte);
 		return s.toString();
 	}
 

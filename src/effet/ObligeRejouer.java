@@ -27,8 +27,4 @@ public class ObligeRejouer extends Effet{
 		}
 		return j;
 	}
-	
-	/*public String toString() {
-		return "Obliger a rejouer";
-	}*/
 }

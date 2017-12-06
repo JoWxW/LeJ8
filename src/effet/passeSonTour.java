@@ -24,16 +24,33 @@ public class passeSonTour extends Effet{
 	@Override
 	public Jeu validerSuperpower(Jeu j) {
 		System.out.println("La carte a effectue son superpower:" + this.getNom());
-		Joueur joueurActuel = j.getJoueurActuel();
-		int nbCarte = joueurActuel.getCartes().size();
-		if(nbCarte == 0){
-			Carte carte = j.getCarteDepuisTas();
-			joueurActuel.piocher(carte);
-		}
+		
 		return j;
 	}
 	
 	public Jeu passeSonTour(Jeu j){
+		j.renouvelerJouerActuel();
+		j.renouvelerJouerActuel();
 		return j;
+	}
+
+
+	public int[] getPrecondition() {
+		return precondition;
+	}
+
+
+	public void setPrecondition(int[] precondition) {
+		this.precondition = precondition;
+	}
+
+
+	public boolean isCroissant() {
+		return croissant;
+	}
+
+
+	public void setCroissant(boolean croissant) {
+		this.croissant = croissant;
 	}
 }

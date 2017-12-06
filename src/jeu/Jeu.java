@@ -25,6 +25,7 @@ public class Jeu {
 	private TasDeCartePosee tasDeCartePosee;
 	private TasDeCarteEnAttente tasDeCarteEnAttente;
 	private ArrayList<Joueur> joueurs;
+	private ArrayList<Joueur> joueursGagne;
 	private Joueur joueurActuel;
 	private int nbCartePiocher;
 	private Carte carteActuelle;
@@ -53,8 +54,9 @@ public class Jeu {
 	private Jeu() {
 		/*
 		 * this.tas = new TasDeCarte(); this.joueurs = new LinkedList<Joueur>();
-		 * this.joueursGagne = new LinkedList<Joueur>();
+		 * 
 		 */
+		this.joueursGagne = new ArrayList<Joueur>();
 		this.nbCartePiocher = 0;
 		scanner = new Scanner(System.in);
 		/*
@@ -188,8 +190,8 @@ public class Jeu {
 	}
 
 	public boolean jeuTermine() {
+		boolean res = false;
 		if (methodeCompte == 0) {
-			boolean res = false;
 			Iterator<Joueur> it = joueurs.iterator();
 			while (it.hasNext()) {
 				Joueur j = it.next();
@@ -197,11 +199,12 @@ public class Jeu {
 					res = true;
 				}
 			}
-
-			return res;
 		} else {
-			boolean res = false;
-			Iterator<Joueur> it = joueurs.iterator();
+			if(this.joueursGagne.size()>2){
+				res = true;
+			}
+			//boolean res = false;
+			/*Iterator<Joueur> it = joueurs.iterator();
 			int nbGagne = 0;
 			int place = 1;
 			while (it.hasNext()) {
@@ -214,11 +217,12 @@ public class Jeu {
 				}
 			}
 			if (nbGagne >= 3) {
-				return res = true;
+				return true;
 			} else {
-				return res = false;
-			}
+				return false;
+			}*/
 		}
+		return res;
 	}
 
 	public void annoncer() {
@@ -233,10 +237,23 @@ public class Jeu {
 
 	public void compterPoint() {
 		System.out.println("Point des joueurs");
-		Iterator<Joueur> it = joueurs.iterator();
+		/*Iterator<Joueur> it = joueurs.iterator();
 		while (it.hasNext()) {
 			Joueur j = it.next();
 			System.out.println(j.toString() + " : " + j.calculerPoint());
+		}*/
+		if(Jeu.methodeCompte == 0){
+			Iterator<Joueur> it = joueurs.iterator();
+			while (it.hasNext()) {
+				Joueur j = it.next();
+				System.out.println(j.toString() + " : " + j.calculerPoint());
+			}
+		}else{
+			StringBuffer sb = new StringBuffer();
+			sb.append(this.joueursGagne.get(0) + " : 50 points\n");
+			sb.append(this.joueursGagne.get(1) + " : 20 points\n");
+			sb.append(this.joueursGagne.get(2) + " : 10 points\n");
+			System.out.println(sb);
 		}
 	}
 
@@ -264,8 +281,9 @@ public class Jeu {
 	 */
 	public void renouvelerJouerActuel() {
 		int i = joueurs.indexOf(joueurActuel);
+		int nbJoueurTotal = this.joueurs.size();
 		if (croissante == true) {
-			if (i + 1 < Jeu.getNombreDeJoueurs()) {
+			if (i + 1 < nbJoueurTotal/*Jeu.getNombreDeJoueurs()*/) {
 				this.joueurActuel = joueurs.get(i + 1);
 			} else {
 				this.joueurActuel = joueurs.get(0);
@@ -275,7 +293,7 @@ public class Jeu {
 			if (i - 1 >= 0) {
 				this.joueurActuel = joueurs.get(i - 1);
 			} else {
-				this.joueurActuel = joueurs.get(Jeu.nombreDeJoueurs - 1);
+				this.joueurActuel = joueurs.get(nbJoueurTotal/*Jeu.nombreDeJoueurs*/ - 1);
 			}
 		}
 	}
@@ -287,14 +305,28 @@ public class Jeu {
 	
 	public void derouler() {
 		this.paramtrerJeu();
-		System.out.println(Jeu.getAvecJoker() + " " + Jeu.getNombreDeJeux() + " " + Jeu.getNombreDeJoueurs());
+		//System.out.println(Jeu.getAvecJoker() + " " + Jeu.getNombreDeJeux() + " " + Jeu.getNombreDeJoueurs());
 		this.initialiser();
 		int nb = 1;
 
 		while ((!this.jeuTermine())) {
+			Iterator<Joueur> it = this.joueurs.iterator();
+			while(it.hasNext()){
+				Joueur j = it.next();
+				if(j.aGagne()){
+					this.renouvelerJouerActuel();
+					this.joueursGagne.add(j);
+					it.remove();
+				}
+			}
+			if(this.joueurs.size() == 1){
+				this.joueursGagne.add(this.joueurs.get(0));
+				break;
+			}
 			if (this.getTasDeCarteEnAttente().getTailleDeTas() > 0) {
 				System.out.println(" ");
 				System.out.println("C'est le tour " + nb);
+				System.out.println(this.getJoueurs());
 				nb++;
 				LinkedList<Carte> carteCandidate = this.getJoueurActuel().getCarteCandidate(this.getCarteActuelle());
 				if (carteCandidate.size() == 0) {

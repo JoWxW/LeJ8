@@ -12,13 +12,13 @@ public class JoueurVirtuel extends Joueur{
 
 	private StrategieDeJoueur strategie;
 	
-	public JoueurVirtuel(String id, String nom, int place) {
-		super(id, nom, place);
+	public JoueurVirtuel(String id, String nom) {
+		super(id, nom);
 		
 		// TODO Auto-generated constructor stub
 	}
-	public JoueurVirtuel(String id, String nom, int place,int difficulte) {
-		super(id, nom, place);
+	public JoueurVirtuel(String id, String nom,int difficulte) {
+		super(id, nom);
 		if(difficulte == 1) {
 			this.strategie = new StrategieSimple();
 		}else if(difficulte == 2) {

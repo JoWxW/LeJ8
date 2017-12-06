@@ -12,8 +12,6 @@ import joueur.*;
 import variante.Minimale;
 import variante.Variante;
 
-import java.util.Scanner;
-
 import java.util.*;
 
 /**
@@ -72,6 +70,8 @@ public class Jeu {
 		}
 		return jeu;
 	}
+	
+	
 
 	public void paramtrerJeu() {
 		// Exception
@@ -140,13 +140,12 @@ public class Jeu {
 		tasDeCartePosee = new TasDeCartePosee();
 		joueurs = new ArrayList<Joueur>();
 		for (int i = 0; i < Jeu.getNombreDeJoueurs() - 1; i++) {
-			JoueurVirtuel j = new JoueurVirtuel("jv" + i, "Joueur " + i, i, Jeu.getDifficulte());
+			JoueurVirtuel j = new JoueurVirtuel("jv" + i, "Joueur " + i, Jeu.getDifficulte());
 			joueurs.add(j);
 		}
 		JoueurPhysique jp = new JoueurPhysique();
 		jp.setId("jp");
 		jp.setNom("wxw");
-		jp.setPlace(Jeu.getNombreDeJoueurs() - 1);
 		joueurs.add(jp);
 		distribuerCarte();
 		System.out.println("On a distrribue toutes les carte, c'est parti!");
@@ -204,10 +203,14 @@ public class Jeu {
 			boolean res = false;
 			Iterator<Joueur> it = joueurs.iterator();
 			int nbGagne = 0;
+			int place = 1;
 			while (it.hasNext()) {
 				Joueur j = it.next();
 				if (j.aGagne()) {
 					nbGagne++;
+					j.setPlace(place);
+					System.out.println(j.toString()+"est de place " + place);
+					place +=1;
 				}
 			}
 			if (nbGagne >= 3) {
@@ -276,6 +279,61 @@ public class Jeu {
 			}
 		}
 	}
+	
+	public void renouvelerTasDeCarteEnattente() {
+		this.getTasDeCarteEnAttente().addCartesPosees(this.getTasDeCartePosee());
+		this.getTasDeCartePosee().clearCartePosee();
+	}
+	
+	public void derouler() {
+		this.paramtrerJeu();
+		System.out.println(Jeu.getAvecJoker() + " " + Jeu.getNombreDeJeux() + " " + Jeu.getNombreDeJoueurs());
+		this.initialiser();
+		int nb = 1;
+
+		while ((!this.jeuTermine())) {
+			if (this.getTasDeCarteEnAttente().getTailleDeTas() > 0) {
+				System.out.println(" ");
+				System.out.println("C'est le tour " + nb);
+				nb++;
+				LinkedList<Carte> carteCandidate = this.getJoueurActuel().getCarteCandidate(this.getCarteActuelle());
+				if (carteCandidate.size() == 0) {
+					this.getJoueurActuel().piocher(this.getCarteDepuisTas());
+					System.out.println(this.getJoueurActuel().toString() + " pioche");
+					this.renouvelerJouerActuel();
+				} else {
+					try {
+						// verifier si la carte est bonne(pas besoin alors)
+						Carte c = this.getJoueurActuel().poserUneCarte(carteCandidate,
+								this.getJoueurActuel().getCartes());
+						//jeu.getJoueurActuel().getCartes().remove(c);
+						System.out.println(this.getJoueurActuel().toString() + " pose " + c.toString());
+						this.setCarteActuelle(c);
+						this.getTasDeCartePosee().addCartePosee(c);
+						c.getEffectValide().validerSuperpower(this);
+
+					} catch (SaisiNonValideException e) {
+						e.printStackTrace();
+
+					}
+				}
+			} else {
+				this.renouvelerTasDeCarteEnattente();
+
+			}
+			this.annoncer();
+			System.out.println("nombre en attente"+this.getTasDeCarteEnAttente().getTailleDeTas());
+			System.out.println("nombre de carte posee" + this.getTasDeCartePosee().getCartePosee().size());
+		}
+		this.afficherResultat();
+		this.compterPoint();
+		Jeu.getScanner().close();
+
+		//jeu.initialiserJeu();
+		//System.out.println(jeu.get);
+
+	}
+	
 
 	// setter et getter
 	public boolean isJeuEnCours() {
@@ -297,6 +355,14 @@ public class Jeu {
 	public Carte getCarteDepuisTas() {
 		Carte c = this.tasDeCarteEnAttente.getCarte();
 		return c;
+	}
+	
+	public boolean aAssezDeCarte() {
+		boolean res = true;
+		if(this.getNbCartePiocher()>this.getTasDeCarteEnAttente().getTailleDeTas()) {
+			res = false;
+		}
+		return res;
 	}
 
 	public int getNbCartePiocher() {

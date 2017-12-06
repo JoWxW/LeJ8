@@ -13,8 +13,8 @@ public class JoueurPhysique extends Joueur {
 	public JoueurPhysique() {
 	}
 
-	public JoueurPhysique(String id, String nom, int place) {
-		super(id, nom, place);
+	public JoueurPhysique(String id, String nom) {
+		super(id, nom);
 		// TODO Auto-generated constructor stub
 	}
 

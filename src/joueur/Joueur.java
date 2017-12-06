@@ -14,17 +14,16 @@ public abstract class Joueur {
 	private String id;
 	private int point = 0;
 	private String nom;
-	private int place;
+	private int place = 0;
 	// carte a la main(diagramme de classe)
 	private LinkedList<Carte> cartes = new LinkedList<Carte>();
 
 	public Joueur() {
 	}
 
-	public Joueur(String id, String nom, int place) {
+	public Joueur(String id, String nom) {
 		this.setId(id);
 		this.setNom(nom);
-		this.setPlace(place);
 	}
 
 	// piocher une carte
@@ -90,7 +89,7 @@ public abstract class Joueur {
 
 	// calculer le point en fonction de la facon de compter et retourner le point de
 	// ce joueur
-	// compte positif comme mode1,compte negatif comme mode2
+	// compte positif comme mode1,compte negatif comme mode0
 	public int calculerPoint() {
 		if (Jeu.getMethodeCompte() == 1) {
 			if (place == 1) {
@@ -100,7 +99,7 @@ public abstract class Joueur {
 			} else if (place == 3) {
 				point += 10;
 			}
-		} else if (Jeu.getMethodeCompte() == 2) {
+		} else if (Jeu.getMethodeCompte() == 0) {
 			Iterator<Carte> it = cartes.iterator();
 			while (it.hasNext()) {
 				Carte myCarte = it.next();

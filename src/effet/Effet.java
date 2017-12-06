@@ -47,4 +47,7 @@ public abstract class Effet extends Observable{
 	public void setCarteAttaque(int carteAttaque) {
 		this.carteAttaque = carteAttaque;
 	}
+	public String toString(){
+		return this.nom;
+	}
 }

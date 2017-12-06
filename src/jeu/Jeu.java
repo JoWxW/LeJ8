@@ -156,7 +156,7 @@ public class Jeu {
 
 	// detetminer la premiere carte dans la carte actuelle
 	// supposons la distribution commence par place 0
-	// il veut mieux refaire avec un random()
+	// il vaut mieux refaire avec un random()
 	public void distribuerCarte() {
 		tasDeCarteEnAttente.melanger();
 		Iterator<Joueur> it = joueurs.iterator();

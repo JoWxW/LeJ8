@@ -70,7 +70,7 @@ public class FairePiocher extends Effet{
 		return j;
 	}
 	
-	public String toString() {
+	/*public String toString() {
 		return "Faire piocher";
-	}
+	}*/
 }

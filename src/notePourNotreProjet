@@ -7,3 +7,7 @@ travails a faire:
 2. exception a ajouter
 3. patrons de conception: Observateur 
 4. 
+
+
+FairePiocher:
+	ligne 43: condition de while: += carteCandidate.isEmpty

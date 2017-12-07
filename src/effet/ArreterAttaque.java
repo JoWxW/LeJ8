@@ -14,11 +14,9 @@ import enumeration.*;
  *
  */
 public class ArreterAttaque extends Effet{
-	private Valeur valeur;
 	public ArreterAttaque(Valeur v){
 		super();
 		this.setNom("Arreter les attaques");
-		this.valeur = v;
 	}
 	
 	public Jeu validerSuperpower(Jeu j){
@@ -40,6 +38,7 @@ public class ArreterAttaque extends Effet{
 				joueur.addCarteCandidate(c);
 			}
 		}*/
+		this.declarer();
 		j.setNbcartePiocher(0);
 		
 		return j;

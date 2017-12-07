@@ -17,11 +17,15 @@ import jeu.Jeu;
  *
  */
 public class ChangerForme extends Effet{
+	public ChangerForme(){
+		super();
+		this.setNom("Changer Forme");
+	}
 	
 
 	@Override
 	public Jeu validerSuperpower(Jeu j) {
-		System.out.println("La carte a effectue son superpower: Changer de forme!");
+		this.declarer();
 		//C'est mieux de tranformer la couleur a ce que le joueur possede le plus
 		int nbPique = 0;
 		int nbCoeur = 0;
@@ -62,8 +66,5 @@ public class ChangerForme extends Effet{
 		al.add(a4);
 		return al.indexOf(Collections.max(al));
 	}
-	
-	public String toString() {
-		return "Changer Forme";
-	}
+
 }

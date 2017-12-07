@@ -50,4 +50,7 @@ public abstract class Effet extends Observable{
 	public String toString(){
 		return this.nom;
 	}
+	public void declarer(){
+		System.out.println("La carte a effectue son superpower: " + this.nom +" !");
+	}
 }

@@ -15,7 +15,7 @@ public class ChangerSens extends Effet{
 
 	@Override
 	public Jeu validerSuperpower(Jeu j) {
-		System.out.println("La carte a effectue son superpower:" + this.getNom());
+		this.declarer();
 		if(Jeu.isCroissante()) {
 			Jeu.setCroissante(false);
 		}else {

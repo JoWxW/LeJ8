@@ -18,7 +18,7 @@ public class ObligeRejouer extends Effet{
 	
 	@Override
 	public Jeu validerSuperpower(Jeu j) {
-		System.out.println("La carte a effectue son superpower:Obliger a rejouer!");
+		this.declarer();
 		Joueur joueurActuel = j.getJoueurActuel();
 		int nbCarte = joueurActuel.getCartes().size();
 		if(nbCarte == 0){

@@ -18,6 +18,7 @@ public class FairePiocherSansRecours extends Effet {
 
 	@Override
 	public Jeu validerSuperpower(Jeu j) {
+		this.declarer();
 		j.renouvelerJouerActuel();
 		j.joueurPiocher(nbCarte);
 		j.setNbcartePiocher(0);

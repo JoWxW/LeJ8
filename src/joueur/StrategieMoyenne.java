@@ -39,15 +39,19 @@ public class StrategieMoyenne implements StrategieDeJoueur {
 				}
 			}
 			if (carteEffet.isEmpty()) {
+				LinkedList<Carte> carteC = new LinkedList<Carte>();
+				carteC.addAll(carteCandidate);
 				int nbMax = choisirMax(nbPique, nbCoeur, nbCarreau, nbTrefle);
-				Iterator<Carte> ite = carteCandidate.iterator();
+				Iterator<Carte> ite = /*carteCandidate*/carteC.iterator();
 				while (ite.hasNext()) {
 					Carte c = ite.next();
 					if (c.getForme().getId() != nbMax) {
 						ite.remove();
 					}
 				}
-
+				if(!carteC.isEmpty()){
+					carteCandidate = carteC;
+				}
 				int position = (int) ((carteCandidate.size()-1) * Math.random());
 				return carteCandidate.get(position);
 			} else {

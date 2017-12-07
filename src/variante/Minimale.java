@@ -15,7 +15,7 @@ public class Minimale extends Variante{
 		super();
 		
 		this.setNom("Version Minimale");
-		this.setNumero("1");
+		this.setNumero("0");
 	}
 	
 	
@@ -40,9 +40,6 @@ public class Minimale extends Variante{
 					c.addEffet(obligeRejouer);
 					c.setEffectValide(obligeRejouer);
 					break;
-				//a discuter, je l'initialise dans le constructeur de Carte
-					//default:
-					//c.addEffet(nonEffet);
 			}
 		}
 	}

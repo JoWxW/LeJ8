@@ -131,6 +131,7 @@ public class Jeu {
 		switch (i) {
 		case 0:
 			variante = new Minimale();
+			break;
 		}
 	}
 
@@ -187,6 +188,16 @@ public class Jeu {
 			res = true;
 		}
 		return res;
+	}
+	
+	public void joueurPiocher(int nbCarte) {
+		Joueur jou = this.getJoueurActuel();
+		if (this.getTasDeCarteEnAttente().getTailleDeTas() < nbCarte) {
+			this.renouvelerTasDeCarteEnattente();
+		}
+		for (int i = 0; i < nbCarte; i++) {
+			jou.piocher(this.getCarteDepuisTas());
+		}
 	}
 
 	public boolean jeuTermine() {
@@ -249,16 +260,21 @@ public class Jeu {
 				System.out.println(j.toString() + " : " + j.calculerPoint());
 			}
 		}else{
+			this.joueursGagne.get(0).setPoint(50);
+			this.joueursGagne.get(1).setPoint(20);
+			this.joueursGagne.get(2).setPoint(10);
 			StringBuffer sb = new StringBuffer();
-			sb.append(this.joueursGagne.get(0) + " : 50 points\n");
-			sb.append(this.joueursGagne.get(1) + " : 20 points\n");
-			sb.append(this.joueursGagne.get(2) + " : 10 points\n");
+			Iterator<Joueur> it = this.joueursGagne.iterator();
+			while(it.hasNext()){
+				Joueur j = it.next();
+				sb.append(j.getNom() + " : " + j.getPoint() + " points\n");
+			}
 			System.out.println(sb);
 		}
 	}
 
 	public void afficherResultat() {
-		Iterator<Joueur> it = joueurs.iterator();
+		/*Iterator<Joueur> it = joueurs.iterator();
 		while (it.hasNext()) {
 			Joueur j = it.next();
 			if (j.aGagne()) {
@@ -266,6 +282,11 @@ public class Jeu {
 			} else {
 				System.out.println(j.toString() + " a perdu");
 			}
+		}*/
+		Iterator<Joueur> it = joueursGagne.iterator();
+		while (it.hasNext()) {
+			Joueur j = it.next();
+			System.out.println(j.toString() + " a gagne");
 		}
 	}
 
@@ -305,7 +326,6 @@ public class Jeu {
 	
 	public void derouler() {
 		this.paramtrerJeu();
-		//System.out.println(Jeu.getAvecJoker() + " " + Jeu.getNombreDeJeux() + " " + Jeu.getNombreDeJoueurs());
 		this.initialiser();
 		int nb = 1;
 
@@ -314,7 +334,6 @@ public class Jeu {
 			while(it.hasNext()){
 				Joueur j = it.next();
 				if(j.aGagne()){
-					this.renouvelerJouerActuel();
 					this.joueursGagne.add(j);
 					it.remove();
 				}

@@ -17,6 +17,7 @@ public abstract class Joueur {
 	private int place = 0;
 	// carte a la main(diagramme de classe)
 	private LinkedList<Carte> cartes = new LinkedList<Carte>();
+	private LinkedList<Carte> carteCandidate = new LinkedList<Carte>();
 
 	public Joueur() {
 	}
@@ -49,7 +50,7 @@ public abstract class Joueur {
 	// get les carte candidates pour ce tour par rapport a la carte preccedante
 	// dans ce cas, la carte precedante ne sera jamais une carte avec effet
 	public LinkedList<Carte> getCarteCandidate(Carte c) {
-		LinkedList<Carte> carteCandidate = new LinkedList<Carte>();
+		//LinkedList<Carte> carteCandidate = new LinkedList<Carte>();
 		Iterator<Carte> it = getCartes().iterator();
 		// if (c.getEffet().isEmpty()) {
 		while (it.hasNext()) {
@@ -59,16 +60,27 @@ public abstract class Joueur {
 				carteCandidate.add(maCarte);
 			}
 		}
-		/*
-		 * } else { Carte maCarte = it.next(); Iterator<Effet> ie =
-		 * maCarte.getEffet().iterator(); while (ie.hasNext()) { Effet myEffet =
-		 * ie.next(); if (myEffet.getCarteAttaque() >=
-		 * c.getEffectValide().getCarteAttaque()) { carteCandidate.add(maCarte); } }
-		 * 
-		 * }
-		 */
 		return carteCandidate;
 
+	}
+	
+	public void setCarteCandidate(Carte c) {
+		//LinkedList<Carte> carteCandidate = new LinkedList<Carte>();
+		Iterator<Carte> it = getCartes().iterator();
+		// if (c.getEffet().isEmpty()) {
+		while (it.hasNext()) {
+			Carte maCarte = it.next();
+			if (maCarte.getForme().equals(c.getForme()) || maCarte.getValeur().equals(c.getValeur())
+					|| (!maCarte.getEffet().isEmpty())) {
+				carteCandidate.add(maCarte);
+			}
+		}
+	}
+	public void addCarteCandidate(Carte c){
+		this.carteCandidate.add(c);
+	}
+	public LinkedList<Carte> getCartesCandidates(){
+		return this.carteCandidate;
 	}
 
 	// poser une carte, il faut redefinir dans la classe fille
@@ -152,6 +164,20 @@ public abstract class Joueur {
 		//s.append(this.id);
 		s.append(" " + nbCarte);
 		return s.toString();
+	}
+
+	/**
+	 * @return the point
+	 */
+	public int getPoint() {
+		return point;
+	}
+
+	/**
+	 * @param point the point to set
+	 */
+	public void setPoint(int point) {
+		this.point = point;
 	}
 
 	public String getId() {

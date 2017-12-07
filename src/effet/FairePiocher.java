@@ -56,12 +56,12 @@ public class FairePiocher extends Effet {
 		}
 		if (carteCandidate.isEmpty()) {
 			System.out.println(jou.toString() + " doit piocher " + j.getNbCartePiocher() + " cartes");
-			if (!(j.aAssezDeCarte())) {
+			/*if (!(j.aAssezDeCarte())) {
 				j.renouvelerTasDeCarteEnattente();
 			}
 			for (int i = 0; i < j.getNbCartePiocher(); i++) {
 				jou.piocher(j.getCarteDepuisTas());
-			}
+			}*/
 			j.setNbcartePiocher(0);
 
 		} else {

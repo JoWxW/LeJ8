@@ -15,8 +15,10 @@ question a discuter:
 
 1. un joueur peut creer un autre jeu en gardant les points?
 
-FairePiocher:
+2.FairePiocher:
 	ligne 43: condition de while: += carteCandidate.isEmpty
+3. arreter les attaques
+4. position de renouvellerJoueurs(???faire dans derouler???)
 	
 back_up pour main de jeu:
 /*Jeu jeu;

@@ -327,6 +327,11 @@ public class Jeu {
 	public void derouler() {
 		this.paramtrerJeu();
 		this.initialiser();
+		Iterator<Joueur> itJ = this.joueurs.iterator();
+		while(itJ.hasNext()){
+			Joueur ja = itJ.next();
+			System.out.println(ja.getCartes());
+		}
 		int nb = 1;
 
 		while ((!this.jeuTermine())) {
@@ -348,6 +353,7 @@ public class Jeu {
 				System.out.println(this.getJoueurs());
 				nb++;
 				LinkedList<Carte> carteCandidate = this.getJoueurActuel().getCarteCandidate(this.getCarteActuelle());
+				System.out.println("------Carte Acteulle------" + this.carteActuelle);
 				if (carteCandidate.size() == 0) {
 					this.getJoueurActuel().piocher(this.getCarteDepuisTas());
 					System.out.println(this.getJoueurActuel().toString() + " pioche");
@@ -361,6 +367,7 @@ public class Jeu {
 						this.setCarteActuelle(c);
 						this.getTasDeCartePosee().addCartePosee(c);
 						c.getEffectValide().validerSuperpower(this);
+						System.out.println(" ÷≈∆£∫ " + this.joueurActuel.getCartes());
 
 					} catch (SaisiNonValideException e) {
 						e.printStackTrace();

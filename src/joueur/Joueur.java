@@ -63,25 +63,6 @@ public abstract class Joueur {
 		return carteCandidate;
 
 	}
-	
-	public void setCarteCandidate(Carte c) {
-		//LinkedList<Carte> carteCandidate = new LinkedList<Carte>();
-		Iterator<Carte> it = getCartes().iterator();
-		// if (c.getEffet().isEmpty()) {
-		while (it.hasNext()) {
-			Carte maCarte = it.next();
-			if (maCarte.getForme().equals(c.getForme()) || maCarte.getValeur().equals(c.getValeur())
-					|| (!maCarte.getEffet().isEmpty())) {
-				carteCandidate.add(maCarte);
-			}
-		}
-	}
-	public void addCarteCandidate(Carte c){
-		this.carteCandidate.add(c);
-	}
-	public LinkedList<Carte> getCartesCandidates(){
-		return this.carteCandidate;
-	}
 
 	// poser une carte, il faut redefinir dans la classe fille
 	public void poser() {

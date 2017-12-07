@@ -273,22 +273,7 @@ public class Jeu {
 		}
 	}
 
-	public void afficherResultat() {
-		/*Iterator<Joueur> it = joueurs.iterator();
-		while (it.hasNext()) {
-			Joueur j = it.next();
-			if (j.aGagne()) {
-				System.out.println(j.toString() + " a gagne.");
-			} else {
-				System.out.println(j.toString() + " a perdu");
-			}
-		}*/
-		Iterator<Joueur> it = joueursGagne.iterator();
-		while (it.hasNext()) {
-			Joueur j = it.next();
-			System.out.println(j.toString() + " a gagne");
-		}
-	}
+
 
 	/*
 	 * public void setCarteActuel(Carte c){ this.carteActuel = c; } public Carte
@@ -366,6 +351,7 @@ public class Jeu {
 						System.out.println(this.getJoueurActuel().toString() + " pose " + c.toString());
 						this.setCarteActuelle(c);
 						this.getTasDeCartePosee().addCartePosee(c);
+						//zhege juzi keneng youwenti
 						c.getEffectValide().validerSuperpower(this);
 						System.out.println(" ÷≈∆£∫ " + this.joueurActuel.getCartes());
 
@@ -382,7 +368,6 @@ public class Jeu {
 			System.out.println("nombre en attente"+this.getTasDeCarteEnAttente().getTailleDeTas());
 			System.out.println("nombre de carte posee" + this.getTasDeCartePosee().getCartePosee().size());
 		}
-		this.afficherResultat();
 		this.compterPoint();
 		Jeu.getScanner().close();
 

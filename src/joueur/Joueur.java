@@ -50,9 +50,8 @@ public abstract class Joueur {
 	// get les carte candidates pour ce tour par rapport a la carte preccedante
 	// dans ce cas, la carte precedante ne sera jamais une carte avec effet
 	public LinkedList<Carte> getCarteCandidate(Carte c) {
-		//LinkedList<Carte> carteCandidate = new LinkedList<Carte>();
+		LinkedList<Carte> carteCandidate = new LinkedList<Carte>();
 		Iterator<Carte> it = getCartes().iterator();
-		// if (c.getEffet().isEmpty()) {
 		while (it.hasNext()) {
 			Carte maCarte = it.next();
 			if (maCarte.getForme().equals(c.getForme()) || maCarte.getValeur().equals(c.getValeur())

@@ -7,7 +7,7 @@ package enumeration;
  * @author wxw
  *
  */
-public enum Variante {
+public enum VarianteVersion {
 	VersionMinimale(0),
 	Variante1(1),
 	Variantt2CarteEtMaou(2),
@@ -27,7 +27,7 @@ public enum Variante {
 	RosaInjuste(16);
 	
 	private final int numero;
-	Variante(int numero){
+	VarianteVersion(int numero){
 		this.numero = numero;
 	}
 	

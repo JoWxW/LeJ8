@@ -9,8 +9,7 @@ import enumeration.*;
 import exception.SaisiNonValideException;
 import joueur.*;
 
-import variante.Minimale;
-import variante.Variante;
+import variante.*;
 
 import java.util.*;
 
@@ -30,7 +29,6 @@ public class Jeu {
 	private int nbCartePiocher;
 	private Carte carteActuelle;
 	private Variante variante;
-	// 1 positive,0 negatif
 
 	private boolean jeuEnCours = false;
 	// pour determiner la strategie pour les joueus virtuels
@@ -41,7 +39,8 @@ public class Jeu {
 	 * LinkedList<Joueur> joueursGagne; private Joueur joueurActuel; private int
 	 * nbCartePiocher; private Carte carteActuel; private boolean jeuEnCours;
 	 */
-
+	
+	// compte point: 1 positive,0 negatif
 	private static int nombreDeJeux;
 	private static int nombreDeJoueurs;
 	private static int avecJoker;
@@ -131,6 +130,9 @@ public class Jeu {
 		switch (i) {
 		case 0:
 			variante = new Minimale();
+			break;
+		case 11:
+			variante = new Monclar();
 			break;
 		}
 	}

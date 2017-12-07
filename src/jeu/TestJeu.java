@@ -11,7 +11,5 @@ public class TestJeu {
 		Jeu jeu;
 		jeu = Jeu.getJeu();
 		jeu.derouler();
-		
-
 	}
 }

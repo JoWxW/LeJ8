@@ -26,26 +26,39 @@ public class Monclar extends Variante{
 		Effet obligeRejouer = new ObligeRejouer();
 		Effet passerSonTour = new PasserSonTour();
 		Effet changerSens = new ChangerSens();
-		Effet fairePiocher = new FairePiocher(2);
-		
-		Effet changerforme = new ChangerForme();
-		Effet nonEffet = new NonEffet();
+		Effet fairePiocherSansRecours = new FairePiocherSansRecours(1);
+		Effet fairePiocher = new FairePiocher(3);
+		Effet changerFormeArreterAttaque = new ChangerFormeArreterAttaque();
+
 		Iterator<Carte> it = tas.iterator();
 		while(it.hasNext()){
 			Carte c = it.next();
 			switch(c.getValeur().getId()){
-				case 2:
-					c.addEffet(fairePiocher);
-					c.setEffectValide(fairePiocher);
-					break;
-				case 8:
-					c.addEffet(changerforme);
-					c.setEffectValide(changerforme);
-					break;
 				case 10:
 					c.addEffet(obligeRejouer);
 					c.setEffectValide(obligeRejouer);
 					break;
+				case 7:
+					c.addEffet(passerSonTour);
+					c.setEffectValide(passerSonTour);
+					break;
+				case 11:
+					c.addEffet(changerSens);
+					c.setEffectValide(changerSens);
+					break;
+				case 9:
+					c.addEffet(fairePiocherSansRecours);
+					c.setEffectValide(fairePiocherSansRecours);
+					break;
+				case 1:
+					c.addEffet(fairePiocher);
+					c.setEffectValide(fairePiocher);
+					break;
+				case 8:
+					c.addEffet(changerFormeArreterAttaque);
+					c.setEffectValide(changerFormeArreterAttaque);
+					break;
+				
 			}
 		}
 	}

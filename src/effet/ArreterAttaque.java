@@ -14,7 +14,7 @@ import enumeration.*;
  *
  */
 public class ArreterAttaque extends Effet{
-	public ArreterAttaque(Valeur v){
+	public ArreterAttaque(){
 		super();
 		this.setNom("Arreter les attaques");
 	}

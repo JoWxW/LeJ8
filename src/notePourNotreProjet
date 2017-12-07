@@ -15,9 +15,8 @@ question a discuter:
 
 1. un joueur peut creer un autre jeu en gardant les points?
 
-2.FairePiocher:
-	ligne 43: condition de while: += carteCandidate.isEmpty
-3. NonEffet: ajouter dans carte ou pas? si oui, Joueur.getCarteCandidate condition: isEmpty -> size()>1
+
+
 4. position de renouvellerJoueurs(???tout metter dans derouler??? si oui, passerSontour: titre un renouveller)
 	
 back_up pour main de jeu:

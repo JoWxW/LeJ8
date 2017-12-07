@@ -22,7 +22,6 @@ public class FairePiocher extends Effet {
 	private int nbCarte;
 
 	public FairePiocher(int nbCarte) {
-		super();
 		this.nbCarte = nbCarte;
 		this.setNom("Faire piocher" + nbCarte + " cartes");
 	}
@@ -62,6 +61,7 @@ public class FairePiocher extends Effet {
 			for (int i = 0; i < j.getNbCartePiocher(); i++) {
 				jou.piocher(j.getCarteDepuisTas());
 			}*/
+			j.joueurPiocher(nbPiocher);
 			j.setNbcartePiocher(0);
 
 		} else {
@@ -72,7 +72,7 @@ public class FairePiocher extends Effet {
 			j = c.getEffectValide().validerSuperpower(j);
 
 		}
-		j.renouvelerJouerActuel();
+		//j.renouvelerJouerActuel();
 		return j;
 	}
 }

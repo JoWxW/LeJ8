@@ -351,7 +351,6 @@ public class Jeu {
 				if (carteCandidate.size() == 0) {
 					this.getJoueurActuel().piocher(this.getCarteDepuisTas());
 					System.out.println(this.getJoueurActuel().toString() + " pioche");
-					this.renouvelerJouerActuel();
 				} else {
 					try {
 						// verifier si la carte est bonne(pas besoin alors)
@@ -365,9 +364,9 @@ public class Jeu {
 
 					} catch (SaisiNonValideException e) {
 						e.printStackTrace();
-
 					}
 				}
+				this.renouvelerJouerActuel();
 			} else {
 				this.renouvelerTasDeCarteEnattente();
 

@@ -21,12 +21,6 @@ public class PasserSonTour extends Effet{
 	@Override
 	public Jeu validerSuperpower(Jeu j) {
 		this.declarer();
-		this.passeSonTour(j);
-		return j;
-	}
-	
-	public Jeu passeSonTour(Jeu j){
-		j.renouvelerJouerActuel();
 		j.renouvelerJouerActuel();
 		return j;
 	}

@@ -17,7 +17,7 @@ public class NonEffet extends Effet{
 
 	@Override
 	public Jeu validerSuperpower(Jeu j) {
-		j.renouvelerJouerActuel();
+		//j.renouvelerJouerActuel();
 		return j;
 	}
 }

@@ -52,7 +52,7 @@ public class ChangerForme extends Effet{
 		}
 		int nbMax = choisirMax(nbPique, nbCoeur, nbCarreau, nbTrefle);
 		j.getCarteActuelle().setForme(Forme.values()[nbMax]);
-		j.renouvelerJouerActuel();
+		//j.renouvelerJouerActuel();
 		return j;
 		
 		

@@ -22,7 +22,7 @@ public class FairePiocherSansRecours extends Effet {
 		j.renouvelerJouerActuel();
 		j.joueurPiocher(nbCarte);
 		j.setNbcartePiocher(0);
-		return null;
+		return j;
 	}
 
 	public int getNbCarte() {

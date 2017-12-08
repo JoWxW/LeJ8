@@ -2,6 +2,7 @@
  * 
  */
 package carte;
+
 import java.util.ArrayList;
 
 import effet.*;
@@ -12,16 +13,17 @@ import enumeration.*;
  *
  */
 public class Carte {
-	//private String id;
+	// private String id;
 	private Forme forme;
 	private Valeur valeur;
-	//private int point;
+	// private int point;
 	private Etat etat;
-	
-	//加一个effet valide?
+
+	// 加一个effet valide?
 	private Effet effectValide = new NonEffet();
-	//Collection	
+	// Collection
 	private ArrayList<Effet> effet;
+
 	/**
 	 * @param id
 	 * @param forme
@@ -30,38 +32,36 @@ public class Carte {
 	 * @param etat
 	 * @param effet
 	 */
-	public Carte(/*String id, */Forme forme, Valeur valeur/*, int point, Etat etat*/) {
-		//this.id = id;
+	public Carte(/* String id, */Forme forme, Valeur valeur/* , int point, Etat etat */) {
+		// this.id = id;
 		this.forme = forme;
 		this.valeur = valeur;
-		//this.point = point;
+		// this.point = point;
 		this.etat = Etat.enAttend;
 		this.effet = new ArrayList<Effet>();
 	}
-	
-	public Carte(){
+
+	public Carte() {
 		this.etat = Etat.enAttend;
 		this.setValeur(valeur.values()[13]);
 		this.setForme(Forme.values()[4]);
 		this.effet = new ArrayList<Effet>();
 		Effet e = new ArreterAttaque();
 		this.addEffet(e);
+		this.setEffectValide(e);
 	}
-	
 
 	/**
 	 * @return the id
-	 
-	public String getId() {
-		return id;
-	}
-
-	/**
-	 * @param id the id to set
-	 
-	public void setId(String id) {
-		this.id = id;
-	}*/
+	 * 
+	 *         public String getId() { return id; }
+	 * 
+	 *         /**
+	 * @param id
+	 *            the id to set
+	 * 
+	 *            public void setId(String id) { this.id = id; }
+	 */
 
 	/**
 	 * @return the forme
@@ -71,7 +71,8 @@ public class Carte {
 	}
 
 	/**
-	 * @param forme the forme to set
+	 * @param forme
+	 *            the forme to set
 	 */
 	public void setForme(Forme forme) {
 		this.forme = forme;
@@ -85,7 +86,8 @@ public class Carte {
 	}
 
 	/**
-	 * @param valeur the valeur to set
+	 * @param valeur
+	 *            the valeur to set
 	 */
 	public void setValeur(Valeur valeur) {
 		this.valeur = valeur;
@@ -93,17 +95,15 @@ public class Carte {
 
 	/**
 	 * @return the point
-	 
-	public int getPoint() {
-		return point;
-	}
-
-	/**
-	 * @param point the point to set
-	 
-	public void setPoint(int point) {
-		this.point = point;
-	}*/
+	 * 
+	 *         public int getPoint() { return point; }
+	 * 
+	 *         /**
+	 * @param point
+	 *            the point to set
+	 * 
+	 *            public void setPoint(int point) { this.point = point; }
+	 */
 
 	/**
 	 * @return the etat
@@ -113,7 +113,8 @@ public class Carte {
 	}
 
 	/**
-	 * @param etat the etat to set
+	 * @param etat
+	 *            the etat to set
 	 */
 	public void setEtat(Etat etat) {
 		this.etat = etat;
@@ -121,22 +122,20 @@ public class Carte {
 
 	/**
 	 * @return the effet
-	 
-	public Effet[] getEffet() {
-		return effet;
-	}
+	 * 
+	 *         public Effet[] getEffet() { return effet; }
+	 * 
+	 *         /**
+	 * @param effet
+	 *            the effet to set
+	 * 
+	 *            public void setEffet(Effet[] effet) { this.effet = effet; }
+	 */
 
-	/**
-	 * @param effet the effet to set
-	 
-	public void setEffet(Effet[] effet) {
-		this.effet = effet;
-	}*/
-	
-	public String toString(){
+	public String toString() {
 		StringBuffer s = new StringBuffer();
-		
-		if(this.valeur == null){
+
+		if (this.valeur == null) {
 			s.append("Joker");
 		} else {
 			s.append(this.valeur);

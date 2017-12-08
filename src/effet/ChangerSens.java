@@ -6,8 +6,8 @@ package effet;
 import exception.SaisiNonValideException;
 import jeu.Jeu;
 
-public class ChangerSens extends Effet{
-	
+public class ChangerSens extends Effet {
+
 	public ChangerSens() {
 		super();
 		this.setNom("Changer le sens du jeu");
@@ -16,9 +16,9 @@ public class ChangerSens extends Effet{
 	@Override
 	public Jeu validerSuperpower(Jeu j) {
 		this.declarer();
-		if(Jeu.isCroissante()) {
+		if (Jeu.isCroissante()) {
 			Jeu.setCroissante(false);
-		}else {
+		} else {
 			Jeu.setCroissante(true);
 		}
 		return j;

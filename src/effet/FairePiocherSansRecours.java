@@ -2,6 +2,7 @@
  * 
  */
 package effet;
+
 import exception.SaisiNonValideException;
 import jeu.Jeu;
 import joueur.Joueur;
@@ -12,6 +13,7 @@ public class FairePiocherSansRecours extends FairePiocher {
 	public FairePiocherSansRecours(int nbCarte) {
 		super(nbCarte);
 		this.setNom("Faire piocher " + nbCarte + " cartes sans recours");
+		this.setNbCarte(nbCarte);
 
 	}
 
@@ -20,7 +22,7 @@ public class FairePiocherSansRecours extends FairePiocher {
 		this.declarer();
 		j.renouvelerJouerActuel();
 		int nbAPiocher = j.getNbCartePiocher();
-		nbAPiocher += nbCarte;
+		nbAPiocher = nbAPiocher + nbCarte;
 		j.joueurPiocher(nbAPiocher);
 		j.setNbcartePiocher(0);
 		return j;

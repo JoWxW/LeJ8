@@ -66,7 +66,7 @@ public abstract class Joueur {
 	// poser une carte, il faut redefinir dans la classe fille
 	public void poserUneCarte(Carte c) {
 		this.getCartes().remove(c);
-		
+
 	}
 
 	//
@@ -78,9 +78,8 @@ public abstract class Joueur {
 	// annoncer carte ou contre carte
 	//
 	public void annoncer() {
-		System.out.println(this.toString()+ " annonce Carte");
+		System.out.println(this.toString() + " annonce Carte");
 	}
-	
 
 	// calculer le point en fonction de la facon de compter et retourner le point de
 	// ce joueur
@@ -129,7 +128,7 @@ public abstract class Joueur {
 	}
 
 	public boolean aGagne() {
-		//boolean res;
+		// boolean res;
 		if (cartes.isEmpty()) {
 			return true;
 		} else {
@@ -142,9 +141,9 @@ public abstract class Joueur {
 		StringBuffer s = new StringBuffer();
 		s.append("Joueur ");
 		s.append(this.nom);
-		int nbCarte = this.cartes.size(); 
-		//s.append(" id ");
-		//s.append(this.id);
+		int nbCarte = this.cartes.size();
+		// s.append(" id ");
+		// s.append(this.id);
 		s.append(" " + nbCarte);
 		return s.toString();
 	}
@@ -157,7 +156,8 @@ public abstract class Joueur {
 	}
 
 	/**
-	 * @param point the point to set
+	 * @param point
+	 *            the point to set
 	 */
 	public void setPoint(int point) {
 		this.point = point;

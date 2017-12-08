@@ -11,7 +11,7 @@ public class StrategieSimple implements StrategieDeJoueur {
 		if (carteCandidate.isEmpty()) {
 			return null;
 		} else {
-			int position = (int) ((carteCandidate.size()-1) * Math.random());
+			int position = (int) ((carteCandidate.size() - 1) * Math.random());
 			Carte carteChoisit = carteCandidate.get(position);
 			carteCandidate.remove(position);
 			return carteChoisit;
@@ -24,9 +24,9 @@ public class StrategieSimple implements StrategieDeJoueur {
 		// TODO Auto-generated method stub
 
 	}
-	
+
 	public String toString() {
-    	return ("Strategie simples");
-    }
+		return ("Strategie simples");
+	}
 
 }

@@ -2,6 +2,7 @@
  * 
  */
 package carte;
+
 import java.util.*;
 
 /**
@@ -12,7 +13,7 @@ import java.util.*;
 public class TasDeCartePosee {
 	private LinkedList<Carte> cartePosee;
 
-	public TasDeCartePosee(){
+	public TasDeCartePosee() {
 		this.cartePosee = new LinkedList<Carte>();
 	}
 
@@ -24,13 +25,14 @@ public class TasDeCartePosee {
 	}
 
 	/**
-	 * @param cartePosee the cartePosee to set
+	 * @param cartePosee
+	 *            the cartePosee to set
 	 */
 	public void addCartePosee(Carte cartePosee) {
 		this.cartePosee.add(cartePosee);
 	}
-	
-	public void clearCartePosee(){
+
+	public void clearCartePosee() {
 		this.cartePosee.clear();
 	}
 }

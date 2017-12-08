@@ -3,8 +3,8 @@ package effet;
 import exception.SaisiNonValideException;
 import jeu.Jeu;
 
-public class Dire4 extends Effet{
-	
+public class Dire4 extends Effet {
+
 	public Dire4() {
 		super();
 		this.setNom("Dire 4");
@@ -12,9 +12,8 @@ public class Dire4 extends Effet{
 
 	@Override
 	public Jeu validerSuperpower(Jeu j) {
-		System.out.println(j.getJoueurActuel().toString()+" annonce 4");
+		System.out.println(j.getJoueurActuel().toString() + " annonce 4");
 		return j;
 	}
-	
 
 }

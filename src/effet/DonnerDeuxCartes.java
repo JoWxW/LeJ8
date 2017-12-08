@@ -67,6 +67,7 @@ public class DonnerDeuxCartes extends Effet {
 			info.append(" ]  ");
 			i++;
 		}
+		System.out.println(info.toString());
 		int position = j.validerUneSaisie("Veuillez choisir un joueur a penaliser(numero)", 0, joueurs.size() - 1);
 		return joueurs.get(position);
 	}

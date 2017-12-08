@@ -42,7 +42,7 @@ public class ChangerFormeArreterAttaqueCouleurFixe extends Effet {
 		if (myCartes.isEmpty()) {
 			jou.piocher(j.getCarteDepuisTas());
 		} else {
-			 carteChoisie = jou.poserUneCarte(myCartes, jou.getCartes());
+			carteChoisie = jou.poserUneCarte(myCartes, jou.getCartes());
 		}
 		j.getTasDeCartePosee().addCartePosee(carteChoisie);
 		j = carteChoisie.getEffectValide().validerSuperpower(j);

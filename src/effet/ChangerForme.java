@@ -17,17 +17,16 @@ import jeu.Jeu;
  * @author wxw
  *
  */
-public class ChangerForme extends Effet{
-	public ChangerForme(){
+public class ChangerForme extends Effet {
+	public ChangerForme() {
 		super();
 		this.setNom("Changer Forme");
 	}
-	
 
 	@Override
 	public Jeu validerSuperpower(Jeu j) {
 		this.declarer();
-		//C'est mieux de tranformer la couleur a ce que le joueur possede le plus
+		// C'est mieux de tranformer la couleur a ce que le joueur possede le plus
 		int nbPique = 0;
 		int nbCoeur = 0;
 		int nbCarreau = 0;
@@ -53,13 +52,12 @@ public class ChangerForme extends Effet{
 		}
 		int nbMax = choisirMax(nbPique, nbCoeur, nbCarreau, nbTrefle);
 		j.getCarteActuelle().setForme(Forme.values()[nbMax]);
-		//System.out.println("Frome est donc "+ Form.values()[nbMax].toString());
-		//j.renouvelerJouerActuel();
+		// System.out.println("Frome est donc "+ Form.values()[nbMax].toString());
+		// j.renouvelerJouerActuel();
 		return j;
-		
-		
+
 	}
-	
+
 	public int choisirMax(int a1, int a2, int a3, int a4) {
 		ArrayList<Integer> al = new ArrayList<Integer>();
 		al.add(a1);

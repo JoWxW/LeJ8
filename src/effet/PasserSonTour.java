@@ -11,13 +11,13 @@ import joueur.Joueur;
  * @author wxw
  *
  */
-public class PasserSonTour extends Effet{
+public class PasserSonTour extends Effet {
 
-	public PasserSonTour(){
+	public PasserSonTour() {
 		super();
 		this.setNom("Le joueur suivant passe son tour");
 	}
-	
+
 	@Override
 	public Jeu validerSuperpower(Jeu j) {
 		this.declarer();

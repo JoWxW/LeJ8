@@ -55,24 +55,22 @@ public class FairePiocher extends Effet {
 		}
 		if (carteCandidate.isEmpty()) {
 			System.out.println(jou.toString() + " doit piocher " + j.getNbCartePiocher() + " cartes");
-			/*if (!(j.aAssezDeCarte())) {
-				j.renouvelerTasDeCarteEnattente();
-			}
-			for (int i = 0; i < j.getNbCartePiocher(); i++) {
-				jou.piocher(j.getCarteDepuisTas());
-			}*/
+			/*
+			 * if (!(j.aAssezDeCarte())) { j.renouvelerTasDeCarteEnattente(); } for (int i =
+			 * 0; i < j.getNbCartePiocher(); i++) { jou.piocher(j.getCarteDepuisTas()); }
+			 */
 			j.joueurPiocher(nbPiocher);
 			j.setNbcartePiocher(0);
 
 		} else {
 			Carte c = jou.poserUneCarte(carteCandidate, jou.getCartes());
-			//jou.getCartes().remove(c);
+			// jou.getCartes().remove(c);
 			j.setCarteActuelle(c);
 			j.getTasDeCartePosee().addCartePosee(c);
 			j = c.getEffectValide().validerSuperpower(j);
 
 		}
-		//j.renouvelerJouerActuel();
+		// j.renouvelerJouerActuel();
 		return j;
 	}
 }

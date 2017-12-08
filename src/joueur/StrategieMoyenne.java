@@ -5,7 +5,8 @@ import java.util.*;
 import carte.Carte;
 
 public class StrategieMoyenne implements StrategieDeJoueur {
-	// selectionner la carte avec effet s'il y en a, sinon poser ce qui est de forme la plus frequente
+	// selectionner la carte avec effet s'il y en a, sinon poser ce qui est de forme
+	// la plus frequente
 
 	@Override
 	public Carte poser(LinkedList<Carte> carteCandidate, LinkedList<Carte> myCartes) {
@@ -42,20 +43,20 @@ public class StrategieMoyenne implements StrategieDeJoueur {
 				LinkedList<Carte> carteC = new LinkedList<Carte>();
 				carteC.addAll(carteCandidate);
 				int nbMax = choisirMax(nbPique, nbCoeur, nbCarreau, nbTrefle);
-				Iterator<Carte> ite = /*carteCandidate*/carteC.iterator();
+				Iterator<Carte> ite = /* carteCandidate */carteC.iterator();
 				while (ite.hasNext()) {
 					Carte c = ite.next();
 					if (c.getForme().getId() != nbMax) {
 						ite.remove();
 					}
 				}
-				if(!carteC.isEmpty()){
+				if (!carteC.isEmpty()) {
 					carteCandidate = carteC;
 				}
-				int position = (int) ((carteCandidate.size()-1) * Math.random());
+				int position = (int) ((carteCandidate.size() - 1) * Math.random());
 				return carteCandidate.get(position);
 			} else {
-				int position = (int) ((carteEffet.size()-1) * Math.random());
+				int position = (int) ((carteEffet.size() - 1) * Math.random());
 				return carteEffet.get(position);
 			}
 		}
@@ -69,15 +70,11 @@ public class StrategieMoyenne implements StrategieDeJoueur {
 	}
 
 	public int choisirMax(int a1, int a2, int a3, int a4) {
-		/*if (a >= b && a >= c && a >= d) {
-			return 0;
-		} else if (b > a && b >= c && b >= d) {
-			return 1;
-		} else if (c > a && c > b && c >= d) {
-			return 2;
-		} else {
-			return 3;
-		}*/
+		/*
+		 * if (a >= b && a >= c && a >= d) { return 0; } else if (b > a && b >= c && b
+		 * >= d) { return 1; } else if (c > a && c > b && c >= d) { return 2; } else {
+		 * return 3; }
+		 */
 
 		ArrayList<Integer> al = new ArrayList<Integer>();
 		al.add(a1);

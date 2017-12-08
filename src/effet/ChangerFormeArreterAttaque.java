@@ -10,12 +10,11 @@ import jeu.Jeu;
  * @author wxw
  *
  */
-public class ChangerFormeArreterAttaque extends Effet{
-	public ChangerFormeArreterAttaque(){
+public class ChangerFormeArreterAttaque extends Effet {
+	public ChangerFormeArreterAttaque() {
 		super();
 		this.setNom("Changer de forme et arr¨ºte les attaques");
 	}
-
 
 	@Override
 	public Jeu validerSuperpower(Jeu j) throws SaisiNonValideException {

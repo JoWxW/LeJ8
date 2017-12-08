@@ -35,13 +35,13 @@ public class JoueurPhysique extends Joueur {
 	public Carte poserUneCarte(LinkedList<Carte> carteCandidate, LinkedList<Carte> myCartes)
 			throws SaisiNonValideException {
 		listerCarteCandidate(carteCandidate);
-		//Scanner scanner = new Scanner(System.in);
+		// Scanner scanner = new Scanner(System.in);
 		System.out.println("Choisissez une carte a jouer(numero)");
-		
+
 		// get index par utilisateur(Exception pour une valeur non entier)
-		
+
 		int position = Jeu.getScanner().nextInt();
-		//scanner.close();
+		// scanner.close();
 		// ajouter une exception ou pas
 		if (position >= 0 && position <= carteCandidate.size() - 1) {
 			// out.close();
@@ -61,7 +61,7 @@ public class JoueurPhysique extends Joueur {
 		}
 
 	}
-	
+
 	public Effet choisirEffet(Carte carteChoisie) {
 		System.out.println("Cette carte a plusieurs effets");
 		Iterator<Effet> ie = carteChoisie.getEffet().iterator();
@@ -79,13 +79,13 @@ public class JoueurPhysique extends Joueur {
 		}
 		System.out.println(info.toString());
 		System.out.println("Veuillez choisir un effet(numero)");
-		//il faut verifier le saisi
+		// il faut verifier le saisi
 		int n = Jeu.getScanner().nextInt();
 		Effet effetValide = carteChoisie.getEffet().get(n);
 		return effetValide;
-		
+
 	}
-	
+
 	public void listerCarteCandidate(LinkedList<Carte> carteCandidate) {
 		Iterator<Carte> it = carteCandidate.iterator();
 		StringBuffer s = new StringBuffer();
@@ -101,8 +101,7 @@ public class JoueurPhysique extends Joueur {
 			i++;
 		}
 		System.out.println(s.toString());
-		
+
 	}
-	
 
 }

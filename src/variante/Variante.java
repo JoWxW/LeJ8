@@ -14,6 +14,7 @@ import carte.Carte;
 public abstract class Variante {
 	private String nom;
 	private String numero;
+
 	/**
 	 * @param nom
 	 * @param numero
@@ -22,9 +23,10 @@ public abstract class Variante {
 		this.nom = nom;
 		this.numero = numero;
 	}
-	
-	public Variante(){}
-	
+
+	public Variante() {
+	}
+
 	public abstract void addEffet(LinkedList<Carte> tas);
 
 	/**
@@ -35,7 +37,8 @@ public abstract class Variante {
 	}
 
 	/**
-	 * @param nom the nom to set
+	 * @param nom
+	 *            the nom to set
 	 */
 	public void setNom(String nom) {
 		this.nom = nom;
@@ -49,12 +52,11 @@ public abstract class Variante {
 	}
 
 	/**
-	 * @param numero the numero to set
+	 * @param numero
+	 *            the numero to set
 	 */
 	public void setNumero(String numero) {
 		this.numero = numero;
 	}
-	
-	
-	
+
 }

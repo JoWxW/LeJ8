@@ -6,12 +6,11 @@ import exception.SaisiNonValideException;
 import jeu.Jeu;
 import joueur.Joueur;
 
-public class FairePiocherSansRecours extends Effet {
+public class FairePiocherSansRecours extends FairePiocher {
 	private int nbCarte;
 
 	public FairePiocherSansRecours(int nbCarte) {
-		super();
-		this.setNbCarte(nbCarte);
+		super(nbCarte);
 		this.setNom("Faire piocher " + nbCarte + " cartes sans recours");
 
 	}
@@ -20,7 +19,9 @@ public class FairePiocherSansRecours extends Effet {
 	public Jeu validerSuperpower(Jeu j) {
 		this.declarer();
 		j.renouvelerJouerActuel();
-		j.joueurPiocher(nbCarte);
+		int nbAPiocher = j.getNbCartePiocher();
+		nbAPiocher += nbCarte;
+		j.joueurPiocher(nbAPiocher);
 		j.setNbcartePiocher(0);
 		return j;
 	}

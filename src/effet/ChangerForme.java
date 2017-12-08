@@ -3,6 +3,7 @@
  */
 package effet;
 
+import java.text.Normalizer.Form;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -52,6 +53,7 @@ public class ChangerForme extends Effet{
 		}
 		int nbMax = choisirMax(nbPique, nbCoeur, nbCarreau, nbTrefle);
 		j.getCarteActuelle().setForme(Forme.values()[nbMax]);
+		//System.out.println("Frome est donc "+ Form.values()[nbMax].toString());
 		//j.renouvelerJouerActuel();
 		return j;
 		

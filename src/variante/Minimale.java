@@ -2,6 +2,7 @@
  * 
  */
 package variante;
+
 import carte.*;
 import effet.*;
 import java.util.*;
@@ -10,24 +11,24 @@ import java.util.*;
  * @author wxw
  *
  */
-public class Minimale extends Variante{
-	public Minimale(){
+public class Minimale extends Variante {
+	public Minimale() {
 		super();
-		
+
 		this.setNom("Version Minimale");
 		this.setNumero("0");
 	}
-	
-	
-	public void addEffet(LinkedList<Carte> tas){
+
+	public void addEffet(LinkedList<Carte> tas) {
 		Effet fairePiocher = new FairePiocher(2);
 		Effet obligeRejouer = new ObligeRejouer();
 		Effet changerforme = new ChangerForme();
 		Effet nonEffet = new NonEffet();
 		Iterator<Carte> it = tas.iterator();
-		while(it.hasNext()){
+		while (it.hasNext()) {
 			Carte c = it.next();
-			switch(c.getValeur().getId()){
+			if (c.getEffet().size() == 0) {
+				switch (c.getValeur().getId()) {
 				case 2:
 					c.addEffet(fairePiocher);
 					c.setEffectValide(fairePiocher);
@@ -40,6 +41,7 @@ public class Minimale extends Variante{
 					c.addEffet(obligeRejouer);
 					c.setEffectValide(obligeRejouer);
 					break;
+				}
 			}
 		}
 	}

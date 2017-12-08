@@ -13,16 +13,15 @@ import effet.*;
  * @author wxw
  *
  */
-public class Monclar extends Variante{
-	public Monclar(){
+public class Monclar extends Variante {
+	public Monclar() {
 		super();
-		
+
 		this.setNom("Version Monclar");
 		this.setNumero("11");
 	}
-	
-	
-	public void addEffet(LinkedList<Carte> tas){
+
+	public void addEffet(LinkedList<Carte> tas) {
 		Effet obligeRejouer = new ObligeRejouer();
 		Effet passerSonTour = new PasserSonTour();
 		Effet changerSens = new ChangerSens();
@@ -31,9 +30,10 @@ public class Monclar extends Variante{
 		Effet changerFormeArreterAttaque = new ChangerFormeArreterAttaque();
 
 		Iterator<Carte> it = tas.iterator();
-		while(it.hasNext()){
+		while (it.hasNext()) {
 			Carte c = it.next();
-			switch(c.getValeur().getId()){
+			if (c.getEffet().size() == 0) {
+				switch (c.getValeur().getId()) {
 				case 10:
 					c.addEffet(obligeRejouer);
 					c.setEffectValide(obligeRejouer);
@@ -58,7 +58,8 @@ public class Monclar extends Variante{
 					c.addEffet(changerFormeArreterAttaque);
 					c.setEffectValide(changerFormeArreterAttaque);
 					break;
-				
+
+				}
 			}
 		}
 	}

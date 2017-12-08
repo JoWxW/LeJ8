@@ -66,7 +66,7 @@ public class FairePiocher extends Effet {
 
 		} else {
 			Carte c = jou.poserUneCarte(carteCandidate, jou.getCartes());
-			jou.getCartes().remove(c);
+			//jou.getCartes().remove(c);
 			j.setCarteActuelle(c);
 			j.getTasDeCartePosee().addCartePosee(c);
 			j = c.getEffectValide().validerSuperpower(j);

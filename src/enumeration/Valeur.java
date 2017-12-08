@@ -20,7 +20,8 @@ public enum Valeur {
 	DIX(10),
 	VALET(11),
 	DAME(12),
-	ROI(13);
+	ROI(13),
+	Joker(14);
 	
 	
 	

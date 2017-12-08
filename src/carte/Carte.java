@@ -4,8 +4,7 @@
 package carte;
 import java.util.ArrayList;
 
-import effet.Effet;
-import effet.NonEffet;
+import effet.*;
 import enumeration.*;
 
 /**
@@ -40,7 +39,14 @@ public class Carte {
 		this.effet = new ArrayList<Effet>();
 	}
 	
-	public Carte(){}
+	public Carte(){
+		this.etat = Etat.enAttend;
+		this.setValeur(valeur.values()[13]);
+		this.setForme(Forme.values()[4]);
+		this.effet = new ArrayList<Effet>();
+		Effet e = new ArreterAttaque();
+		this.addEffet(e);
+	}
 	
 
 	/**

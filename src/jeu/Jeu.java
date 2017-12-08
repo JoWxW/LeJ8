@@ -79,10 +79,15 @@ public class Jeu {
 			Jeu.setNombreDeJeux(this.validerUneSaisie(
 					"Combien de jeux de cartes voulez vous joueur? Veuilliez saisir '1' ou '2'.", 1, 2));
 			// toujours avec joker?
-			// Jeu.AVEC_JOKER = this.demandeUser("Voulez-vous ajouter les carte 'Joker'?
-			// Veuilliez saisir '1' pour oui ou '0' pour non.", scanner);
-			Jeu.setNombreDeJoueurs(
-					this.validerUneSaisie("Veuillez saisir le nombre de joueurs en total dans votre jeu.", 2, 8));
+			Jeu.setAvecJoker(this.validerUneSaisie(
+					"Voulez-vous ajouter les carte 'Joker'? Veuilliez saisir '1' pour oui ou '0' pour non.", 0, 1));
+			if (this.nombreDeJeux == 1) {
+				Jeu.setNombreDeJoueurs(
+						this.validerUneSaisie("Veuillez saisir le nombre de joueurs en total dans votre jeu.", 2, 6));
+			} else {
+				Jeu.setNombreDeJoueurs(
+						this.validerUneSaisie("Veuillez saisir le nombre de joueurs en total dans votre jeu.", 2, 12));
+			}
 			Jeu.setVersionDeVariante(this.validerUneSaisie("Veuillez choisir la version de variante.", 0, 16));
 			Jeu.setMethodeCompte(this.validerUneSaisie(
 					"Veuillez choisir le methode de compter, 1 pour compte positif, 0 pour compte negatif", 0, 1));
@@ -131,6 +136,9 @@ public class Jeu {
 			break;
 		case 11:
 			variante = new Monclar();
+			break;
+		case 1:
+			variante = new Variante1();
 			break;
 		}
 	}
@@ -329,28 +337,25 @@ public class Jeu {
 				System.out.println(this.getJoueurs());
 				nb++;
 				joueurJoueUnTour();
-				/*LinkedList<Carte> carteCandidate = this.getJoueurActuel().getCarteCandidate(this.getCarteActuelle());
-				System.out.println("------Carte Acteulle------" + this.carteActuelle);
-				if (carteCandidate.size() == 0) {
-					this.getJoueurActuel().piocher(this.getCarteDepuisTas());
-					System.out.println(this.getJoueurActuel().toString() + " pioche");
-				} else {
-					try {
-						// verifier si la carte est bonne(pas besoin alors)
-						Carte c = this.getJoueurActuel().poserUneCarte(carteCandidate,
-								this.getJoueurActuel().getCartes());
-						// jeu.getJoueurActuel().getCartes().remove(c);
-						System.out.println(this.getJoueurActuel().toString() + " pose " + c.toString());
-						this.setCarteActuelle(c);
-						this.getTasDeCartePosee().addCartePosee(c);
-						// zhege juzi keneng youwenti
-						c.getEffectValide().validerSuperpower(this);
-						System.out.println(" ÷≈∆£∫ " + this.joueurActuel.getCartes());
-
-					} catch (SaisiNonValideException e) {
-						e.printStackTrace();
-					}
-				}*/
+				/*
+				 * LinkedList<Carte> carteCandidate =
+				 * this.getJoueurActuel().getCarteCandidate(this.getCarteActuelle());
+				 * System.out.println("------Carte Acteulle------" + this.carteActuelle); if
+				 * (carteCandidate.size() == 0) {
+				 * this.getJoueurActuel().piocher(this.getCarteDepuisTas());
+				 * System.out.println(this.getJoueurActuel().toString() + " pioche"); } else {
+				 * try { // verifier si la carte est bonne(pas besoin alors) Carte c =
+				 * this.getJoueurActuel().poserUneCarte(carteCandidate,
+				 * this.getJoueurActuel().getCartes()); //
+				 * jeu.getJoueurActuel().getCartes().remove(c);
+				 * System.out.println(this.getJoueurActuel().toString() + " pose " +
+				 * c.toString()); this.setCarteActuelle(c);
+				 * this.getTasDeCartePosee().addCartePosee(c); // zhege juzi keneng youwenti
+				 * c.getEffectValide().validerSuperpower(this); System.out.println(" ÷≈∆£∫ " +
+				 * this.joueurActuel.getCartes());
+				 * 
+				 * } catch (SaisiNonValideException e) { e.printStackTrace(); } }
+				 */
 				this.renouvelerJouerActuel();
 			} else {
 				this.renouvelerTasDeCarteEnattente();
@@ -367,7 +372,7 @@ public class Jeu {
 		// System.out.println(jeu.get);
 
 	}
-	
+
 	public void joueurJoueUnTour() {
 		LinkedList<Carte> carteCandidate = this.getJoueurActuel().getCarteCandidate(this.getCarteActuelle());
 		System.out.println("------Carte Acteulle------" + this.carteActuelle);
@@ -377,8 +382,7 @@ public class Jeu {
 		} else {
 			try {
 				// verifier si la carte est bonne(pas besoin alors)
-				Carte c = this.getJoueurActuel().poserUneCarte(carteCandidate,
-						this.getJoueurActuel().getCartes());
+				Carte c = this.getJoueurActuel().poserUneCarte(carteCandidate, this.getJoueurActuel().getCartes());
 				// jeu.getJoueurActuel().getCartes().remove(c);
 				System.out.println(this.getJoueurActuel().toString() + " pose " + c.toString());
 				this.setCarteActuelle(c);

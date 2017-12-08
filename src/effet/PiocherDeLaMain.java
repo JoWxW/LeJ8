@@ -17,6 +17,9 @@ public class PiocherDeLaMain extends Effet{
 
 	@Override
 	public Jeu validerSuperpower(Jeu j) {
+		if(j.getJoueurActuel().getCartes().size()==0) {
+			return j;
+		}
 		LinkedList<Carte> myTasDeCarte = j.getJoueurActuel().getCartes();
 		int position = (int)((myTasDeCarte.size()-1)*Math.random());
 		Carte c = myTasDeCarte.get(position);

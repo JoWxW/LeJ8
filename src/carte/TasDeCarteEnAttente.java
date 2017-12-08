@@ -21,12 +21,12 @@ public class TasDeCarteEnAttente {
 	//public final static int avecJoker = 1;
 	
 	
-	private int NOMBRE_DE_CARTES;
+	private int nbDeCarte;
 	private LinkedList<Carte> carteEnAttente;
 
 
 	public TasDeCarteEnAttente(){
-		this.NOMBRE_DE_CARTES = Jeu.getNombreDeJeux()*(TasDeCarteEnAttente.sizeFormes*TasDeCarteEnAttente.sizeValeurs + Jeu.getAvecJoker()*2);
+		this.nbDeCarte = Jeu.getNombreDeJeux()*(52 + Jeu.getAvecJoker()*2);
 		this.carteEnAttente = new LinkedList<Carte>();
 		if(Jeu.getAvecJoker() == 1){
 			Carte j = new Carte();
@@ -35,8 +35,10 @@ public class TasDeCarteEnAttente {
 		}
 		
 		//锟斤拷师锟斤拷锟斤拷锟狡硷拷锟斤拷锟斤拷锟斤拷锟绞斤拷锟絝or循锟斤拷锟斤拷锟斤拷说锟斤拷visible
-		for(Forme f : Forme.values()){
-			for(Valeur v : Valeur.values()){
+		for(int i = 0;i<4;i++){
+			for(int j = 0;j<13;j++){
+				Valeur v = Valeur.values()[j];
+				Forme f = Forme.values()[i];
 				Carte c = new Carte(f, v);
 				this.carteEnAttente.add(c);
 			}
@@ -47,7 +49,7 @@ public class TasDeCarteEnAttente {
 	}
 	
 	public int getNOMBRE_DE_CARTES(){
-		return this.NOMBRE_DE_CARTES;
+		return this.nbDeCarte;
 	}
 	
 	public int getTailleDeTas(){
@@ -64,8 +66,8 @@ public class TasDeCarteEnAttente {
 	}
 	
 	public void melanger(){
-		for(int i=0; i<this.NOMBRE_DE_CARTES; i++){
-			int position = (int)Math.round((Math.random()*(this.NOMBRE_DE_CARTES - 1)));
+		for(int i=0; i<this.nbDeCarte; i++){
+			int position = (int)Math.round((Math.random()*(this.nbDeCarte - 1)));
 			Carte c = this.carteEnAttente.pop();
 			this.carteEnAttente.add(position, c);
 		}
@@ -85,6 +87,6 @@ public class TasDeCarteEnAttente {
 		//System.out.println(c.toString());
 		TasDeCarteEnAttente tdc = new TasDeCarteEnAttente();
 		tdc.melanger();
-		System.out.println(tdc.toString());
+		System.out.println(tdc.getTailleDeTas()+tdc.toString());
 	}
 }

@@ -64,7 +64,9 @@ public abstract class Joueur {
 	}
 
 	// poser une carte, il faut redefinir dans la classe fille
-	public void poser() {
+	public void poserUneCarte(Carte c) {
+		this.getCartes().remove(c);
+		
 	}
 
 	//
@@ -78,6 +80,7 @@ public abstract class Joueur {
 	public void annoncer() {
 		System.out.println(this.toString()+ " annonce Carte");
 	}
+	
 
 	// calculer le point en fonction de la facon de compter et retourner le point de
 	// ce joueur

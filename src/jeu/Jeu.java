@@ -39,7 +39,7 @@ public class Jeu {
 	 * LinkedList<Joueur> joueursGagne; private Joueur joueurActuel; private int
 	 * nbCartePiocher; private Carte carteActuel; private boolean jeuEnCours;
 	 */
-	
+
 	// compte point: 1 positive,0 negatif
 	private static int nombreDeJeux;
 	private static int nombreDeJoueurs;
@@ -71,8 +71,6 @@ public class Jeu {
 		}
 		return jeu;
 	}
-	
-	
 
 	public void paramtrerJeu() {
 		// Exception
@@ -143,6 +141,14 @@ public class Jeu {
 		setVariante(versionDeVariante);
 		variante.addEffet(tasDeCarteEnAttente.getTasDeCarte());
 		tasDeCartePosee = new TasDeCartePosee();
+		initialiserJoueurs();
+		distribuerCarte();
+		System.out.println("On a distrribue toutes les carte, c'est parti!");
+		System.out.println("La carte actuelle est" + carteActuelle.toString());
+		System.out.println("La joueur actuel est" + joueurActuel.toString());
+	}
+
+	public void initialiserJoueurs() {
 		joueurs = new ArrayList<Joueur>();
 		for (int i = 0; i < Jeu.getNombreDeJoueurs() - 1; i++) {
 			JoueurVirtuel j = new JoueurVirtuel("jv" + i, "Joueur " + i, Jeu.getDifficulte());
@@ -152,10 +158,7 @@ public class Jeu {
 		jp.setId("jp");
 		jp.setNom("wxw");
 		joueurs.add(jp);
-		distribuerCarte();
-		System.out.println("On a distrribue toutes les carte, c'est parti!");
-		System.out.println("La carte actuelle est" + carteActuelle.toString());
-		System.out.println("La joueur actuel est" + joueurActuel.toString());
+
 	}
 
 	// detetminer la premiere carte dans la carte actuelle
@@ -191,7 +194,7 @@ public class Jeu {
 		}
 		return res;
 	}
-	
+
 	public void joueurPiocher(int nbCarte) {
 		Joueur jou = this.getJoueurActuel();
 		if (this.getTasDeCarteEnAttente().getTailleDeTas() < nbCarte) {
@@ -213,27 +216,16 @@ public class Jeu {
 				}
 			}
 		} else {
-			if(this.joueursGagne.size()>2){
+			if (this.joueursGagne.size() > 2) {
 				res = true;
 			}
-			//boolean res = false;
-			/*Iterator<Joueur> it = joueurs.iterator();
-			int nbGagne = 0;
-			int place = 1;
-			while (it.hasNext()) {
-				Joueur j = it.next();
-				if (j.aGagne()) {
-					nbGagne++;
-					j.setPlace(place);
-					System.out.println(j.toString()+"est de place " + place);
-					place +=1;
-				}
-			}
-			if (nbGagne >= 3) {
-				return true;
-			} else {
-				return false;
-			}*/
+			// boolean res = false;
+			/*
+			 * Iterator<Joueur> it = joueurs.iterator(); int nbGagne = 0; int place = 1;
+			 * while (it.hasNext()) { Joueur j = it.next(); if (j.aGagne()) { nbGagne++;
+			 * j.setPlace(place); System.out.println(j.toString()+"est de place " + place);
+			 * place +=1; } } if (nbGagne >= 3) { return true; } else { return false; }
+			 */
 		}
 		return res;
 	}
@@ -250,32 +242,29 @@ public class Jeu {
 
 	public void compterPoint() {
 		System.out.println("Point des joueurs");
-		/*Iterator<Joueur> it = joueurs.iterator();
-		while (it.hasNext()) {
-			Joueur j = it.next();
-			System.out.println(j.toString() + " : " + j.calculerPoint());
-		}*/
-		if(Jeu.methodeCompte == 0){
+		/*
+		 * Iterator<Joueur> it = joueurs.iterator(); while (it.hasNext()) { Joueur j =
+		 * it.next(); System.out.println(j.toString() + " : " + j.calculerPoint()); }
+		 */
+		if (Jeu.methodeCompte == 0) {
 			Iterator<Joueur> it = joueurs.iterator();
 			while (it.hasNext()) {
 				Joueur j = it.next();
 				System.out.println(j.toString() + " : " + j.calculerPoint());
 			}
-		}else{
+		} else {
 			this.joueursGagne.get(0).setPoint(50);
 			this.joueursGagne.get(1).setPoint(20);
 			this.joueursGagne.get(2).setPoint(10);
 			StringBuffer sb = new StringBuffer();
 			Iterator<Joueur> it = this.joueursGagne.iterator();
-			while(it.hasNext()){
+			while (it.hasNext()) {
 				Joueur j = it.next();
 				sb.append(j.getNom() + " : " + j.getPoint() + " points\n");
 			}
 			System.out.println(sb);
 		}
 	}
-
-
 
 	/*
 	 * public void setCarteActuel(Carte c){ this.carteActuel = c; } public Carte
@@ -291,7 +280,7 @@ public class Jeu {
 		int i = joueurs.indexOf(joueurActuel);
 		int nbJoueurTotal = this.joueurs.size();
 		if (croissante == true) {
-			if (i + 1 < nbJoueurTotal/*Jeu.getNombreDeJoueurs()*/) {
+			if (i + 1 < nbJoueurTotal/* Jeu.getNombreDeJoueurs() */) {
 				this.joueurActuel = joueurs.get(i + 1);
 			} else {
 				this.joueurActuel = joueurs.get(0);
@@ -301,21 +290,21 @@ public class Jeu {
 			if (i - 1 >= 0) {
 				this.joueurActuel = joueurs.get(i - 1);
 			} else {
-				this.joueurActuel = joueurs.get(nbJoueurTotal/*Jeu.nombreDeJoueurs*/ - 1);
+				this.joueurActuel = joueurs.get(nbJoueurTotal/* Jeu.nombreDeJoueurs */ - 1);
 			}
 		}
 	}
-	
+
 	public void renouvelerTasDeCarteEnattente() {
 		this.getTasDeCarteEnAttente().addCartesPosees(this.getTasDeCartePosee());
 		this.getTasDeCartePosee().clearCartePosee();
 	}
-	
+
 	public void derouler() {
 		this.paramtrerJeu();
 		this.initialiser();
 		Iterator<Joueur> itJ = this.joueurs.iterator();
-		while(itJ.hasNext()){
+		while (itJ.hasNext()) {
 			Joueur ja = itJ.next();
 			System.out.println(ja.getCartes());
 		}
@@ -323,14 +312,14 @@ public class Jeu {
 
 		while ((!this.jeuTermine())) {
 			Iterator<Joueur> it = this.joueurs.iterator();
-			while(it.hasNext()){
+			while (it.hasNext()) {
 				Joueur j = it.next();
-				if(j.aGagne()){
+				if (j.aGagne()) {
 					this.joueursGagne.add(j);
 					it.remove();
 				}
 			}
-			if(this.joueurs.size() == 1){
+			if (this.joueurs.size() == 1) {
 				this.joueursGagne.add(this.joueurs.get(0));
 				break;
 			}
@@ -339,7 +328,8 @@ public class Jeu {
 				System.out.println("C'est le tour " + nb);
 				System.out.println(this.getJoueurs());
 				nb++;
-				LinkedList<Carte> carteCandidate = this.getJoueurActuel().getCarteCandidate(this.getCarteActuelle());
+				joueurJoueUnTour();
+				/*LinkedList<Carte> carteCandidate = this.getJoueurActuel().getCarteCandidate(this.getCarteActuelle());
 				System.out.println("------Carte Acteulle------" + this.carteActuelle);
 				if (carteCandidate.size() == 0) {
 					this.getJoueurActuel().piocher(this.getCarteDepuisTas());
@@ -349,35 +339,59 @@ public class Jeu {
 						// verifier si la carte est bonne(pas besoin alors)
 						Carte c = this.getJoueurActuel().poserUneCarte(carteCandidate,
 								this.getJoueurActuel().getCartes());
-						//jeu.getJoueurActuel().getCartes().remove(c);
+						// jeu.getJoueurActuel().getCartes().remove(c);
 						System.out.println(this.getJoueurActuel().toString() + " pose " + c.toString());
 						this.setCarteActuelle(c);
 						this.getTasDeCartePosee().addCartePosee(c);
-						//zhege juzi keneng youwenti
+						// zhege juzi keneng youwenti
 						c.getEffectValide().validerSuperpower(this);
 						System.out.println(" ÷≈∆£∫ " + this.joueurActuel.getCartes());
 
 					} catch (SaisiNonValideException e) {
 						e.printStackTrace();
 					}
-				}
+				}*/
 				this.renouvelerJouerActuel();
 			} else {
 				this.renouvelerTasDeCarteEnattente();
 
 			}
 			this.annoncer();
-			System.out.println("nombre en attente"+this.getTasDeCarteEnAttente().getTailleDeTas());
+			System.out.println("nombre en attente" + this.getTasDeCarteEnAttente().getTailleDeTas());
 			System.out.println("nombre de carte posee" + this.getTasDeCartePosee().getCartePosee().size());
 		}
 		this.compterPoint();
 		Jeu.getScanner().close();
 
-		//jeu.initialiserJeu();
-		//System.out.println(jeu.get);
+		// jeu.initialiserJeu();
+		// System.out.println(jeu.get);
 
 	}
 	
+	public void joueurJoueUnTour() {
+		LinkedList<Carte> carteCandidate = this.getJoueurActuel().getCarteCandidate(this.getCarteActuelle());
+		System.out.println("------Carte Acteulle------" + this.carteActuelle);
+		if (carteCandidate.size() == 0) {
+			this.getJoueurActuel().piocher(this.getCarteDepuisTas());
+			System.out.println(this.getJoueurActuel().toString() + " pioche");
+		} else {
+			try {
+				// verifier si la carte est bonne(pas besoin alors)
+				Carte c = this.getJoueurActuel().poserUneCarte(carteCandidate,
+						this.getJoueurActuel().getCartes());
+				// jeu.getJoueurActuel().getCartes().remove(c);
+				System.out.println(this.getJoueurActuel().toString() + " pose " + c.toString());
+				this.setCarteActuelle(c);
+				this.getTasDeCartePosee().addCartePosee(c);
+				// zhege juzi keneng youwenti
+				c.getEffectValide().validerSuperpower(this);
+				System.out.println(" ÷≈∆£∫ " + this.joueurActuel.getCartes());
+
+			} catch (SaisiNonValideException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 
 	// setter et getter
 	public boolean isJeuEnCours() {
@@ -400,10 +414,10 @@ public class Jeu {
 		Carte c = this.tasDeCarteEnAttente.getCarte();
 		return c;
 	}
-	
+
 	public boolean aAssezDeCarte() {
 		boolean res = true;
-		if(this.getNbCartePiocher()>this.getTasDeCarteEnAttente().getTailleDeTas()) {
+		if (this.getNbCartePiocher() > this.getTasDeCarteEnAttente().getTailleDeTas()) {
 			res = false;
 		}
 		return res;

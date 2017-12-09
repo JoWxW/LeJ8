@@ -3,13 +3,13 @@ travails a faire:
 
 1. d'autres version de variante a ajouter
    a) quelle version a realiser 
-   b) on distingue le processus de jeu simple et on cree certaines classes filles pour les processus specials 
 2. exception a ajouter (C'est fait)
 3. patrons de conception: Observateur 
 4. compter le point(C'est fait)
-5. quand on set la place, on a pas  distingue les gagnant dans le meme tour
-6. joker
-
+5. quand on set la place, on a pas  distingue les gagnant dans le meme tour (C'est fait)
+6. joker(C'est fait)
+7. distribuer les cartes selon le nombre de joueurs et le nombre de jeux
+8. Ajouter un attribut de type "daiding" au joueur pour annoncer
 
 question a discuter:
 

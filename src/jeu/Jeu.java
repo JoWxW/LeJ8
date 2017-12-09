@@ -140,6 +140,8 @@ public class Jeu {
 		case 1:
 			variante = new Variante1();
 			break;
+		case 5:
+			variante = new Variante5();
 		}
 	}
 
@@ -285,6 +287,7 @@ public class Jeu {
 	 * ca675586e93af1bb5753feb2ea35e89104768ce5 } }
 	 */
 	public void renouvelerJouerActuel() {
+		this.getJoueurActuel().annoncer();
 		int i = joueurs.indexOf(joueurActuel);
 		int nbJoueurTotal = this.joueurs.size();
 		if (croissante == true) {
@@ -361,7 +364,7 @@ public class Jeu {
 				this.renouvelerTasDeCarteEnattente();
 
 			}
-			this.annoncer();
+			//this.annoncer();
 			System.out.println("nombre en attente" + this.getTasDeCarteEnAttente().getTailleDeTas());
 			System.out.println("nombre de carte posee" + this.getTasDeCartePosee().getCartePosee().size());
 		}
@@ -389,7 +392,7 @@ public class Jeu {
 				this.getTasDeCartePosee().addCartePosee(c);
 				// zhege juzi keneng youwenti
 				c.getEffectValide().validerSuperpower(this);
-				System.out.println(" ÷≈∆£∫ " + this.joueurActuel.getCartes());
+				System.out.println("Carte a la main£∫ " + this.joueurActuel.getCartes());
 
 			} catch (SaisiNonValideException e) {
 				e.printStackTrace();

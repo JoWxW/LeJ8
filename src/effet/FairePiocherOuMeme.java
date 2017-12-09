@@ -33,7 +33,7 @@ public class FairePiocherOuMeme extends FairePiocher{
 		Iterator<Carte> it = carteDeJoueur.iterator();
 		while (it.hasNext()) {
 			Carte c = it.next();
-			if(c.getValeur() == ca.getValeur()){
+			if(c.getValeur() == ca.getValeur()||c.getValeur().getId()==8){
 				carteCandidate.add(c);
 			}
 		}

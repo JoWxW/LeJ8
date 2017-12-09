@@ -78,22 +78,19 @@ public abstract class Joueur {
 	// annoncer carte ou contre carte
 	//
 	public void annoncer() {
-		System.out.println(this.toString() + " annonce Carte");
+		if (this.getCartes().size() == 1) {
+			System.out.println(this.toString() + " annonce Carte");
+		}
 	}
 
 	// calculer le point en fonction de la facon de compter et retourner le point de
 	// ce joueur
 	// compte positif comme mode1,compte negatif comme mode0
 	public int calculerPoint() {
-		/*if (Jeu.getMethodeCompte() == 1) {
-			if (place == 1) {
-				point += 50;
-			} else if (place == 2) {
-				point += 20;
-			} else if (place == 3) {
-				point += 10;
-			}
-		} else*/ if (Jeu.getMethodeCompte() == 0) {
+		/*
+		 * if (Jeu.getMethodeCompte() == 1) { if (place == 1) { point += 50; } else if
+		 * (place == 2) { point += 20; } else if (place == 3) { point += 10; } } else
+		 */ if (Jeu.getMethodeCompte() == 0) {
 			Iterator<Carte> it = cartes.iterator();
 			while (it.hasNext()) {
 				Carte myCarte = it.next();

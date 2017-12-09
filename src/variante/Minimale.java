@@ -30,16 +30,13 @@ public class Minimale extends Variante {
 			if (c.getEffet().size() == 0) {
 				switch (c.getValeur().getId()) {
 				case 2:
-					c.addEffet(fairePiocher);
-					c.setEffectValide(fairePiocher);
+					c.addEffetVariante(fairePiocher);
 					break;
 				case 8:
-					c.addEffet(changerforme);
-					c.setEffectValide(changerforme);
+					c.addEffetVariante(changerforme);
 					break;
 				case 10:
-					c.addEffet(obligeRejouer);
-					c.setEffectValide(obligeRejouer);
+					c.addEffetVariante(obligeRejouer);
 					break;
 				}
 			}

@@ -35,55 +35,43 @@ public class Variante1 extends Variante {
 			if (c.getEffet().size() == 0) {
 				switch (c.getValeur().getId()) {
 				case 2:
-					c.addEffet(fairePiocher2);
-					c.setEffectValide(fairePiocher2);
+					c.addEffetVariante(fairePiocher2);
 					break;
 				case 10:
-					c.addEffet(obligeReJouer);
-					c.setEffectValide(obligeReJouer);
+					c.addEffetVariante(obligeReJouer);
 					break;
 				case 7:
-					c.addEffet(passerSonTour);
-					c.setEffectValide(passerSonTour);
+					c.addEffetVariante(passerSonTour);
 					break;
 				case 11:
-					c.addEffet(changerSens);
-					c.setEffectValide(changerSens);
+					c.addEffetVariante(changerSens);
 					break;
 				case 12:
 				case 13:
-					c.addEffet(roiEtDame);
-					c.setEffectValide(roiEtDame);
+					c.addEffetVariante(roiEtDame);
 					break;
 				case 6:
-					c.addEffet(fairePiocher1);
-					c.setEffectValide(fairePiocher1);
+					c.addEffetVariante(fairePiocher1);
 					break;
 				case 9:
-					c.addEffet(piocherDeLaMain);
-					c.setEffectValide(piocherDeLaMain);
+					c.addEffetVariante(piocherDeLaMain);
 					break;
 				case 1:
-					c.addEffet(donnerDeuxCartes);
-					c.setEffectValide(donnerDeuxCartes);
+					c.addEffetVariante(donnerDeuxCartes);
 					break;
 				case 4:
-					c.addEffet(dire4);
-					c.setEffectValide(dire4);
+					c.addEffetVariante(dire4);
 					break;
 				case 5:
-					c.addEffet(effetDe5);
-					c.setEffectValide(effetDe5);
+					c.addEffetVariante(effetDe5);
 					break;
 				case 3:
 					if (c.getForme().getId() == 1) {
-						c.addEffet(passerMonTourAGauche);
-						c.setEffectValide(passerMonTourAGauche);
+						c.addEffetVariante(passerMonTourAGauche);
 					}
 					break;
 				case 8:
-					c.addEffet(changerForme);
-					c.setEffectValide(changerForme);
+					c.addEffetVariante(changerForme);
 					break;
 				}
 			}

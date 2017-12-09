@@ -35,28 +35,22 @@ public class Monclar extends Variante {
 			if (c.getEffet().size() == 0) {
 				switch (c.getValeur().getId()) {
 				case 10:
-					c.addEffet(obligeRejouer);
-					c.setEffectValide(obligeRejouer);
+					c.addEffetVariante(obligeRejouer);
 					break;
 				case 7:
-					c.addEffet(passerSonTour);
-					c.setEffectValide(passerSonTour);
+					c.addEffetVariante(passerSonTour);
 					break;
 				case 11:
-					c.addEffet(changerSens);
-					c.setEffectValide(changerSens);
+					c.addEffetVariante(changerSens);
 					break;
 				case 9:
-					c.addEffet(fairePiocherSansRecours);
-					c.setEffectValide(fairePiocherSansRecours);
+					c.addEffetVariante(fairePiocherSansRecours);
 					break;
 				case 1:
-					c.addEffet(fairePiocher);
-					c.setEffectValide(fairePiocher);
+					c.addEffetVariante(fairePiocher);
 					break;
 				case 8:
-					c.addEffet(changerFormeArreterAttaque);
-					c.setEffectValide(changerFormeArreterAttaque);
+					c.addEffetVariante(changerFormeArreterAttaque);
 					break;
 
 				}

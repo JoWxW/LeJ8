@@ -25,7 +25,7 @@ public class Variante1 extends Variante {
 		PiocherDeLaMain piocherDeLaMain = new PiocherDeLaMain();
 		DonnerDeuxCartes donnerDeuxCartes = new DonnerDeuxCartes();
 		Dire4 dire4 = new Dire4();
-		ChangerFormeArreterAttaqueCouleurFixe effetDe5 = new ChangerFormeArreterAttaqueCouleurFixe();
+		ArreterAttaque effetDe5 = new ArreterAttaque();
 		PasserMonTourAGauche passerMonTourAGauche = new PasserMonTourAGauche();
 		ChangerForme changerForme = new ChangerForme();
 

@@ -83,7 +83,7 @@ public class Jeu {
 					"Voulez-vous ajouter les carte 'Joker'? Veuilliez saisir '1' pour oui ou '0' pour non.", 0, 1));
 			if (this.nombreDeJeux == 1) {
 				Jeu.setNombreDeJoueurs(
-						this.validerUneSaisie("Veuillez saisir le nombre de joueurs en total dans votre jeu.", 2, 6));
+						this.validerUneSaisie("Veuillez saisir le nombre de joueurs en total dans votre jeu.", 2, 8));
 			} else {
 				Jeu.setNombreDeJoueurs(
 						this.validerUneSaisie("Veuillez saisir le nombre de joueurs en total dans votre jeu.", 2, 12));
@@ -164,9 +164,7 @@ public class Jeu {
 			JoueurVirtuel j = new JoueurVirtuel("jv" + i, "Joueur " + i, Jeu.getDifficulte());
 			joueurs.add(j);
 		}
-		JoueurPhysique jp = new JoueurPhysique();
-		jp.setId("jp");
-		jp.setNom("wxw");
+		JoueurPhysique jp = new JoueurPhysique("jp","wxw");
 		joueurs.add(jp);
 
 	}
@@ -198,8 +196,38 @@ public class Jeu {
 
 	public boolean distributionEstTerminee() {
 		boolean res = false;
+		int nbCarte = 8;
+		if (Jeu.getNombreDeJoueurs() == 2) {
+			switch (Jeu.getNombreDeJeux()) {
+			case 1:
+				nbCarte = 10;
+				break;
+			case 2:
+				nbCarte = 15;
+				break;
+			}
+		} else if (Jeu.getNombreDeJoueurs() == 3) {
+			switch (Jeu.getNombreDeJeux()) {
+			case 1:
+				nbCarte = 8;
+				break;
+			case 2:
+				nbCarte = 12;
+				break;
+			}
+		} else {
+			switch (Jeu.getNombreDeJeux()) {
+			case 1:
+				nbCarte = 6;
+				break;
+			case 2:
+				nbCarte = 9;
+				break;
+			}
+
+		}
 		Joueur j = joueurs.get(Jeu.getNombreDeJoueurs() - 1);
-		if (j.getCartes().size() == 8) {
+		if (j.getCartes().size() == nbCarte) {
 			res = true;
 		}
 		return res;
@@ -287,7 +315,7 @@ public class Jeu {
 	 * ca675586e93af1bb5753feb2ea35e89104768ce5 } }
 	 */
 	public void renouvelerJouerActuel() {
-		this.getJoueurActuel().annoncer();
+		this.getJoueurActuel().getMyAction().agir(this.getJoueurActuel());
 		int i = joueurs.indexOf(joueurActuel);
 		int nbJoueurTotal = this.joueurs.size();
 		if (croissante == true) {
@@ -364,7 +392,7 @@ public class Jeu {
 				this.renouvelerTasDeCarteEnattente();
 
 			}
-			//this.annoncer();
+			// this.annoncer();
 			System.out.println("nombre en attente" + this.getTasDeCarteEnAttente().getTailleDeTas());
 			System.out.println("nombre de carte posee" + this.getTasDeCartePosee().getCartePosee().size());
 		}

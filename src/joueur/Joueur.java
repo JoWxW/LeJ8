@@ -9,12 +9,16 @@ import jeu.*;
 
 import java.util.*;
 
+import action.Action;
+import action.NoAction;
+
 public abstract class Joueur {
 
 	private String id;
 	private int point = 0;
 	private String nom;
 	private int place = 0;
+	private Action myAction;
 	// carte a la main(diagramme de classe)
 	private LinkedList<Carte> cartes = new LinkedList<Carte>();
 	private LinkedList<Carte> carteCandidate = new LinkedList<Carte>();
@@ -25,6 +29,7 @@ public abstract class Joueur {
 	public Joueur(String id, String nom) {
 		this.setId(id);
 		this.setNom(nom);
+		setMyAction(new NoAction());
 	}
 
 	// piocher une carte
@@ -186,6 +191,14 @@ public abstract class Joueur {
 
 	public int getPlace() {
 		return this.place;
+	}
+
+	public Action getMyAction() {
+		return myAction;
+	}
+
+	public void setMyAction(Action myAction) {
+		this.myAction = myAction;
 	}
 
 }

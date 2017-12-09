@@ -160,4 +160,8 @@ public class Carte {
 	public void setEffectValide(Effet effectValide) {
 		this.effectValide = effectValide;
 	}
+	public void addEffetVariante(Effet e){
+		this.addEffet(e);
+		this.setEffectValide(e);
+	}
 }

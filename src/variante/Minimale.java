@@ -20,10 +20,10 @@ public class Minimale extends Variante {
 	}
 
 	public void addEffet(LinkedList<Carte> tas) {
-		Effet fairePiocher = new FairePiocher(2);
-		Effet obligeRejouer = new ObligeRejouer();
-		Effet changerforme = new ChangerForme();
-		Effet nonEffet = new NonEffet();
+		FairePiocher fairePiocher = new FairePiocher(2);
+		ObligeRejouer obligeRejouer = new ObligeRejouer();
+		ChangerForme changerforme = new ChangerForme();
+		//NonEffet nonEffet = new NonEffet();
 		Iterator<Carte> it = tas.iterator();
 		while (it.hasNext()) {
 			Carte c = it.next();

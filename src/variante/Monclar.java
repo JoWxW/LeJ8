@@ -22,12 +22,12 @@ public class Monclar extends Variante {
 	}
 
 	public void addEffet(LinkedList<Carte> tas) {
-		Effet obligeRejouer = new ObligeRejouer();
-		Effet passerSonTour = new PasserSonTour();
-		Effet changerSens = new ChangerSens();
-		Effet fairePiocherSansRecours = new FairePiocherSansRecours(1);
-		Effet fairePiocher = new FairePiocher(3);
-		Effet changerFormeArreterAttaque = new ChangerFormeArreterAttaque();
+		ObligeRejouer obligeRejouer = new ObligeRejouer();
+		PasserSonTour passerSonTour = new PasserSonTour();
+		ChangerSens changerSens = new ChangerSens();
+		FairePiocherSansRecours fairePiocherSansRecours = new FairePiocherSansRecours(1);
+		FairePiocher fairePiocher = new FairePiocher(3);
+		ChangerFormeArreterAttaque changerFormeArreterAttaque = new ChangerFormeArreterAttaque();
 
 		Iterator<Carte> it = tas.iterator();
 		while (it.hasNext()) {

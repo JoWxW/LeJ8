@@ -3,58 +3,38 @@
  */
 package effet;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 
 import carte.Carte;
 import exception.SaisiNonValideException;
-//import joueur.*;
-//import carte.*;
-import jeu.*;
+import jeu.Jeu;
 import joueur.Joueur;
 
 /**
  * @author wxw
  *
  */
-public class FairePiocher extends Effet {
-	private int nbCarte;
-
-	public FairePiocher(int nbCarte) {
-		this.nbCarte = nbCarte;
-		this.setNom("Faire piocher" + nbCarte + " cartes");
-	}
-
-	public void effectuer(Jeu j) {
-		int nbPiocher = j.getNbCartePiocher() + this.nbCarte;
-		j.setNbcartePiocher(nbPiocher);
+public class FairePiocherOuMeme extends FairePiocher{
+	public FairePiocherOuMeme(int nbCarte){
+		super(nbCarte);
+		this.setNom("Faire piocher " + nbCarte + " cartes ¨¤ moins que poser une autre carte de m¨ºme valeur");
 	}
 	
-	public int getNbCarte(){
-		return this.nbCarte;
-	}
-
-	// pas encore ajouer crazy8 pour annuler les attaques
-	@Override
 	public Jeu validerSuperpower(Jeu j) throws SaisiNonValideException {
 		this.declarer();
-		int nbPiocher = j.getNbCartePiocher() + this.nbCarte;
+		int nbPiocher = j.getNbCartePiocher() + this.getNbCarte();
 		j.setNbcartePiocher(nbPiocher);
 		j.renouvelerJouerActuel();
 		Joueur jou = j.getJoueurActuel();
+		Carte ca = j.getCarteActuelle();
 		LinkedList<Carte> carteCandidate = new LinkedList<Carte>();
 		LinkedList<Carte> carteDeJoueur = jou.getCartes();
 		Iterator<Carte> it = carteDeJoueur.iterator();
 		while (it.hasNext()) {
 			Carte c = it.next();
-			ArrayList<Effet> effets = c.getEffet();
-			Iterator<Effet> ie = effets.iterator();
-			while (ie.hasNext()) {
-				Effet e = ie.next();
-				if (e instanceof FairePiocher) {
-					carteCandidate.add(c);
-				}
+			if(c.getValeur() == ca.getValeur()){
+				carteCandidate.add(c);
 			}
 		}
 		if (carteCandidate.isEmpty()) {

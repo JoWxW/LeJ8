@@ -3,11 +3,13 @@
  */
 package variante;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 
 import carte.Carte;
 import effet.*;
+import joueur.Joueur;
 
 /**
  * @author wxw
@@ -21,7 +23,7 @@ public class Monclar extends Variante {
 		this.setNumero("11");
 	}
 
-	public void addEffet(LinkedList<Carte> tas) {
+	public void addEffet(LinkedList<Carte> tas,ArrayList<Joueur> joueurs) {
 		ObligeRejouer obligeRejouer = new ObligeRejouer();
 		PasserSonTour passerSonTour = new PasserSonTour();
 		ChangerSens changerSens = new ChangerSens();

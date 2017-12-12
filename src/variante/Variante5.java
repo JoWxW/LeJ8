@@ -4,6 +4,8 @@
 package variante;
 import carte.*;
 import effet.*;
+import joueur.Joueur;
+
 import java.util.*;
 /**
  * @author wxw
@@ -18,7 +20,7 @@ public class Variante5 extends Variante{
 
 
 	@Override
-	public void addEffet(LinkedList<Carte> tas) {
+	public void addEffet(LinkedList<Carte> tas,ArrayList<Joueur> joueurs) {
 		ObligeRejouer obligeRejouer = new ObligeRejouer();
 		ChangerSens changerSens = new ChangerSens();
 		FairePiocherOuMeme fairePiocher = new FairePiocherOuMeme(2);

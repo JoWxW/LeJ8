@@ -1,10 +1,12 @@
 package variante;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 
 import carte.Carte;
 import effet.*;
+import joueur.Joueur;
 
 public class Variante1 extends Variante {
 
@@ -15,7 +17,7 @@ public class Variante1 extends Variante {
 	}
 
 	@Override
-	public void addEffet(LinkedList<Carte> tas) {
+	public void addEffet(LinkedList<Carte> tas,ArrayList<Joueur> joueurs) {
 		ObligeRejouer obligeReJouer = new ObligeRejouer();
 		FairePiocher fairePiocher2 = new FairePiocher(2);
 		PasserSonTour passerSonTour = new PasserSonTour();

@@ -149,7 +149,7 @@ public class Jeu {
 		jeuEnCours = true;
 		tasDeCarteEnAttente = new TasDeCarteEnAttente();
 		setVariante(versionDeVariante);
-		variante.addEffet(tasDeCarteEnAttente.getTasDeCarte());
+		variante.addEffet(tasDeCarteEnAttente.getTasDeCarte(),joueurs);
 		tasDeCartePosee = new TasDeCartePosee();
 		initialiserJoueurs();
 		distribuerCarte();

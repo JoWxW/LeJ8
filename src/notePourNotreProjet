@@ -9,12 +9,14 @@ travails a faire:
 5. quand on set la place, on a pas  distingue les gagnant dans le meme tour (C'est fait)
 6. joker(C'est fait)
 7. distribuer les cartes selon le nombre de joueurs et le nombre de jeux(C'est fait)
-8. Ajouter un attribut de type "daiding" au joueur pour annoncer
+8. Ajouter un attribut de type "daiding" au joueur pour annoncer 
+9. je te laisse l'effet de "tufei" de As dans la variante 4 avec le nom: DeMemeCouleur
 
 question a discuter:
 
 1. un joueur peut creer un autre jeu en gardant les points?
-
+2. version francaise:il faut ajouter un autre attribut: joueurs pour le methode addEffet dans la classe variante
+   version pinyin: yaozai variante limian jiayige wanjia, yinwei women xuyao gaibian wanjia de Action 
 
 
 4. position de renouvellerJoueurs(???tout metter dans derouler??? si oui, passerSontour: titre un renouveller)

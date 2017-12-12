@@ -14,7 +14,7 @@ public class ChangerSens extends Effet {
 	}
 
 	@Override
-	public Jeu validerSuperpower(Jeu j) {
+	public Jeu validerSuperpower(Jeu j)  {
 		this.declarer();
 		if (Jeu.isCroissante()) {
 			Jeu.setCroissante(false);

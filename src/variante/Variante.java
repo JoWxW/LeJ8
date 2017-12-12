@@ -3,9 +3,11 @@
  */
 package variante;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 import carte.Carte;
+import joueur.Joueur;
 
 /**
  * @author wxw
@@ -27,7 +29,7 @@ public abstract class Variante {
 	public Variante() {
 	}
 
-	public abstract void addEffet(LinkedList<Carte> tas);
+	public abstract void addEffet(LinkedList<Carte> tas,ArrayList<Joueur> joueurs);
 
 	/**
 	 * @return the nom

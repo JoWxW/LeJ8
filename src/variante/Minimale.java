@@ -5,6 +5,8 @@ package variante;
 
 import carte.*;
 import effet.*;
+import joueur.Joueur;
+
 import java.util.*;
 
 /**
@@ -19,7 +21,7 @@ public class Minimale extends Variante {
 		this.setNumero("0");
 	}
 
-	public void addEffet(LinkedList<Carte> tas) {
+	public void addEffet(LinkedList<Carte> tas,ArrayList<Joueur> joueurs) {
 		FairePiocher fairePiocher = new FairePiocher(2);
 		ObligeRejouer obligeRejouer = new ObligeRejouer();
 		ChangerForme changerforme = new ChangerForme();

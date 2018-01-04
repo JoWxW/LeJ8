@@ -597,6 +597,10 @@ public class Jeu {
 	public void setVariante(Variante variante) {
 		this.variante = variante;
 	}
+	
+	public ArrayList<Joueur> getJoueursGagne(){
+		return joueursGagne;
+	}
 
 	/*
 	 * public void setNbJeux() { String nbJeux =

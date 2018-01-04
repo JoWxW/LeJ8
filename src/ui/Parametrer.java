@@ -24,19 +24,19 @@ import javax.swing.JSlider;
 public class Parametrer extends JPanel {
 	
 	private static final long serialVersionUID = 1L;
-	JFrame frame;
-	JPanel window;
-	JPanel bg;
-	JPanel jeuDeCartePanel;
-	JPanel avecJokerPanel;
-	JPanel nbJoueurPanel;
-	JPanel compterPanel;
-	JPanel variantePanel;
-	JPanel difficultePanel;
+	private JFrame frame;
+	private JPanel window;
+	private JPanel bg;
+	private JPanel jeuDeCartePanel;
+	private JPanel avecJokerPanel;
+	private JPanel nbJoueurPanel;
+	private JPanel compterPanel;
+	private JPanel variantePanel;
+	private JPanel difficultePanel;
 	//JLabel logo;
 	
-	JButton commencer;
-	JButton quitter;
+	private JButton commencer;
+	private JButton quitter;
 	
 	public static void main(String[] args) {
 		Parametrer parametrer = new Parametrer();

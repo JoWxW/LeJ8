@@ -9,6 +9,8 @@ import jeu.*;
 
 import java.util.*;
 
+import javax.swing.JPanel;
+
 import action.Action;
 import action.NoAction;
 
@@ -22,6 +24,12 @@ public abstract class Joueur {
 	// carte a la main(diagramme de classe)
 	private LinkedList<Carte> cartes = new LinkedList<Carte>();
 	private LinkedList<Carte> carteCandidate = new LinkedList<Carte>();
+	
+	public JPanel pPan = new JPanel();
+	
+	public JPanel setpPan() {
+		return pPan;
+	}
 
 	public Joueur() {
 	}

@@ -25,4 +25,10 @@ public class ChangerFormeArreterAttaque extends Effet {
 		j = cf.validerSuperpower(j);
 		return j;
 	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
+	}
 }

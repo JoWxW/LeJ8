@@ -126,8 +126,6 @@ public class Jeu extends Observable implements Runnable {
 							e.printStackTrace();
 						}
 					}
-					this.setChanged(true);
-					this.notifyObservers("carteEnMain");
 					try {
 						Thread.sleep(500);
 					} catch (Exception ex) {
@@ -138,10 +136,21 @@ public class Jeu extends Observable implements Runnable {
 					jeu.joueurJoueUnTour();
 				}
 				jeu.renouvelerJouerActuel();
+				this.setChanged(true);
+				this.notifyObservers("renouveller");
 			} else {
 				jeu.renouvelerTasDeCarteEnattente();
 
 			}
+		}
+		
+		this.setChanged(true);
+		this.notifyObservers("Fin");
+		this.compterPoint();
+		try {
+			Thread.sleep(1000);
+		} catch (Exception ex) {
+			ex.printStackTrace();
 		}
 
 	}

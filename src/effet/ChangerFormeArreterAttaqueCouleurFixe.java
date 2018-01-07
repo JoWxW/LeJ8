@@ -49,4 +49,10 @@ public class ChangerFormeArreterAttaqueCouleurFixe extends Effet {
 		return j;
 	}
 
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

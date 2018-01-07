@@ -20,4 +20,10 @@ public class NonEffet extends Effet {
 		// j.renouvelerJouerActuel();
 		return j;
 	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
+	}
 }

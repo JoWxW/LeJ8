@@ -16,4 +16,10 @@ public class DeMemeCouleur extends Effet {
 		return null;
 	}
 
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

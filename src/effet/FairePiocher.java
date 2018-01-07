@@ -77,4 +77,9 @@ public class FairePiocher extends Effet {
 		// j.renouvelerJouerActuel();
 		return j;
 	}
+
+	@Override
+	public void run() {
+		
+	}
 }

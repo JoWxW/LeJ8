@@ -32,8 +32,7 @@ public class JoueurPhysique extends Joueur {
 
 	}
 
-	public Carte poserUneCarte(LinkedList<Carte> carteCandidate, LinkedList<Carte> myCartes)
-			throws SaisiNonValideException {
+	public Carte poserUneCarte(LinkedList<Carte> carteCandidate, LinkedList<Carte> myCartes) {
 		listerCarteCandidate(carteCandidate);
 		// Scanner scanner = new Scanner(System.in);
 		System.out.println("Choisissez une carte a jouer(numero)");
@@ -43,7 +42,7 @@ public class JoueurPhysique extends Joueur {
 		int position = Jeu.getScanner().nextInt();
 		// scanner.close();
 		// ajouter une exception ou pas
-		if (position >= 0 && position <= carteCandidate.size() - 1) {
+		//if (position >= 0 && position <= carteCandidate.size() - 1) {
 			// out.close();
 			Carte carteChoisie = carteCandidate.get(position);
 			myCartes.remove(carteChoisie);
@@ -55,10 +54,7 @@ public class JoueurPhysique extends Joueur {
 			} else {
 				return carteChoisie;
 			}
-		} else {
-			throw new SaisiNonValideException("Maivais saisi");
-
-		}
+	    //}
 
 	}
 	

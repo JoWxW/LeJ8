@@ -88,8 +88,7 @@ public abstract class Joueur {
 	//
 	// methode abstrait??????
 	//
-	public abstract Carte poserUneCarte(LinkedList<Carte> carteCandidate, LinkedList<Carte> myCartes)
-			throws SaisiNonValideException;
+	public abstract Carte poserUneCarte(LinkedList<Carte> carteCandidate, LinkedList<Carte> myCartes);
 
 	// annoncer carte ou contre carte
 	//

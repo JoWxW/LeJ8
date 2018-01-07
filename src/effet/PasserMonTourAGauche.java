@@ -28,4 +28,10 @@ public class PasserMonTourAGauche extends Effet {
 
 	}
 
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -12,6 +12,7 @@ import joueur.Joueur;
 import joueur.JoueurPhysique;
 import ui.Game;
 import ui.Parametrer;
+import ui.Resultat;
 
 public class JeuControleur {
 
@@ -45,6 +46,11 @@ public class JeuControleur {
 		//derouler();
 		
 		// derouler();
+	}
+	
+	public void fin() {
+		Resultat res = new Resultat(jeu);
+		jeu.add(res);
 	}
 
 	public void joueurPhysiquePiocher() {

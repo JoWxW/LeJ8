@@ -33,7 +33,6 @@ public class Game implements Observer {
 	private JPanel window;
 	private JPanel bg;
 	private JButton piocher;
-	private JButton poser;
 	private JPanel[] joueurs;
 	private JPanel windowCenter;
 	private JPanel windowNorth;
@@ -131,28 +130,7 @@ public class Game implements Observer {
 		frame.setLocationRelativeTo(frame.getOwner());
 		frame.setResizable(false);
 
-		ImageIcon ico = new ImageIcon("sources/1-1.png");
-		nbJoueurs = Jeu.getNombreDeJoueurs();
-		windowNorth.setLayout(new FlowLayout());
-		joueurs = new JPanel[nbJoueurs - 1];
-		// System.out.println(windowNorth.getWidth());
-		for (int i = 0; i < nbJoueurs - 1; i++) {
-			JLabel cardImage = new JLabel(ico);
-			JPanel joueur = new JPanel();
-			joueur.setOpaque(false);
-			joueur.setBorder(BorderFactory.createLineBorder(Color.white, 1));
-			joueur.setLayout(new BorderLayout());
-			joueur.setPreferredSize((new Dimension((int) (750 / (nbJoueurs - 1)), 175)));
-			joueur.add(cardImage);
-			JLabel nbCarte = new JLabel("NB cartes: " + j.getJoueurs().get(i).getCartes().size());
-			nbCarte.setPreferredSize(new Dimension(20, 15));
-			nbCarte.setForeground(Color.WHITE);
-			joueur.add(nbCarte, BorderLayout.SOUTH);
-
-			joueurs[i] = joueur;
-			windowNorth.add(joueur);
-
-		}
+		this.listerJoueurV(j);
 		ImageIcon icoCartes = new ImageIcon("sources/cards.png");
 		JLabel cartesImage = new JLabel(icoCartes);
 		windowCenter.setLayout(new FlowLayout());
@@ -177,9 +155,8 @@ public class Game implements Observer {
 
 		piocher = new JButton("Piocher");
 		piocher.addActionListener(new piocherListener());
-		poser = new JButton("poser");
+		piocher.setVisible(false);
 		buttonPanel.add(piocher);
-		buttonPanel.add(poser);
 		buttonPanel.setPreferredSize(new Dimension(800, 30));
 
 		carteMainPanel =construireCarteEnMain(j);
@@ -236,13 +213,6 @@ public class Game implements Observer {
 			windowSouth.add(carteMainPanel, BorderLayout.SOUTH);
 			carteMainPanel.updateUI();
 			windowSouth.updateUI();
-		} else if (arg == "carteEnMain") {
-			windowSouth.remove(carteMainPanel);
-			carteMainPanel.removeAll();
-			carteMainPanel = this.construireCarteEnMain(j);
-			windowSouth.add(carteMainPanel, BorderLayout.SOUTH);
-			carteMainPanel.updateUI();
-			windowSouth.updateUI();
 		}else if(arg == "carteAPoser") {
 			windowSouth.remove(carteMainPanel);
 			carteMainPanel.removeAll();
@@ -250,13 +220,19 @@ public class Game implements Observer {
 			windowSouth.add(carteMainPanel, BorderLayout.SOUTH);
 			carteMainPanel.updateUI();
 			windowSouth.updateUI();
+		}else if (arg == "Fin") {
+			new Resultat(j);
+			jeuControleur.fermer(frame);
+		}else if(arg == "renouveller") {
+			this.listerJoueurV(j);
 		}
 	}
 	
 	public JPanel construireCarteEnMain(Jeu j) {
+		piocher.setVisible(false);
 		JPanel carteMain = new JPanel();
 		carteMain.setOpaque(false);
-		carteMain.setLayout(new FlowLayout(0));
+		carteMain.setLayout(new FlowLayout());
 		LinkedList<Carte> cartes = j.getJoueurs().get(j.getJoueurs().size()-1).getCartes();
 		Iterator<Carte> it = cartes.iterator();
 		while (it.hasNext()) {
@@ -267,13 +243,15 @@ public class Game implements Observer {
 			
 			carteMain.add(carte);
 		}
+		carteMain.setPreferredSize(new Dimension(800,160));
 		return carteMain;
 	}
 	
 	public JPanel construireCarteCandidate(Jeu j) {
+		piocher.setVisible(true);
 		JPanel carteMain = new JPanel();
 		carteMain.setOpaque(false);
-		carteMain.setLayout(new FlowLayout(0));
+		carteMain.setLayout(new FlowLayout());
 		LinkedList<Carte> cartes = j.getJoueurs().get(j.getJoueurs().size()-1).getCarteCandidate(j.getCarteActuelle());
 		Iterator<Carte> it = cartes.iterator();
 		while (it.hasNext()) {
@@ -284,7 +262,57 @@ public class Game implements Observer {
 			
 			carteMain.add(carte);
 		}
+		carteMain.setPreferredSize(new Dimension(800,160));
 		return carteMain;
+	}
+	
+	public void listerJoueurV(Jeu j) {
+		windowNorth.removeAll();
+		ImageIcon ico = new ImageIcon("sources/1-1.png");
+		nbJoueurs = Jeu.getNombreDeJoueurs();
+		windowNorth.setLayout(new FlowLayout());
+		joueurs = new JPanel[nbJoueurs - 1];
+		//definir la position du joueur actuel
+		int position = j.getJoueurs().indexOf(j.getJoueurActuel());
+		for (int i = 0; i < nbJoueurs - 1; i++) {
+			JLabel cardImage = new JLabel(ico);
+			ImageIcon icoTime = new ImageIcon("sources/time.png");
+			JLabel timeImage = new JLabel(icoTime);
+			timeImage.setOpaque(false);
+			if(position!=(nbJoueurs-1)) {
+				if(i!=position) {
+					timeImage.setVisible(false);
+				}
+			}else {
+				timeImage.setVisible(false);
+			}
+			JPanel infoPanel = new JPanel();
+			infoPanel.setOpaque(false);
+			infoPanel.setLayout(new BorderLayout());
+			infoPanel.setPreferredSize(new Dimension(50,50));
+			
+			JPanel joueur = new JPanel();
+			joueur.setOpaque(false);
+			joueur.setBorder(BorderFactory.createLineBorder(Color.white, 1));
+			joueur.setLayout(new BorderLayout());
+			joueur.setPreferredSize((new Dimension((int) (750 / (nbJoueurs - 1)), 175)));
+			
+			joueur.add(cardImage,BorderLayout.CENTER);
+			
+			JLabel nbCarte = new JLabel("Joueur"+i+" NB: " + j.getJoueurs().get(i).getCartes().size());
+
+			nbCarte.setPreferredSize(new Dimension(30, 15));
+			nbCarte.setForeground(Color.WHITE);
+			
+			infoPanel.add(nbCarte,BorderLayout.CENTER);
+			infoPanel.add(timeImage,BorderLayout.SOUTH);
+			joueur.add(infoPanel, BorderLayout.SOUTH);
+
+			joueurs[i] = joueur;
+			windowNorth.add(joueur);
+
+		}
+		
 	}
 
 }

@@ -24,4 +24,10 @@ public class ChangerSens extends Effet {
 		return j;
 	}
 
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -16,4 +16,10 @@ public class Dire4 extends Effet {
 		return j;
 	}
 
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

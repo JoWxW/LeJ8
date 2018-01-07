@@ -41,4 +41,10 @@ public class PiocherDeLaMain extends Effet {
 		this.nbCarte = i;
 	}
 
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

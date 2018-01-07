@@ -49,4 +49,10 @@ public class SecretDeRoiEtDame extends Effet {
 		 */
 	}
 
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

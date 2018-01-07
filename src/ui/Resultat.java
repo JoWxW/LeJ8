@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.util.Iterator;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -17,7 +19,7 @@ import javax.swing.JPanel;
 import jeu.Jeu;
 import joueur.Joueur;
 
-public class Resultat {
+public class Resultat implements Observer {
 	private JFrame frame;
 	private JPanel window;
 	private JPanel bg;
@@ -137,6 +139,13 @@ public class Resultat {
 		frame.setLocationRelativeTo(frame.getOwner());
 		frame.setResizable(false);
 
+	}
+
+
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

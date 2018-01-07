@@ -67,4 +67,10 @@ public class ChangerForme extends Effet {
 		return al.indexOf(Collections.max(al));
 	}
 
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

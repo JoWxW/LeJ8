@@ -72,4 +72,10 @@ public class DonnerDeuxCartes extends Effet {
 		return joueurs.get(position);
 	}
 
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

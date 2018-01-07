@@ -17,7 +17,7 @@ import java.util.*;
  * @author wxw
  *
  */
-public class Jeu extends Observable implements Runnable{
+public class Jeu extends Observable implements Runnable {
 	private static Jeu jeu;
 	// <<<<<<< HEAD
 
@@ -54,11 +54,11 @@ public class Jeu extends Observable implements Runnable{
 	private static int methodeCompte;
 	private static boolean croissante = true;
 	private static Scanner scanner;
-	
+
 	public static void main(String[] args) {
 		Jeu j = Jeu.getJeu();
-		Accueil accueil= new Accueil(j);
-		
+		Accueil accueil = new Accueil(j);
+
 	}
 
 	private Jeu() {
@@ -68,7 +68,7 @@ public class Jeu extends Observable implements Runnable{
 		 */
 		this.joueursGagne = new ArrayList<Joueur>();
 		this.nbCartePiocher = 0;
-		scanner = new Scanner(System.in);
+		// scanner = new Scanner(System.in);
 		/*
 		 * scanner = new Scanner(System.in); =======
 		 */
@@ -78,11 +78,11 @@ public class Jeu extends Observable implements Runnable{
 		thread.start();
 
 	}
-	
+
 	@Override
 	public void run() {
 		Jeu jeu = Jeu.getJeu();
-		while(!jeu.parametrerTermine) {
+		while (!jeu.parametrerTermine) {
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
@@ -90,7 +90,7 @@ public class Jeu extends Observable implements Runnable{
 				e.printStackTrace();
 			}
 		}
-		while(!this.jeuTermine()) {
+		while (!this.jeuTermine()) {
 			Iterator<Joueur> it = getJoueurs().iterator();
 			while (it.hasNext()) {
 				Joueur j = it.next();
@@ -105,21 +105,34 @@ public class Jeu extends Observable implements Runnable{
 			}
 			if (getTasDeCarteEnAttente().getTailleDeTas() > 0) {
 				if (getJoueurActuel() instanceof JoueurPhysique) {
-					jeu.getJoueurActuel().setPose(false);
-					while (!jeu.getJoueurActuel().getPose()) {
+					this.setChanged(true);
+					this.notifyObservers("carteAPoser");
+					System.out.println("Carte de joueur physique£º " + this.joueurActuel.getCartes());
+					jeu.getJoueurActuel().setTourTermine(false);
+					while (!jeu.getJoueurActuel().isTourTermine()) {
 						try {
 							Thread.sleep(500);
 						} catch (Exception ex) {
 							ex.printStackTrace();
 						}
 					}
-					try {
-						jeu.getCarteActuelle().getEffectValide().validerSuperpower(jeu);
-					} catch (SaisiNonValideException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+					jeu.getJoueurActuel().setTourTermine(false);
+					if (jeu.getJoueurActuel().getPose()) {
+						jeu.getJoueurActuel().setPose(false);
+						try {
+							jeu.getCarteActuelle().getEffectValide().validerSuperpower(jeu);
+						} catch (SaisiNonValideException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					}
-					
+					this.setChanged(true);
+					this.notifyObservers("carteEnMain");
+					try {
+						Thread.sleep(500);
+					} catch (Exception ex) {
+						ex.printStackTrace();
+					}
 
 				} else {
 					jeu.joueurJoueUnTour();
@@ -130,13 +143,8 @@ public class Jeu extends Observable implements Runnable{
 
 			}
 		}
-		
+
 	}
-	
-	
-		
-	
-	
 
 	public static Jeu getJeu() {
 		if (jeu == null) {
@@ -145,48 +153,21 @@ public class Jeu extends Observable implements Runnable{
 		return jeu;
 	}
 
-	/*@Override
-	public void run() {
-		do {
-			try {
-				Thread.sleep(1000);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		} while (!jeuEnCours);
-		do {
-			try {
-				Thread.sleep(1000);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		} while (!parametrerTermine);
-		this.initialiser();
-		while (!this.jeuTermine()) {
-			
-			Iterator<Joueur> it = this.joueurs.iterator();
-			while (it.hasNext()) {
-				Joueur j = it.next();
-				if (j.aGagne()) {
-					this.joueursGagne.add(j);
-					it.remove();
-				}
-			}
-			if (this.joueurs.size() == 1) {
-				this.joueursGagne.add(this.joueurs.get(0));
-				break;
-			}
-			if (this.getTasDeCarteEnAttente().getTailleDeTas() > 0) {
-				joueurJoueUnTour();
-				this.renouvelerJouerActuel();
-			} else {
-				this.renouvelerTasDeCarteEnattente();
-
-			}
-		}
-		this.compterPoint();
-		Jeu.getScanner().close();
-	}*/
+	/*
+	 * @Override public void run() { do { try { Thread.sleep(1000); } catch
+	 * (Exception e) { e.printStackTrace(); } } while (!jeuEnCours); do { try {
+	 * Thread.sleep(1000); } catch (Exception e) { e.printStackTrace(); } } while
+	 * (!parametrerTermine); this.initialiser(); while (!this.jeuTermine()) {
+	 * 
+	 * Iterator<Joueur> it = this.joueurs.iterator(); while (it.hasNext()) { Joueur
+	 * j = it.next(); if (j.aGagne()) { this.joueursGagne.add(j); it.remove(); } }
+	 * if (this.joueurs.size() == 1) { this.joueursGagne.add(this.joueurs.get(0));
+	 * break; } if (this.getTasDeCarteEnAttente().getTailleDeTas() > 0) {
+	 * joueurJoueUnTour(); this.renouvelerJouerActuel(); } else {
+	 * this.renouvelerTasDeCarteEnattente();
+	 * 
+	 * } } this.compterPoint(); Jeu.getScanner().close(); }
+	 */
 
 	public void paramtrerJeu() {
 		// Exception
@@ -513,7 +494,7 @@ public class Jeu extends Observable implements Runnable{
 			System.out.println("nombre de carte posee" + this.getTasDeCartePosee().getCartePosee().size());
 		}
 		this.compterPoint();
-		Jeu.getScanner().close();
+		// Jeu.getScanner().close();
 
 		// jeu.initialiserJeu();
 		// System.out.println(jeu.get);
@@ -536,45 +517,54 @@ public class Jeu extends Observable implements Runnable{
 				this.getTasDeCartePosee().addCartePosee(c);
 				// zhege juzi keneng youwenti
 				c.getEffectValide().validerSuperpower(this);
-				System.out.println("Carte a la main£º " + this.joueurActuel.getCartes());
+				//System.out.println("Carte a la main£º " + this.joueurActuel.getCartes());
+				System.out.println("       ");
 				this.changed = true;
-				jeu.notifyObservers("");
+				jeu.notifyObservers("carteActuelle");
 				Thread.sleep(2000);
 
 			} catch (SaisiNonValideException e) {
 				e.printStackTrace();
-			}catch(Exception ex) {
+			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
 		}
 	}
-	
-	//Observable
+
+	// Observable
 	public void add(Observer o) {
-		if(observers.contains(o)) {
+		if (observers.contains(o)) {
 			return;
 		}
 		observers.add(o);
 	}
-	
+
 	public void notifyObservers(Object arg) {
 		if (!changed) {
 			return;
 		}
 		Iterator<Observer> it = observers.iterator();
-		while(it.hasNext()) {
-			Observer o =it.next();
+		while (it.hasNext()) {
+			Observer o = it.next();
 			o.update(this, arg);
 		}
 		this.clearChanged();
 
 	}
-	
+
 	public void clearChanged() {
 		this.changed = false;
 	}
 
 	// setter et getter
+	public boolean isChanged() {
+		return this.changed;
+	}
+
+	public void setChanged(boolean b) {
+		this.changed = b;
+	}
+
 	public boolean isJeuEnCours() {
 		return jeuEnCours;
 	}
@@ -631,7 +621,7 @@ public class Jeu extends Observable implements Runnable{
 	public void setParametrerTermine(boolean b) {
 		this.parametrerTermine = b;
 	}
-	
+
 	public boolean getParametrerTermine() {
 		return this.parametrerTermine;
 	}
@@ -755,8 +745,6 @@ public class Jeu extends Observable implements Runnable{
 	public ArrayList<Joueur> getJoueursGagne() {
 		return joueursGagne;
 	}
-
-	
 
 	/*
 	 * public void setNbJeux() { String nbJeux =

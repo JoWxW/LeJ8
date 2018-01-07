@@ -180,7 +180,7 @@ public class Parametrer extends JPanel implements Observer {
 		variantePanel.add(variante);
 		variantePanel.add(choisirVariante);
 
-		JLabel difficulte = new JLabel("Defficulte");
+		JLabel difficulte = new JLabel("Difficulte");
 		JComboBox<String> choisirDifficulte = new JComboBox<String>();
 		choisirDifficulte.setEditable(true);
 		choisirDifficulte.setEnabled(true);

@@ -25,6 +25,8 @@ public abstract class Joueur {
 	private LinkedList<Carte> cartes = new LinkedList<Carte>();
 	private LinkedList<Carte> carteCandidate = new LinkedList<Carte>();
 	private boolean pose = false;
+	private boolean pioche = false;
+	private boolean tourTermine = false;
 	
 	
 
@@ -216,6 +218,22 @@ public abstract class Joueur {
 	
 	public boolean getPose() {
 		return pose;
+	}
+
+	public boolean isPioche() {
+		return pioche;
+	}
+
+	public void setPioche(boolean pioche) {
+		this.pioche = pioche;
+	}
+
+	public boolean isTourTermine() {
+		return tourTermine;
+	}
+
+	public void setTourTermine(boolean tourTermine) {
+		this.tourTermine = tourTermine;
 	}
 
 }

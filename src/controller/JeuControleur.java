@@ -50,60 +50,14 @@ public class JeuControleur {
 	public void joueurPhysiquePiocher() {
 		jeu.getJoueurActuel().piocher(jeu.getCarteDepuisTas());
 		System.out.println("joueur physique pioche");
-		jeu.renouvelerJouerActuel();
-		jeu.getJoueurActuel().setPose(true);
+		jeu.getJoueurActuel().setTourTermine(true);
 
 	}
 
-	public void derouler() {
-
-		while (!jeu.jeuTermine()) {
-
-			Iterator<Joueur> it = jeu.getJoueurs().iterator();
-			while (it.hasNext()) {
-				Joueur j = it.next();
-				if (j.aGagne()) {
-					jeu.getJoueursGagne().add(j);
-					it.remove();
-				}
-			}
-			if (jeu.getJoueurs().size() == 1) {
-				jeu.getJoueursGagne().add(jeu.getJoueurs().get(0));
-				break;
-			}
-			if (jeu.getTasDeCarteEnAttente().getTailleDeTas() > 0) {
-				if (jeu.getJoueurActuel() instanceof JoueurPhysique) {
-					/*jeu.getJoueurActuel().setPose(false);
-					while (!jeu.getJoueurActuel().getPose()) {
-						try {
-							Thread.yield();
-							Thread.sleep(500);
-						} catch (Exception ex) {
-							ex.printStackTrace();
-						}
-					}
-					try {
-						jeu.getCarteActuelle().getEffectValide().validerSuperpower(jeu);
-					} catch (SaisiNonValideException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					*/
-
-				} else {
-					jeu.joueurJoueUnTour();
-				}
-				jeu.renouvelerJouerActuel();
-			} else {
-				jeu.renouvelerTasDeCarteEnattente();
-
-			}
-		}
-		jeu.compterPoint();
-		Jeu.getScanner().close();
-	}
+	
 	
 	public void joueurPhysiquePoser(String id) {
+		
 		LinkedList<Carte> cartes = jeu.getJoueurActuel().getCartes();
 		Iterator<Carte> it = cartes.iterator();
 		Carte carteChoisie;
@@ -113,15 +67,13 @@ public class JeuControleur {
 				carteChoisie = c;
 				jeu.getJoueurActuel().poserCarteChoisie(carteChoisie);
 				jeu.setCarteActuelle(carteChoisie);
-				try {
-					carteChoisie.getEffectValide().validerSuperpower(jeu);
-				} catch (SaisiNonValideException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				System.out.println("Joueur physique pose "+c.toString());
 				break;
 			}
 		}
+		
+		jeu.getJoueurActuel().setPose(true);
+		jeu.getJoueurActuel().setTourTermine(true);
 		
 		
 	}

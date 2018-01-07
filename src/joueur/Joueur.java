@@ -24,12 +24,9 @@ public abstract class Joueur {
 	// carte a la main(diagramme de classe)
 	private LinkedList<Carte> cartes = new LinkedList<Carte>();
 	private LinkedList<Carte> carteCandidate = new LinkedList<Carte>();
+	private boolean pose = false;
 	
-	public JPanel pPan = new JPanel();
 	
-	public JPanel setpPan() {
-		return pPan;
-	}
 
 	public Joueur() {
 	}
@@ -80,6 +77,10 @@ public abstract class Joueur {
 	public void poserUneCarte(Carte c) {
 		this.getCartes().remove(c);
 
+	}
+	
+	public void poserCarteChoisie(Carte c) {
+		this.cartes.remove(c);
 	}
 
 	//
@@ -207,6 +208,14 @@ public abstract class Joueur {
 
 	public void setMyAction(Action myAction) {
 		this.myAction = myAction;
+	}
+	
+	public void setPose(boolean b) {
+		this.pose = b;
+	}
+	
+	public boolean getPose() {
+		return pose;
 	}
 
 }

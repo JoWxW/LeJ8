@@ -8,7 +8,7 @@ import effet.*;
 import enumeration.*;
 import exception.SaisiNonValideException;
 import joueur.*;
-
+import ui.Accueil;
 import variante.*;
 
 import java.util.*;
@@ -17,7 +17,7 @@ import java.util.*;
  * @author wxw
  *
  */
-public class Jeu {
+public class Jeu extends Observable implements Runnable{
 	private static Jeu jeu;
 	// <<<<<<< HEAD
 
@@ -29,8 +29,13 @@ public class Jeu {
 	private int nbCartePiocher;
 	private Carte carteActuelle;
 	private Variante variante;
+	private ArrayList<Observer> observers;
 
 	private boolean jeuEnCours = false;
+	private boolean parametrerTermine = false;
+	private boolean changed = false;
+	Thread thread;
+
 	// pour determiner la strategie pour les joueus virtuels
 	/*
 	 * =======
@@ -49,6 +54,12 @@ public class Jeu {
 	private static int methodeCompte;
 	private static boolean croissante = true;
 	private static Scanner scanner;
+	
+	public static void main(String[] args) {
+		Jeu j = Jeu.getJeu();
+		Accueil accueil= new Accueil(j);
+		
+	}
 
 	private Jeu() {
 		/*
@@ -62,8 +73,70 @@ public class Jeu {
 		 * scanner = new Scanner(System.in); =======
 		 */
 		this.jeuEnCours = false;
+		observers = new ArrayList<Observer>();
+		thread = new Thread(this);
+		thread.start();
 
 	}
+	
+	@Override
+	public void run() {
+		Jeu jeu = Jeu.getJeu();
+		while(!jeu.parametrerTermine) {
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		while(!this.jeuTermine()) {
+			Iterator<Joueur> it = getJoueurs().iterator();
+			while (it.hasNext()) {
+				Joueur j = it.next();
+				if (j.aGagne()) {
+					getJoueursGagne().add(j);
+					it.remove();
+				}
+			}
+			if (getJoueurs().size() == 1) {
+				getJoueursGagne().add(getJoueurs().get(0));
+				break;
+			}
+			if (getTasDeCarteEnAttente().getTailleDeTas() > 0) {
+				if (getJoueurActuel() instanceof JoueurPhysique) {
+					jeu.getJoueurActuel().setPose(false);
+					while (!jeu.getJoueurActuel().getPose()) {
+						try {
+							Thread.sleep(500);
+						} catch (Exception ex) {
+							ex.printStackTrace();
+						}
+					}
+					try {
+						jeu.getCarteActuelle().getEffectValide().validerSuperpower(jeu);
+					} catch (SaisiNonValideException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+
+				} else {
+					jeu.joueurJoueUnTour();
+				}
+				jeu.renouvelerJouerActuel();
+			} else {
+				jeu.renouvelerTasDeCarteEnattente();
+
+			}
+		}
+		
+	}
+	
+	
+		
+	
+	
 
 	public static Jeu getJeu() {
 		if (jeu == null) {
@@ -71,6 +144,49 @@ public class Jeu {
 		}
 		return jeu;
 	}
+
+	/*@Override
+	public void run() {
+		do {
+			try {
+				Thread.sleep(1000);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} while (!jeuEnCours);
+		do {
+			try {
+				Thread.sleep(1000);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} while (!parametrerTermine);
+		this.initialiser();
+		while (!this.jeuTermine()) {
+			
+			Iterator<Joueur> it = this.joueurs.iterator();
+			while (it.hasNext()) {
+				Joueur j = it.next();
+				if (j.aGagne()) {
+					this.joueursGagne.add(j);
+					it.remove();
+				}
+			}
+			if (this.joueurs.size() == 1) {
+				this.joueursGagne.add(this.joueurs.get(0));
+				break;
+			}
+			if (this.getTasDeCarteEnAttente().getTailleDeTas() > 0) {
+				joueurJoueUnTour();
+				this.renouvelerJouerActuel();
+			} else {
+				this.renouvelerTasDeCarteEnattente();
+
+			}
+		}
+		this.compterPoint();
+		Jeu.getScanner().close();
+	}*/
 
 	public void paramtrerJeu() {
 		// Exception
@@ -149,13 +265,13 @@ public class Jeu {
 		jeuEnCours = true;
 		tasDeCarteEnAttente = new TasDeCarteEnAttente();
 		setVariante(versionDeVariante);
-		variante.addEffet(tasDeCarteEnAttente.getTasDeCarte(),joueurs);
+		variante.addEffet(tasDeCarteEnAttente.getTasDeCarte(), joueurs);
 		tasDeCartePosee = new TasDeCartePosee();
 		initialiserJoueurs();
 		distribuerCarte();
-		System.out.println("On a distrribue toutes les carte, c'est parti!");
-		System.out.println("La carte actuelle est" + carteActuelle.toString());
-		System.out.println("La joueur actuel est" + joueurActuel.toString());
+		// System.out.println("On a distrribue toutes les carte, c'est parti!");
+		// System.out.println("La carte actuelle est" + carteActuelle.toString());
+		// System.out.println("La joueur actuel est" + joueurActuel.toString());
 	}
 
 	public void initialiserJoueurs() {
@@ -164,7 +280,7 @@ public class Jeu {
 			JoueurVirtuel j = new JoueurVirtuel("jv" + i, "Joueur " + i, Jeu.getDifficulte());
 			joueurs.add(j);
 		}
-		JoueurPhysique jp = new JoueurPhysique("jp","wxw");
+		JoueurPhysique jp = new JoueurPhysique("jp", "wxw");
 		joueurs.add(jp);
 
 	}
@@ -421,11 +537,41 @@ public class Jeu {
 				// zhege juzi keneng youwenti
 				c.getEffectValide().validerSuperpower(this);
 				System.out.println("Carte a la main£º " + this.joueurActuel.getCartes());
+				this.changed = true;
+				jeu.notifyObservers("");
+				Thread.sleep(2000);
 
 			} catch (SaisiNonValideException e) {
 				e.printStackTrace();
+			}catch(Exception ex) {
+				ex.printStackTrace();
 			}
 		}
+	}
+	
+	//Observable
+	public void add(Observer o) {
+		if(observers.contains(o)) {
+			return;
+		}
+		observers.add(o);
+	}
+	
+	public void notifyObservers(Object arg) {
+		if (!changed) {
+			return;
+		}
+		Iterator<Observer> it = observers.iterator();
+		while(it.hasNext()) {
+			Observer o =it.next();
+			o.update(this, arg);
+		}
+		this.clearChanged();
+
+	}
+	
+	public void clearChanged() {
+		this.changed = false;
 	}
 
 	// setter et getter
@@ -480,6 +626,14 @@ public class Jeu {
 
 	public void setCarteActuelle(Carte carteActuelle) {
 		this.carteActuelle = carteActuelle;
+	}
+
+	public void setParametrerTermine(boolean b) {
+		this.parametrerTermine = b;
+	}
+	
+	public boolean getParametrerTermine() {
+		return this.parametrerTermine;
 	}
 
 	public static int getDifficulte() {
@@ -597,10 +751,12 @@ public class Jeu {
 	public void setVariante(Variante variante) {
 		this.variante = variante;
 	}
-	
-	public ArrayList<Joueur> getJoueursGagne(){
+
+	public ArrayList<Joueur> getJoueursGagne() {
 		return joueursGagne;
 	}
+
+	
 
 	/*
 	 * public void setNbJeux() { String nbJeux =

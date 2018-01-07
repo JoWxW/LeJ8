@@ -5,7 +5,13 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -16,22 +22,28 @@ import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
+
 import carte.Carte;
+import controller.JeuControleur;
 import jeu.Jeu;
 
-public class Game {
+public class Game implements Observer  {
 	
 	private JFrame frame;
 	private JPanel window;
 	private JPanel bg;
+	private JButton piocher;
+	private JButton poser;
 	private JPanel[] joueurs;
 	private JPanel windowCenter;
 	private JPanel windowNorth;
 	private JPanel windowSouth;
 	private JPanel windowEast;
 	private JPanel windowWest;
-	
+	private JeuControleur jeuControleur;
 	private int nbJoueurs;
+	private JLabel carteActuelle;
+	private JPanel carteMainPanel;
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -49,54 +61,13 @@ public class Game {
 	}
 	
 	public Game(Jeu j) {
-		ImageIcon ico =new ImageIcon("sources/1-1.png");
-		initialiser();
-		nbJoueurs = Jeu.getNombreDeJoueurs();
-		nbJoueurs =5;
-		windowNorth.setLayout(new FlowLayout());
-		joueurs = new JPanel[nbJoueurs-1];
-		//System.out.println(windowNorth.getWidth());
-		for(int i =0;i<nbJoueurs-1;i++) {
-			JLabel cardImage=new JLabel(ico);
-			JPanel joueur = new JPanel();
-			joueur.setOpaque(false);
-			joueur.setBorder(BorderFactory.createLineBorder(Color.white, 1));
-			joueur.setLayout(new BorderLayout());
-			joueur.setPreferredSize((new Dimension((int)(750/(nbJoueurs-1)),175)));
-			joueur.add(cardImage);
-			joueurs[i] = joueur;
-			windowNorth.add(joueur);
-			
-			
-			
-		}
-		ImageIcon icoCartes =new ImageIcon("sources/cards.png");
-		JLabel cartesImage=new JLabel(icoCartes);
-		windowCenter.setLayout(new FlowLayout());
-		windowCenter.add(cartesImage);
-		
-		JPanel vide = new JPanel();
-		vide.setOpaque(false);
-		vide.setPreferredSize(new Dimension(100,100));
-		windowCenter.add(vide);
-		//il faut choisir la carte correspondante
-		ImageIcon icoCarteActuelle =new ImageIcon("sources/2-2.gif");
-		JLabel carteActuelle=new JLabel(icoCarteActuelle);
-		windowCenter.add(carteActuelle);
-		
-		//Les Cartes de joueur physique
-		LinkedList<Carte> cartes = j.getJoueurs().get(Jeu.getNombreDeJoueurs()-1).getCartes();
-		int nbCarte = cartes.size();
-		
-		// classe interne pour definir la carte
-		// classe extends JButton implements MouseListener
-		JButton[] cartesEnMain = new JButton[nbCarte];
-		
+		initialiser(j);
 		
 		
 	}
 	
-	public void initialiser() {
+	public void initialiser(Jeu j) {
+		jeuControleur = new JeuControleur(j);
 		frame = new JFrame("Game");
 		window = new JPanel();
 		bg = new JPanel();
@@ -159,6 +130,112 @@ public class Game {
 		frame.setLocationRelativeTo(frame.getOwner());
 		frame.setResizable(false);
 		
+		ImageIcon ico =new ImageIcon("sources/1-1.png");
+		nbJoueurs = Jeu.getNombreDeJoueurs();
+		windowNorth.setLayout(new FlowLayout());
+		joueurs = new JPanel[nbJoueurs-1];
+		//System.out.println(windowNorth.getWidth());
+		for(int i =0;i<nbJoueurs-1;i++) {
+			JLabel cardImage=new JLabel(ico);
+			JPanel joueur = new JPanel();
+			joueur.setOpaque(false);
+			joueur.setBorder(BorderFactory.createLineBorder(Color.white, 1));
+			joueur.setLayout(new BorderLayout());
+			joueur.setPreferredSize((new Dimension((int)(750/(nbJoueurs-1)),175)));
+			joueur.add(cardImage);
+			JLabel nbCarte = new JLabel("NB cartes: "+ j.getJoueurs().get(i).getCartes().size());
+			nbCarte.setPreferredSize(new Dimension(20,15));
+			nbCarte.setForeground(Color.WHITE);
+			joueur.add(nbCarte,BorderLayout.SOUTH);
+			
+			joueurs[i] = joueur;
+			windowNorth.add(joueur);
+	
+		}
+		ImageIcon icoCartes =new ImageIcon("sources/cards.png");
+		JLabel cartesImage=new JLabel(icoCartes);
+		windowCenter.setLayout(new FlowLayout());
+		windowCenter.add(cartesImage);
+		
+		JPanel vide = new JPanel();
+		vide.setOpaque(false);
+		vide.setPreferredSize(new Dimension(100,100));
+		windowCenter.add(vide);
+		//il faut choisir la carte correspondante
+		ImageIcon icoCarteActuelle =new ImageIcon("sources/"+j.getCarteActuelle().getId()+".gif");
+		carteActuelle=new JLabel(icoCarteActuelle);
+		windowCenter.add(carteActuelle);
+		
+		//Les Cartes de joueur physique
+		LinkedList<Carte> cartes = j.getJoueurs().get(Jeu.getNombreDeJoueurs()-1).getCartes();
+		int nbCarte = cartes.size();
+		windowSouth.setLayout(new BorderLayout());
+		JPanel buttonPanel = new JPanel();
+		buttonPanel.setOpaque(false);
+		buttonPanel.setLayout(new FlowLayout());
+		
+		piocher = new JButton("Piocher");
+		piocher.addActionListener(new piocherListener());
+		poser = new JButton("poser");
+		buttonPanel.add(piocher);
+		buttonPanel.add(poser);
+		buttonPanel.setPreferredSize(new Dimension(800,30));
+		
+		carteMainPanel = new JPanel();
+		carteMainPanel.setOpaque(false);
+		carteMainPanel.setLayout(new FlowLayout());
+		Iterator<Carte> it = cartes.iterator();
+		while(it.hasNext()) {
+			Carte c = it.next();
+			String adresse = new String("sources/"+c.getId()+".gif");
+			ImageIcon icoCarte = new ImageIcon(adresse);
+			JLabel ima = new JLabel(icoCarte);
+			
+			JButton carteMain = new JButton(c.getId());
+			carteMain.setOpaque(false);
+			carteMain.setBorder(null);
+			carteMain.setIcon(icoCarte);
+			carteMainPanel.add(carteMain);
+		}
+		carteMainPanel.setPreferredSize(new Dimension(800,160));
+		windowSouth.add(buttonPanel,BorderLayout.NORTH);
+		windowSouth.add(carteMainPanel,BorderLayout.SOUTH);
+		// classe interne pour definir la carte
+		// classe extends JButton implements MouseListener
+		//JButton[] cartesEnMain = new JButton[nbCarte];
 	}
+	
+	class piocherListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			jeuControleur.joueurPhysiquePiocher();
+		}
+		
+	}
+	
+	class PoserListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			jeuControleur.joueurPhysiquePoser(e.getActionCommand());
+			
+		}
+		
+	}
+
+	
+	public void update(Observable o, Object arg) {
+		Jeu j = (Jeu) o;
+		ImageIcon icoCarteActuelle =new ImageIcon("sources/"+j.getCarteActuelle().getId()+".gif");
+		JLabel nouvelleCarte= new JLabel(icoCarteActuelle);
+		windowCenter.remove(carteActuelle);
+		windowCenter.add(nouvelleCarte);
+		this.carteActuelle = nouvelleCarte;
+	}
+
+
+
+	
 
 }

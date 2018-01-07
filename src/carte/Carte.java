@@ -13,7 +13,7 @@ import enumeration.*;
  *
  */
 public class Carte {
-	// private String id;
+	private String id;
 	private Forme forme;
 	private Valeur valeur;
 	// private int point;
@@ -37,9 +37,11 @@ public class Carte {
 		this.forme = forme;
 		this.valeur = valeur;
 		// this.point = point;
+		this.id = new String(this.forme.getId()+"-"+this.valeur.getId());
 		this.etat = Etat.enAttend;
 		this.effet = new ArrayList<Effet>();
 	}
+	
 
 	public Carte() {
 		this.etat = Etat.enAttend;
@@ -163,5 +165,13 @@ public class Carte {
 	public void addEffetVariante(Effet e){
 		this.addEffet(e);
 		this.setEffectValide(e);
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 }

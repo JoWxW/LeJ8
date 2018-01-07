@@ -61,6 +61,8 @@ public class JoueurPhysique extends Joueur {
 		}
 
 	}
+	
+    
 
 	public Effet choisirEffet(Carte carteChoisie) {
 		System.out.println("Cette carte a plusieurs effets");

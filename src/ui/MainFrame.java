@@ -13,9 +13,9 @@ public class MainFrame extends JFrame implements ChangeEcranListener{
 	private Ecran ecran;
 	
 	public static void main(String[] args) {
-		Accueil ea = new Accueil();
-		MainFrame frame = new MainFrame(ea);
-		frame.setVisible(true);
+		//Accueil ea = new Accueil();
+		//MainFrame frame = new MainFrame(ea);
+		//frame.setVisible(true);
 	}
 	
 	public MainFrame() {

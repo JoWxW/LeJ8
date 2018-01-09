@@ -13,11 +13,11 @@ import jeu.Jeu;
 public class ChangerFormeArreterAttaque extends Effet {
 	public ChangerFormeArreterAttaque() {
 		super();
-		this.setNom("Changer de forme et arr¨ºte les attaques");
+		this.setNom("Changer de forme et arrï¿½ï¿½te les attaques");
 	}
 
 	@Override
-	public Jeu validerSuperpower(Jeu j) throws SaisiNonValideException {
+	public Jeu validerSuperpower(Jeu j)  {
 		this.declarer();
 		ArreterAttaque aa = new ArreterAttaque();
 		j = aa.validerSuperpower(j);

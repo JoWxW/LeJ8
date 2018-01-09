@@ -16,7 +16,7 @@ public class ChangerFormeArreterAttaqueCouleurFixe extends Effet {
 	}
 
 	@Override
-	public Jeu validerSuperpower(Jeu j) throws SaisiNonValideException {
+	public Jeu validerSuperpower(Jeu j)  {
 		ArreterAttaque a = new ArreterAttaque();
 		j = a.validerSuperpower(j);
 		System.out.println("La carte a effectue son superpower: joueur suivant peut poser la carte de meme couleur!");

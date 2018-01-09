@@ -108,6 +108,7 @@ public class Parametrer extends JPanel implements Observer {
 		// les donnees a choisir
 		JLabel nbJeu = new JLabel("Nombre de jeu de carte");
 		JRadioButton jeu1 = new JRadioButton("1");
+		//jeu1.setSelected(true);
 		jeu1.setOpaque(false);
 		jeu1.addActionListener(new RadioButtonListener());
 		JRadioButton jeu2 = new JRadioButton("2");

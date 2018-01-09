@@ -30,10 +30,13 @@ public class Jeu extends Observable implements Runnable {
 	private Carte carteActuelle;
 	private Variante variante;
 	private ArrayList<Observer> observers;
+	private ArrayList<Effet> effetEnAttente;
+	private ArrayList<Effet> effetDeJeu;
 
 	private boolean jeuEnCours = false;
 	private boolean parametrerTermine = false;
 	private boolean changed = false;
+	private boolean effetTermine = true;
 	Thread thread;
 
 	// pour determiner la strategie pour les joueus virtuels
@@ -74,6 +77,8 @@ public class Jeu extends Observable implements Runnable {
 		 */
 		this.jeuEnCours = false;
 		observers = new ArrayList<Observer>();
+		effetDeJeu = new ArrayList<Effet>();
+		effetEnAttente = new ArrayList<Effet>();
 		thread = new Thread(this);
 		thread.start();
 
@@ -97,8 +102,12 @@ public class Jeu extends Observable implements Runnable {
 				if (j.aGagne()) {
 					getJoueursGagne().add(j);
 					it.remove();
+
+					this.setChanged();
+					this.notifyObservers("renouveller");
 				}
 			}
+
 			if (getJoueurs().size() == 1) {
 				getJoueursGagne().add(getJoueurs().get(0));
 				break;
@@ -107,7 +116,7 @@ public class Jeu extends Observable implements Runnable {
 				if (getJoueurActuel() instanceof JoueurPhysique) {
 					this.setChanged(true);
 					this.notifyObservers("carteAPoser");
-					System.out.println("Carte de joueur physique£º " + this.joueurActuel.getCartes());
+					System.out.println("Carte de joueur physique: " + this.joueurActuel.getCartes());
 					jeu.getJoueurActuel().setTourTermine(false);
 					while (!jeu.getJoueurActuel().isTourTermine()) {
 						try {
@@ -119,17 +128,19 @@ public class Jeu extends Observable implements Runnable {
 					jeu.getJoueurActuel().setTourTermine(false);
 					if (jeu.getJoueurActuel().getPose()) {
 						jeu.getJoueurActuel().setPose(false);
+						jeu.getCarteActuelle().getEffectValide().validerSuperpower(jeu);
 						try {
-							jeu.getCarteActuelle().getEffectValide().validerSuperpower(jeu);
-						} catch (SaisiNonValideException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+							Thread.sleep(500);
+						} catch (Exception ex) {
+							ex.printStackTrace();
 						}
-					}
-					try {
-						Thread.sleep(500);
-					} catch (Exception ex) {
-						ex.printStackTrace();
+						while (!this.isEffetTermine()) {
+							try {
+								Thread.sleep(500);
+							} catch (Exception ex) {
+								ex.printStackTrace();
+							}
+						}
 					}
 
 				} else {
@@ -143,7 +154,7 @@ public class Jeu extends Observable implements Runnable {
 
 			}
 		}
-		
+
 		this.setChanged(true);
 		this.notifyObservers("Fin");
 		this.compterPoint();
@@ -238,16 +249,19 @@ public class Jeu extends Observable implements Runnable {
 	public void setVariante(int i) {
 		switch (i) {
 		case 0:
-			variante = new Minimale();
+			variante = new Minimale(this);
 			break;
 		case 11:
-			variante = new Monclar();
+			variante = new Monclar(this);
 			break;
 		case 1:
-			variante = new Variante1();
+			variante = new Variante1(this);
 			break;
 		case 5:
-			variante = new Variante5();
+			variante = new Variante5(this);
+			break;
+		case 2:
+			variante = new Variante2(this);
 		}
 	}
 
@@ -488,7 +502,7 @@ public class Jeu extends Observable implements Runnable {
 				 * System.out.println(this.getJoueurActuel().toString() + " pose " +
 				 * c.toString()); this.setCarteActuelle(c);
 				 * this.getTasDeCartePosee().addCartePosee(c); // zhege juzi keneng youwenti
-				 * c.getEffectValide().validerSuperpower(this); System.out.println("ÊÖÅÆ£º " +
+				 * c.getEffectValide().validerSuperpower(this); System.out.println("ï¿½ï¿½ï¿½Æ£ï¿½ " +
 				 * this.joueurActuel.getCartes());
 				 * 
 				 * } catch (SaisiNonValideException e) { e.printStackTrace(); } }
@@ -520,20 +534,19 @@ public class Jeu extends Observable implements Runnable {
 			try {
 				// verifier si la carte est bonne(pas besoin alors)
 				Carte c = this.getJoueurActuel().poserUneCarte(carteCandidate, this.getJoueurActuel().getCartes());
-				// jeu.getJoueurActuel().getCartes().remove(c);
+				jeu.getJoueurActuel().getCartes().remove(c);
+				System.out.println("remove c");
 				System.out.println(this.getJoueurActuel().toString() + " pose " + c.toString());
 				this.setCarteActuelle(c);
 				this.getTasDeCartePosee().addCartePosee(c);
 				// zhege juzi keneng youwenti
 				c.getEffectValide().validerSuperpower(this);
-				//System.out.println("Carte a la main£º " + this.joueurActuel.getCartes());
+				// System.out.println("Carte a la mainï¿½ï¿½ " + this.joueurActuel.getCartes());
 				System.out.println("       ");
 				this.changed = true;
 				jeu.notifyObservers("carteActuelle");
-				Thread.sleep(2000);
+				Thread.sleep(1000);
 
-			} catch (SaisiNonValideException e) {
-				e.printStackTrace();
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
@@ -703,7 +716,7 @@ public class Jeu extends Observable implements Runnable {
 	 * v.getNumero() + "\n"); } Jeu.NUMERO_DE_VERSION_DE_VARIANTE =
 	 * this.demandeUser("Veuillez choisir la version de variante.", scanner);
 	 * Jeu.METHODE_COMPTE = this.
-	 * demandeUser("Quel est la m¨¦thode de compter les points? Veuillez saisir '1' pour compte positif, '2' pour compte n¨¦gatif"
+	 * demandeUser("Quel est la mï¿½ï¿½thode de compter les points? Veuillez saisir '1' pour compte positif, '2' pour compte nï¿½ï¿½gatif"
 	 * , scanner); scanner.close(); >>>>>>> ca675586e93af1bb5753feb2ea35e89104768ce5
 	 * }
 	 */
@@ -753,6 +766,30 @@ public class Jeu extends Observable implements Runnable {
 
 	public ArrayList<Joueur> getJoueursGagne() {
 		return joueursGagne;
+	}
+
+	public ArrayList<Effet> getEffetEnAttente() {
+		return effetEnAttente;
+	}
+
+	public void setEffetEnAttente(ArrayList<Effet> effetEnAttente) {
+		this.effetEnAttente = effetEnAttente;
+	}
+
+	public ArrayList<Effet> getEffetDeJeu() {
+		return effetDeJeu;
+	}
+
+	public void setEffetDeJeu(ArrayList<Effet> effetDeJeu) {
+		this.effetDeJeu = effetDeJeu;
+	}
+
+	public void setEffetTermine(boolean b) {
+		this.effetTermine = b;
+	}
+
+	public boolean isEffetTermine() {
+		return this.effetTermine;
 	}
 
 	/*

@@ -3,7 +3,10 @@
  */
 package effet;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Observable;
+import java.util.Observer;
 
 import exception.SaisiNonValideException;
 import jeu.Jeu;
@@ -12,15 +15,18 @@ import jeu.Jeu;
  * @author wxw
  *
  */
-public abstract class Effet extends Observable implements Runnable{
+public abstract class Effet extends Observable implements Runnable {
 	private String nom;
-	// ¼ÓÁËÒ»¸öattaqueµÄÅÆÊý£¬±ãÓÚÍ³¼Æ£¬Èç¹ûÓÐ¸üºÃµÄ½â¾ö°ì·¨ÔÙÉ¾µô
+	// ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½attaqueï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í³ï¿½Æ£ï¿½ï¿½ï¿½ï¿½ï¿½Ð¸ï¿½ï¿½ÃµÄ½ï¿½ï¿½ï¿½ì·¨ï¿½ï¿½É¾ï¿½ï¿½
 	private int carteAttaque;
 	private boolean active = false;
 	private boolean mort = false;
+	private boolean continu = false;
+	private boolean changed =false;
+	private ArrayList<Observer> observers;
 
-	
 	public Effet() {
+		setObservers(new ArrayList<Observer>());
 	}
 
 	/**
@@ -28,7 +34,32 @@ public abstract class Effet extends Observable implements Runnable{
 	 * @throws SaisiNonValideException
 	 */
 
-	public abstract Jeu validerSuperpower(Jeu j) throws SaisiNonValideException;
+	public abstract Jeu validerSuperpower(Jeu j);
+
+	public void add(Observer o) {
+		observers.add(o);
+	}
+	
+	public void notifyObservers(Object arg) {
+		if (!changed) {
+			return;
+		}
+		Iterator<Observer> it = observers.iterator();
+		while (it.hasNext()) {
+			Observer o = it.next();
+			o.update(this, arg);
+		}
+		this.clearChanged();
+
+	}
+	
+	public void clearChanged() {
+		this.changed = false;
+	}
+	
+	public void setChanged(boolean b) {
+		this.changed=b;
+	}
 
 	public String getNom() {
 		return nom;
@@ -56,6 +87,8 @@ public abstract class Effet extends Observable implements Runnable{
 
 	public void declarer() {
 		System.out.println("La carte a effectue son superpower: " + this.nom + " !");
+		//this.setChanged(true);
+		//this.notifyObservers(this.getNom());
 	}
 
 	public boolean isActive() {
@@ -72,5 +105,21 @@ public abstract class Effet extends Observable implements Runnable{
 
 	public void setMort(boolean mort) {
 		this.mort = mort;
+	}
+
+	public boolean isContinu() {
+		return continu;
+	}
+
+	public void setContinu(boolean continu) {
+		this.continu = continu;
+	}
+
+	public ArrayList<Observer> getObservers() {
+		return observers;
+	}
+
+	public void setObservers(ArrayList<Observer> observers) {
+		this.observers = observers;
 	}
 }

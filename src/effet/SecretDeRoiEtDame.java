@@ -16,7 +16,7 @@ public class SecretDeRoiEtDame extends Effet {
 	}
 
 	@Override
-	public Jeu validerSuperpower(Jeu j) throws SaisiNonValideException {
+	public Jeu validerSuperpower(Jeu j){
 		Joueur jou = j.getJoueurActuel();
 		// LinkedList<Carte> aPoser = new LinkedList<Carte>();
 		LinkedList<Carte> myCartes = jou.getCartes();

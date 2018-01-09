@@ -23,6 +23,7 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 
 import carte.Carte;
+import controller.EffetControleur;
 import controller.JeuControleur;
 import jeu.Jeu;
 import ui.composant.CarteButton;
@@ -31,6 +32,7 @@ public class Game implements Observer {
 
 	private JFrame frame;
 	private JPanel window;
+	private JPanel popup;
 	private JPanel bg;
 	private JButton piocher;
 	private JPanel[] joueurs;
@@ -40,6 +42,7 @@ public class Game implements Observer {
 	private JPanel windowEast;
 	private JPanel windowWest;
 	private JeuControleur jeuControleur;
+	private EffetControleur effetControleur;
 	private int nbJoueurs;
 	private JLabel carteActuelle;
 	private JPanel carteMainPanel;
@@ -65,8 +68,10 @@ public class Game implements Observer {
 
 	public void initialiser(Jeu j) {
 		jeuControleur = new JeuControleur(j);
+		effetControleur = new EffetControleur(j);
 		frame = new JFrame("Game");
 		window = new JPanel();
+		popup = new JPanel();
 		bg = new JPanel();
 		/*
 		 * commencer.addActionListener(this); quitter.addActionListener(this);
@@ -76,6 +81,10 @@ public class Game implements Observer {
 		frame.setBackground(new Color(Integer.decode("#6a0d77")));
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
+		
+		popup.setOpaque(false);
+		popup.setPreferredSize(new Dimension(800,600));
+		
 
 		ImageIcon image = new ImageIcon("sources/fond.jpg");
 		/*
@@ -125,6 +134,7 @@ public class Game implements Observer {
 		window.add(windowCenter, BorderLayout.CENTER);
 		layeredPane.add(window, JLayeredPane.MODAL_LAYER);
 		layeredPane.add(bg, JLayeredPane.DEFAULT_LAYER);
+		layeredPane.add(popup, JLayeredPane.POPUP_LAYER);
 
 		frame.setLayeredPane(layeredPane);
 		frame.setLocationRelativeTo(frame.getOwner());
@@ -159,7 +169,7 @@ public class Game implements Observer {
 		buttonPanel.add(piocher);
 		buttonPanel.setPreferredSize(new Dimension(800, 30));
 
-		carteMainPanel =construireCarteEnMain(j);
+		carteMainPanel = construireCarteEnMain(j);
 		carteMainPanel.setPreferredSize(new Dimension(800, 160));
 		windowSouth.add(buttonPanel, BorderLayout.NORTH);
 		windowSouth.add(carteMainPanel, BorderLayout.SOUTH);
@@ -182,137 +192,167 @@ public class Game implements Observer {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			jeuControleur.joueurPhysiquePoser(e.getActionCommand());
+			effetControleur.joueurPhysiquePoser(e.getActionCommand());
 
 		}
 
 	}
-	
-	class CarteListener implements ActionListener{
+
+	class CarteListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			// TODO Auto-generated method stub
-			
+
 		}
-		
+
 	}
 
 	public void update(Observable o, Object arg) {
-		Jeu j = (Jeu) o;
-		if (arg == "carteActuelle") {
-			ImageIcon icoCarteActuelle = new ImageIcon("sources/" + j.getCarteActuelle().getId() + ".gif");
-			JLabel nouvelleCarte = new JLabel(icoCarteActuelle);
-			windowCenter.remove(carteActuelle);
-			windowCenter.add(nouvelleCarte);
-			carteActuelle = nouvelleCarte;
-			windowCenter.updateUI();
-			//update la carte de joueur physique
-			windowSouth.remove(carteMainPanel);
-			carteMainPanel.removeAll();
-			carteMainPanel = this.construireCarteEnMain(j);
-			windowSouth.add(carteMainPanel, BorderLayout.SOUTH);
-			carteMainPanel.updateUI();
-			windowSouth.updateUI();
-		}else if(arg == "carteAPoser") {
-			windowSouth.remove(carteMainPanel);
-			carteMainPanel.removeAll();
-			carteMainPanel = this.construireCarteCandidate(j);
-			windowSouth.add(carteMainPanel, BorderLayout.SOUTH);
-			carteMainPanel.updateUI();
-			windowSouth.updateUI();
-		}else if (arg == "Fin") {
-			new Resultat(j);
-			jeuControleur.fermer(frame);
-		}else if(arg == "renouveller") {
-			this.listerJoueurV(j);
+		if (o instanceof Jeu) {
+			Jeu j = (Jeu) o;
+			if (arg == "carteActuelle") {
+				ImageIcon icoCarteActuelle = new ImageIcon("sources/" + j.getCarteActuelle().getId() + ".gif");
+				JLabel nouvelleCarte = new JLabel(icoCarteActuelle);
+				windowCenter.remove(carteActuelle);
+				windowCenter.add(nouvelleCarte);
+				carteActuelle = nouvelleCarte;
+				windowCenter.updateUI();
+				// update la carte de joueur physique
+				windowSouth.remove(carteMainPanel);
+				carteMainPanel.removeAll();
+				carteMainPanel = this.construireCarteEnMain(j);
+				windowSouth.add(carteMainPanel, BorderLayout.SOUTH);
+				carteMainPanel.updateUI();
+				windowSouth.updateUI();
+			} else if (arg == "carteAPoser") {
+				windowSouth.remove(carteMainPanel);
+				carteMainPanel.removeAll();
+				carteMainPanel = this.construireCarteCandidate(j);
+				windowSouth.add(carteMainPanel, BorderLayout.SOUTH);
+				carteMainPanel.updateUI();
+				windowSouth.updateUI();
+			} else if (arg == "Fin") {
+				new Resultat(j);
+				jeuControleur.fermer(frame);
+			} else if (arg == "renouveller") {
+				this.listerJoueurV(j);
+			}
+		} else {
+			if (arg == "ObligeRejouer") {
+				windowSouth.remove(carteMainPanel);
+				carteMainPanel.removeAll();
+				carteMainPanel = this.construireCarteEnMain(jeuControleur.getJeu());
+				piocher.setVisible(true);
+				windowSouth.add(carteMainPanel, BorderLayout.SOUTH);
+				carteMainPanel.updateUI();
+				windowSouth.updateUI();
+			}else  {
+				//显示effet
+				
+				JLabel effet = new JLabel(arg.toString());
+				effet.setFont(new Font("Dialog",1,15));
+				effet.setForeground(Color.WHITE);
+				popup.add(effet);
+				popup.repaint();
+				try {
+					Thread.sleep(500);
+				}catch(Exception ex) {
+					ex.printStackTrace();
+				}
+				popup.removeAll();
+				popup.repaint();
+			}
+
 		}
 	}
-	
+
 	public JPanel construireCarteEnMain(Jeu j) {
 		piocher.setVisible(false);
 		JPanel carteMain = new JPanel();
 		carteMain.setOpaque(false);
 		carteMain.setLayout(new FlowLayout());
-		LinkedList<Carte> cartes = j.getJoueurs().get(j.getJoueurs().size()-1).getCartes();
+		LinkedList<Carte> cartes = j.getJoueurs().get(j.getJoueurs().size() - 1).getCartes();
 		Iterator<Carte> it = cartes.iterator();
 		while (it.hasNext()) {
 			Carte c = it.next();
-			
+
 			CarteButton carte = new CarteButton(c.getId());
 			carte.addActionListener(new PoserListener());
-			
+
 			carteMain.add(carte);
 		}
-		carteMain.setPreferredSize(new Dimension(800,160));
+		carteMain.setPreferredSize(new Dimension(800, 160));
 		return carteMain;
 	}
-	
+
 	public JPanel construireCarteCandidate(Jeu j) {
 		piocher.setVisible(true);
 		JPanel carteMain = new JPanel();
 		carteMain.setOpaque(false);
 		carteMain.setLayout(new FlowLayout());
-		LinkedList<Carte> cartes = j.getJoueurs().get(j.getJoueurs().size()-1).getCarteCandidate(j.getCarteActuelle());
+		LinkedList<Carte> cartes = j.getJoueurs().get(j.getJoueurs().size() - 1)
+				.getCarteCandidate(j.getCarteActuelle());
 		Iterator<Carte> it = cartes.iterator();
 		while (it.hasNext()) {
 			Carte c = it.next();
-			
+
 			CarteButton carte = new CarteButton(c.getId());
 			carte.addActionListener(new PoserListener());
-			
+
 			carteMain.add(carte);
 		}
-		carteMain.setPreferredSize(new Dimension(800,160));
+		carteMain.setPreferredSize(new Dimension(800, 160));
 		return carteMain;
 	}
-	
+
 	public void listerJoueurV(Jeu j) {
 		windowNorth.removeAll();
 		ImageIcon ico = new ImageIcon("sources/1-1.png");
-		nbJoueurs = Jeu.getNombreDeJoueurs();
+		nbJoueurs = j.getJoueurs().size();
 		windowNorth.setLayout(new FlowLayout());
 		joueurs = new JPanel[nbJoueurs - 1];
-		//definir la position du joueur actuel
+		// definir la position du joueur actuel
 		int position = j.getJoueurs().indexOf(j.getJoueurActuel());
 		for (int i = 0; i < nbJoueurs - 1; i++) {
 			JLabel cardImage = new JLabel(ico);
 			ImageIcon icoTime = new ImageIcon("sources/time.png");
 			JLabel timeImage = new JLabel(icoTime);
 			timeImage.setOpaque(false);
-			if(position!=(nbJoueurs-1)) {
-				if(i!=position) {
+			if (position != (nbJoueurs - 1)) {
+				if (i != position) {
 					timeImage.setVisible(false);
 				}
-			}else {
+			} else {
 				timeImage.setVisible(false);
 			}
 			JPanel infoPanel = new JPanel();
 			infoPanel.setOpaque(false);
 			infoPanel.setLayout(new BorderLayout());
-			infoPanel.setPreferredSize(new Dimension(50,50));
-			
+			infoPanel.setPreferredSize(new Dimension(50, 50));
+
 			JPanel joueur = new JPanel();
 			joueur.setOpaque(false);
 			joueur.setBorder(BorderFactory.createLineBorder(Color.white, 1));
 			joueur.setLayout(new BorderLayout());
 			joueur.setPreferredSize((new Dimension((int) (750 / (nbJoueurs - 1)), 175)));
-			
-			joueur.add(cardImage,BorderLayout.CENTER);
-			
-			JLabel nbCarte = new JLabel("Joueur"+i+" NB: " + j.getJoueurs().get(i).getCartes().size());
+
+			joueur.add(cardImage, BorderLayout.CENTER);
+
+			JLabel nbCarte = new JLabel("Joueur" + i + " NB: " + j.getJoueurs().get(i).getCartes().size());
 
 			nbCarte.setPreferredSize(new Dimension(30, 15));
 			nbCarte.setForeground(Color.WHITE);
-			
-			infoPanel.add(nbCarte,BorderLayout.CENTER);
-			infoPanel.add(timeImage,BorderLayout.SOUTH);
+
+			infoPanel.add(nbCarte, BorderLayout.CENTER);
+			infoPanel.add(timeImage, BorderLayout.SOUTH);
 			joueur.add(infoPanel, BorderLayout.SOUTH);
 
 			joueurs[i] = joueur;
 			windowNorth.add(joueur);
 
 		}
-		
+
 	}
 
 }

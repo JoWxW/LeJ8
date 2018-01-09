@@ -18,10 +18,10 @@ import joueur.Joueur;
 public class FairePiocherOuMeme extends FairePiocher{
 	public FairePiocherOuMeme(int nbCarte){
 		super(nbCarte);
-		this.setNom("Faire piocher " + nbCarte + " cartes ¨¤ moins que poser une autre carte de m¨ºme valeur");
+		this.setNom("Faire piocher " + nbCarte + " cartes ï¿½ï¿½ moins que poser une autre carte de mï¿½ï¿½me valeur");
 	}
 	
-	public Jeu validerSuperpower(Jeu j) throws SaisiNonValideException {
+	public Jeu validerSuperpower(Jeu j){
 		this.declarer();
 		int nbPiocher = j.getNbCartePiocher() + this.getNbCarte();
 		j.setNbcartePiocher(nbPiocher);

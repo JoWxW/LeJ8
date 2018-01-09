@@ -37,7 +37,7 @@ public class FairePiocher extends Effet {
 
 	// pas encore ajouer crazy8 pour annuler les attaques
 	@Override
-	public Jeu validerSuperpower(Jeu j) throws SaisiNonValideException {
+	public Jeu validerSuperpower(Jeu j) {
 		this.declarer();
 		int nbPiocher = j.getNbCartePiocher() + this.nbCarte;
 		j.setNbcartePiocher(nbPiocher);

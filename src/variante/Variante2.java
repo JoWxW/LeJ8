@@ -7,12 +7,13 @@ import java.util.LinkedList;
 import action.DireMaou;
 import carte.Carte;
 import effet.*;
+import jeu.Jeu;
 import joueur.Joueur;
 
 public class Variante2 extends Variante{
 	
-	public Variante2() {
-		super();
+	public Variante2(Jeu j) {
+		super(j);
 		this.setNom("Variante2");
 		this.setNumero("2");
 	}
@@ -20,9 +21,13 @@ public class Variante2 extends Variante{
 	@Override
 	public void addEffet(LinkedList<Carte> tas,ArrayList<Joueur> joueurs) {
 		ObligeRejouer obligeRejouer = new ObligeRejouer();
+		this.getJeu().getEffetDeJeu().add(obligeRejouer);
 		PasserSonTour passerSonTour = new PasserSonTour();
+		this.getJeu().getEffetDeJeu().add(passerSonTour);
 		FairePiocher fairePiocher = new FairePiocher(2);
+		this.getJeu().getEffetDeJeu().add(fairePiocher);
 		ChangerForme changerCouleur = new ChangerForme();
+		this.getJeu().getEffetDeJeu().add(changerCouleur);
 		
 		Iterator<Carte> it  = tas.iterator();
 		while(it.hasNext()){

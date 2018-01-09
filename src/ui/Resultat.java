@@ -57,11 +57,17 @@ public class Resultat implements Observer {
 				windowCenter.add(res);
 			}
 		} else {
-			windowCenter.add(new JLabel("Compte negatif"));
+			windowCenter.add(new JLabel("Compte positif"));
 			j.getJoueursGagne().get(0).setPoint(50);
 			j.getJoueursGagne().get(1).setPoint(20);
 			j.getJoueursGagne().get(2).setPoint(10);
 			
+			Iterator<Joueur> ijg = j.getJoueursGagne().iterator();
+			while (ijg.hasNext()) {
+				Joueur jo = ijg.next();
+				JLabel res = new JLabel(jo.toString() + "  :  " + jo.calculerPoint());
+				windowCenter.add(res);
+			}
 			Iterator<Joueur> it = j.getJoueurs().iterator();
 			while (it.hasNext()) {
 				Joueur jo = it.next();

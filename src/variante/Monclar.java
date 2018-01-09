@@ -9,6 +9,7 @@ import java.util.LinkedList;
 
 import carte.Carte;
 import effet.*;
+import jeu.Jeu;
 import joueur.Joueur;
 
 /**
@@ -16,20 +17,25 @@ import joueur.Joueur;
  *
  */
 public class Monclar extends Variante {
-	public Monclar() {
-		super();
-
+	public Monclar(Jeu j) {
+		super(j);
 		this.setNom("Version Monclar");
 		this.setNumero("11");
 	}
 
 	public void addEffet(LinkedList<Carte> tas,ArrayList<Joueur> joueurs) {
 		ObligeRejouer obligeRejouer = new ObligeRejouer();
+		this.getJeu().getEffetDeJeu().add(obligeRejouer);
 		PasserSonTour passerSonTour = new PasserSonTour();
+		this.getJeu().getEffetDeJeu().add(passerSonTour);
 		ChangerSens changerSens = new ChangerSens();
+		this.getJeu().getEffetDeJeu().add(changerSens);
 		FairePiocherSansRecours fairePiocherSansRecours = new FairePiocherSansRecours(1);
+		this.getJeu().getEffetDeJeu().add(fairePiocherSansRecours);
 		FairePiocher fairePiocher = new FairePiocher(3);
+		this.getJeu().getEffetDeJeu().add(fairePiocher);
 		ChangerFormeArreterAttaque changerFormeArreterAttaque = new ChangerFormeArreterAttaque();
+		this.getJeu().getEffetDeJeu().add(changerFormeArreterAttaque);
 
 		Iterator<Carte> it = tas.iterator();
 		while (it.hasNext()) {

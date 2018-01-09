@@ -13,7 +13,7 @@ public class PasserMonTourAGauche extends Effet {
 	}
 
 	@Override
-	public Jeu validerSuperpower(Jeu j) throws SaisiNonValideException {
+	public Jeu validerSuperpower(Jeu j) {
 		Joueur jou = j.getJoueurActuel();
 		ArrayList<Joueur> joueurs = j.getJoueurs();
 		int position = joueurs.indexOf(jou);

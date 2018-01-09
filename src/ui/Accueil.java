@@ -109,7 +109,8 @@ public class Accueil implements Runnable{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			jeuControleur.commencer();
-			jeuControleur.fermer(frame);
+			//jeuControleur.fermer(frame);
+			frame.dispose();
 		}
 
 	}

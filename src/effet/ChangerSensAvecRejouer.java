@@ -23,11 +23,9 @@ public class ChangerSensAvecRejouer extends ChangerSens {
 			return j;
 		} else {
 			ObligeRejouer o = new ObligeRejouer();
-			try {
+			
 				j = o.validerSuperpower(j);
-			} catch (SaisiNonValideException e) {
-				e.printStackTrace();
-			}
+			
 			return j;
 			
 			

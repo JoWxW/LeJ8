@@ -6,12 +6,13 @@ import java.util.LinkedList;
 
 import carte.Carte;
 import effet.*;
+import jeu.Jeu;
 import joueur.Joueur;
 
 public class Variante1 extends Variante {
 
-	public Variante1() {
-		super();
+	public Variante1(Jeu j) {
+		super(j);
 		this.setNom("Variante 1");
 		this.setNumero("1");
 	}
@@ -19,17 +20,29 @@ public class Variante1 extends Variante {
 	@Override
 	public void addEffet(LinkedList<Carte> tas,ArrayList<Joueur> joueurs) {
 		ObligeRejouer obligeReJouer = new ObligeRejouer();
+		this.getJeu().getEffetDeJeu().add(obligeReJouer);
 		FairePiocher fairePiocher2 = new FairePiocher(2);
+		this.getJeu().getEffetDeJeu().add(fairePiocher2);
 		PasserSonTour passerSonTour = new PasserSonTour();
+		this.getJeu().getEffetDeJeu().add(passerSonTour);
 		ChangerSens changerSens = new ChangerSens();
+		this.getJeu().getEffetDeJeu().add(changerSens);
 		SecretDeRoiEtDame roiEtDame = new SecretDeRoiEtDame();
+		this.getJeu().getEffetDeJeu().add(roiEtDame);
 		FairePiocher fairePiocher1 = new FairePiocher(1);
+		this.getJeu().getEffetDeJeu().add(fairePiocher1);
 		PiocherDeLaMain piocherDeLaMain = new PiocherDeLaMain();
+		this.getJeu().getEffetDeJeu().add(piocherDeLaMain);
 		DonnerDeuxCartes donnerDeuxCartes = new DonnerDeuxCartes();
+		this.getJeu().getEffetDeJeu().add(donnerDeuxCartes);
 		Dire4 dire4 = new Dire4();
+		this.getJeu().getEffetDeJeu().add(dire4);
 		ArreterAttaque effetDe5 = new ArreterAttaque();
+		this.getJeu().getEffetDeJeu().add(effetDe5);
 		PasserMonTourAGauche passerMonTourAGauche = new PasserMonTourAGauche();
+		this.getJeu().getEffetDeJeu().add(passerMonTourAGauche);
 		ChangerForme changerForme = new ChangerForme();
+		this.getJeu().getEffetDeJeu().add(changerForme);
 
 		Iterator<Carte> it = tas.iterator();
 		while (it.hasNext()) {

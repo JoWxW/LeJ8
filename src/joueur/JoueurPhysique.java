@@ -33,34 +33,34 @@ public class JoueurPhysique extends Joueur {
 	}
 
 	public Carte poserUneCarte(LinkedList<Carte> carteCandidate, LinkedList<Carte> myCartes) {
-		listerCarteCandidate(carteCandidate);
+		//listerCarteCandidate(carteCandidate);
 		// Scanner scanner = new Scanner(System.in);
-		System.out.println("Choisissez une carte a jouer(numero)");
+		//System.out.println("Choisissez une carte a jouer(numero)");
 
 		// get index par utilisateur(Exception pour une valeur non entier)
 
-		int position = Jeu.getScanner().nextInt();
+		int position =0;
 		// scanner.close();
 		// ajouter une exception ou pas
 		//if (position >= 0 && position <= carteCandidate.size() - 1) {
 			// out.close();
 			Carte carteChoisie = carteCandidate.get(position);
 			myCartes.remove(carteChoisie);
-			if (!(carteChoisie.getEffet().size() == 0)) {
+			/*if (!(carteChoisie.getEffet().size() == 0)) {
 				Effet effetValide = choisirEffet(carteChoisie);
 				carteChoisie.setEffectValide(effetValide);
 				return carteChoisie;
 
-			} else {
+			} else {*/
 				return carteChoisie;
-			}
+			//}
 	    //}
 
 	}
 	
     
 
-	public Effet choisirEffet(Carte carteChoisie) {
+	/*public Effet choisirEffet(Carte carteChoisie) {
 		System.out.println("Cette carte a plusieurs effets");
 		Iterator<Effet> ie = carteChoisie.getEffet().iterator();
 		StringBuffer info = new StringBuffer();
@@ -82,7 +82,7 @@ public class JoueurPhysique extends Joueur {
 		Effet effetValide = carteChoisie.getEffet().get(n);
 		return effetValide;
 
-	}
+	}*/
 
 	public void listerCarteCandidate(LinkedList<Carte> carteCandidate) {
 		Iterator<Carte> it = carteCandidate.iterator();

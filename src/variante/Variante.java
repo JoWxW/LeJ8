@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 import carte.Carte;
+import jeu.Jeu;
 import joueur.Joueur;
 
 /**
@@ -16,6 +17,7 @@ import joueur.Joueur;
 public abstract class Variante {
 	private String nom;
 	private String numero;
+	private Jeu jeu;
 
 	/**
 	 * @param nom
@@ -26,7 +28,8 @@ public abstract class Variante {
 		this.numero = numero;
 	}
 
-	public Variante() {
+	public Variante(Jeu j) {
+		this.setJeu(j);
 	}
 
 	public abstract void addEffet(LinkedList<Carte> tas,ArrayList<Joueur> joueurs);
@@ -59,6 +62,14 @@ public abstract class Variante {
 	 */
 	public void setNumero(String numero) {
 		this.numero = numero;
+	}
+
+	public Jeu getJeu() {
+		return jeu;
+	}
+
+	public void setJeu(Jeu jeu) {
+		this.jeu = jeu;
 	}
 
 }

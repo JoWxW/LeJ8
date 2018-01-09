@@ -16,7 +16,7 @@ public class DonnerDeuxCartes extends Effet {
 	}
 
 	@Override
-	public Jeu validerSuperpower(Jeu j) throws SaisiNonValideException {
+	public Jeu validerSuperpower(Jeu j)  {
 		Joueur jou = j.getJoueurActuel();
 		Joueur joueurChoisi;
 		if (jou instanceof JoueurVirtuel) {

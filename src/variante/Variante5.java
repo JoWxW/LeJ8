@@ -4,6 +4,7 @@
 package variante;
 import carte.*;
 import effet.*;
+import jeu.Jeu;
 import joueur.Joueur;
 
 import java.util.*;
@@ -12,8 +13,8 @@ import java.util.*;
  *
  */
 public class Variante5 extends Variante{
-	public Variante5(){
-		super();
+	public Variante5(Jeu j){
+		super(j);
 		this.setNom("Variante5");
 		this.setNumero("5");
 	}
@@ -22,9 +23,13 @@ public class Variante5 extends Variante{
 	@Override
 	public void addEffet(LinkedList<Carte> tas,ArrayList<Joueur> joueurs) {
 		ObligeRejouer obligeRejouer = new ObligeRejouer();
+		this.getJeu().getEffetDeJeu().add(obligeRejouer);
 		ChangerSens changerSens = new ChangerSens();
+		this.getJeu().getEffetDeJeu().add(changerSens);
 		FairePiocherOuMeme fairePiocher = new FairePiocherOuMeme(2);
+		this.getJeu().getEffetDeJeu().add(fairePiocher);
 		ChangerFormeArreterAttaque changerFormeArreterAttaque = new ChangerFormeArreterAttaque();
+		this.getJeu().getEffetDeJeu().add(changerFormeArreterAttaque);
 		
 		Iterator<Carte> it  = tas.iterator();
 		while(it.hasNext()){

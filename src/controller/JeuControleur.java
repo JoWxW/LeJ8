@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import javax.swing.JFrame;
 
 import carte.Carte;
+import effet.Effet;
 import exception.SaisiNonValideException;
 import jeu.Jeu;
 import joueur.Joueur;
@@ -41,47 +42,52 @@ public class JeuControleur {
 		jeu.setParametrerTermine(true);
 		Game game = new Game(jeu);
 		jeu.add(game);
-		
-		
-		//derouler();
-		
+		Iterator<Effet> it = jeu.getEffetDeJeu().iterator();
+		while(it.hasNext()) {
+			Effet e = it.next();
+			e.add(game);
+		}
+
+		// derouler();
+
 		// derouler();
 	}
-	
+
 	public void fin() {
 		Resultat res = new Resultat(jeu);
 		jeu.add(res);
 	}
 
 	public void joueurPhysiquePiocher() {
-		jeu.getJoueurActuel().piocher(jeu.getCarteDepuisTas());
-		System.out.println("joueur physique pioche");
-		jeu.getJoueurActuel().setTourTermine(true);
+		if (jeu.getEffetEnAttente().isEmpty()) {
+			jeu.getJoueurActuel().piocher(jeu.getCarteDepuisTas());
+			System.out.println("joueur physique pioche");
+			jeu.getJoueurActuel().setTourTermine(true);
+		}
 
 	}
 
-	
-	
 	public void joueurPhysiquePoser(String id) {
-		
-		LinkedList<Carte> cartes = jeu.getJoueurActuel().getCartes();
-		Iterator<Carte> it = cartes.iterator();
-		Carte carteChoisie;
-		while(it.hasNext()) {
-			Carte c = it.next();
-			if(c.getId()==id) {
-				carteChoisie = c;
-				jeu.getJoueurActuel().poserCarteChoisie(carteChoisie);
-				jeu.setCarteActuelle(carteChoisie);
-				System.out.println("Joueur physique pose "+c.toString());
-				break;
+		if (jeu.getEffetEnAttente().isEmpty()) {
+			LinkedList<Carte> cartes = jeu.getJoueurActuel().getCartes();
+			Iterator<Carte> it = cartes.iterator();
+			Carte carteChoisie;
+			while (it.hasNext()) {
+				Carte c = it.next();
+				if (c.getId() == id) {
+					carteChoisie = c;
+					jeu.getJoueurActuel().poserCarteChoisie(carteChoisie);
+					jeu.setCarteActuelle(carteChoisie);
+					jeu.getTasDeCartePosee().addCartePosee(carteChoisie);
+					System.out.println("Joueur physique pose " + c.toString());
+					break;
+				}
 			}
+
+			jeu.getJoueurActuel().setPose(true);
+			jeu.getJoueurActuel().setTourTermine(true);
+
 		}
-		
-		jeu.getJoueurActuel().setPose(true);
-		jeu.getJoueurActuel().setTourTermine(true);
-		
-		
 	}
 
 	public void fermer(JFrame frame) {

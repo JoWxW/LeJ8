@@ -16,7 +16,7 @@ import jeu.Jeu;
 import ui.composant.Fenetre;
 
 public class Accueil implements Runnable{
-
+//test
 	private static final long serialVersionUID = 1L;
 	private JFrame frame;
 	private JPanel window;

@@ -8,6 +8,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Observable;
@@ -25,6 +26,8 @@ import javax.swing.border.Border;
 import carte.Carte;
 import controller.EffetControleur;
 import controller.JeuControleur;
+import effet.Effet;
+import effet.FairePiocher;
 import jeu.Jeu;
 import ui.composant.CarteButton;
 
@@ -78,7 +81,7 @@ public class Game implements Observer {
 		 */
 
 		frame.setSize(800, 600);
-		frame.setBackground(new Color(Integer.decode("#6a0d77")));
+		frame.setBackground(new Color(Integer.decode("#1f8387")));
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 		
@@ -183,6 +186,7 @@ public class Game implements Observer {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			jeuControleur.joueurPhysiquePiocher();
+			effetControleur.joueurPhysiquePiocher();
 		}
 
 	}
@@ -240,6 +244,12 @@ public class Game implements Observer {
 			}
 		} else {
 			if (arg == "ObligeRejouer") {
+				ImageIcon icoCarteActuelle = new ImageIcon("sources/" + jeuControleur.getJeu().getCarteActuelle().getId() + ".gif");
+				JLabel nouvelleCarte = new JLabel(icoCarteActuelle);
+				windowCenter.remove(carteActuelle);
+				windowCenter.add(nouvelleCarte);
+				carteActuelle = nouvelleCarte;
+				windowCenter.updateUI();
 				windowSouth.remove(carteMainPanel);
 				carteMainPanel.removeAll();
 				carteMainPanel = this.construireCarteEnMain(jeuControleur.getJeu());
@@ -247,13 +257,18 @@ public class Game implements Observer {
 				windowSouth.add(carteMainPanel, BorderLayout.SOUTH);
 				carteMainPanel.updateUI();
 				windowSouth.updateUI();
+			}else if(arg == "FairePiocher"){
+				
 			}else  {
 				//显示effet
-				
+				System.out.println(arg);
+				ImageIcon icoCartes = new ImageIcon("sources/cards.png");
+				JLabel cartesImage = new JLabel(icoCartes);
 				JLabel effet = new JLabel(arg.toString());
 				effet.setFont(new Font("Dialog",1,15));
 				effet.setForeground(Color.WHITE);
 				popup.add(effet);
+				popup.add(cartesImage);
 				popup.repaint();
 				try {
 					Thread.sleep(500);
@@ -296,6 +311,38 @@ public class Game implements Observer {
 		Iterator<Carte> it = cartes.iterator();
 		while (it.hasNext()) {
 			Carte c = it.next();
+
+			CarteButton carte = new CarteButton(c.getId());
+			carte.addActionListener(new PoserListener());
+
+			carteMain.add(carte);
+		}
+		carteMain.setPreferredSize(new Dimension(800, 160));
+		return carteMain;
+	}
+	
+	public JPanel construireCarteFairePiocher(Jeu j) {
+		piocher.setVisible(true);
+		JPanel carteMain = new JPanel();
+		carteMain.setOpaque(false);
+		carteMain.setLayout(new FlowLayout());
+		LinkedList<Carte> cartes = new LinkedList<Carte>();
+		LinkedList<Carte> carteDeJoueur = j.getJoueurActuel().getCartes();
+		Iterator<Carte> it = carteDeJoueur.iterator();
+		while (it.hasNext()) {
+			Carte c = it.next();
+			ArrayList<Effet> effets = c.getEffet();
+			Iterator<Effet> ie = effets.iterator();
+			while (ie.hasNext()) {
+				Effet e = ie.next();
+				if (e instanceof FairePiocher) {
+					cartes.add(c);
+				}
+			}
+		}
+		Iterator<Carte> ic = cartes.iterator();
+		while (it.hasNext()) {
+			Carte c = ic.next();
 
 			CarteButton carte = new CarteButton(c.getId());
 			carte.addActionListener(new PoserListener());

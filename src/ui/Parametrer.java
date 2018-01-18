@@ -63,8 +63,6 @@ public class Parametrer extends JPanel implements Observer {
 				}
 			}
 		});
-		
-		
 
 	}
 
@@ -86,7 +84,7 @@ public class Parametrer extends JPanel implements Observer {
 		// new ButtonLancerControleur(j,lancer);
 
 		frame.setSize(800, 600);
-		frame.setBackground(new Color(Integer.decode("#6a0d77")));
+		frame.setBackground(new Color(Integer.decode("#1f8387")));
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 
@@ -108,7 +106,7 @@ public class Parametrer extends JPanel implements Observer {
 		// les donnees a choisir
 		JLabel nbJeu = new JLabel("Nombre de jeu de carte");
 		JRadioButton jeu1 = new JRadioButton("1");
-		//jeu1.setSelected(true);
+		// jeu1.setSelected(true);
 		jeu1.setOpaque(false);
 		jeu1.addActionListener(new RadioButtonListener());
 		JRadioButton jeu2 = new JRadioButton("2");
@@ -183,6 +181,7 @@ public class Parametrer extends JPanel implements Observer {
 
 		JLabel difficulte = new JLabel("Difficulte");
 		JComboBox<String> choisirDifficulte = new JComboBox<String>();
+		choisirDifficulte.addActionListener(new DifficulteComcoBoxListener());
 		choisirDifficulte.setEditable(true);
 		choisirDifficulte.setEnabled(true);
 		choisirDifficulte.addItem("Simple");
@@ -213,7 +212,6 @@ public class Parametrer extends JPanel implements Observer {
 		windowCenter.add(compterPanel);
 		windowCenter.add(variantePanel);
 		windowCenter.add(difficultePanel);
-		
 
 		JPanel windowNorth = new JPanel();
 		windowNorth.setOpaque(false);
@@ -272,7 +270,9 @@ public class Parametrer extends JPanel implements Observer {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			switch (e.getActionCommand()) {
+			JComboBox<String> comboBox = (JComboBox) e.getSource();
+			String variante = comboBox.getSelectedItem().toString();
+			switch (variante) {
 			case "Variante Minimale":
 				jeuControleur.setVariante(0);
 				break;
@@ -298,7 +298,9 @@ public class Parametrer extends JPanel implements Observer {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			switch (e.getActionCommand()) {
+			JComboBox<String> comboBox = (JComboBox) e.getSource();
+			String difficulte = comboBox.getSelectedItem().toString();
+			switch (difficulte) {
 			case "Simple":
 				jeuControleur.setDifficulte(0);
 				break;
@@ -359,7 +361,7 @@ public class Parametrer extends JPanel implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		this.frame.repaint();
-		
+
 	}
 
 }

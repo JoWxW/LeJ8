@@ -13,7 +13,7 @@ import jeu.Jeu;
 public class ChangerFormeArreterAttaque extends Effet {
 	public ChangerFormeArreterAttaque() {
 		super();
-		this.setNom("Changer de forme et arr��te les attaques");
+		this.setNom("Changer de forme et arrete les attaques");
 	}
 
 	@Override

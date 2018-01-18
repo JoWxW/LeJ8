@@ -44,11 +44,7 @@ public class Accueil implements Runnable{
 
 	}
 	
-	@Override
-	public void run() {
-		//frame.repaint();
-		
-	}
+	
 
 	public Accueil(Jeu jeu) {
 		thread= new Thread(this);
@@ -70,7 +66,7 @@ public class Accueil implements Runnable{
 		//new ButtonCommencerControleur(j,commencer);
 
 		frame.setSize(800, 600);
-		frame.setBackground(Color.blue);
+		frame.setBackground(new Color(Integer.decode("#1f8387")));
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 
@@ -113,6 +109,12 @@ public class Accueil implements Runnable{
 			frame.dispose();
 		}
 
+	}
+	
+	@Override
+	public void run() {
+		//frame.repaint();
+		
 	}
 
 	

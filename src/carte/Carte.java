@@ -19,7 +19,7 @@ public class Carte {
 	// private int point;
 	private Etat etat;
 
-	// 加一个effet valide?
+	// 锟斤拷一锟斤拷effet valide?
 	private Effet effectValide = new NonEffet();
 	// Collection
 	private ArrayList<Effet> effet;
@@ -47,6 +47,7 @@ public class Carte {
 		this.etat = Etat.enAttend;
 		this.setValeur(valeur.values()[13]);
 		this.setForme(Forme.values()[4]);
+		this.id = new String(this.forme.getId()+"-"+this.valeur.getId());
 		this.effet = new ArrayList<Effet>();
 		Effet e = new ArreterAttaque();
 		this.addEffet(e);

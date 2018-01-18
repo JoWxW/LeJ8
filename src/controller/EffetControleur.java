@@ -5,6 +5,7 @@ import java.util.LinkedList;
 
 import carte.Carte;
 import effet.Effet;
+import effet.FairePiocher;
 import jeu.Jeu;
 
 public class EffetControleur {
@@ -37,7 +38,26 @@ public class EffetControleur {
 			}
 			Effet effetTop = jeu.getEffetEnAttente().get(0);
 			effetTop.setContinu(true);
-			
+
+		}
+
+	}
+
+	public void joueurPhysiquePiocher() {
+		if (!jeu.getEffetEnAttente().isEmpty()) {
+			Effet effetTop = jeu.getEffetEnAttente().get(0);
+			if (effetTop instanceof FairePiocher) {
+				for (int i = 0; i < jeu.getNbCartePiocher(); i++) {
+					jeu.getJoueurActuel().piocher(jeu.getCarteDepuisTas());
+				}
+				System.out.println("joueur physique pioche " + jeu.getNbCartePiocher() + " cartes");
+				effetTop.setaPioche(true);
+				effetTop.setContinu(true);
+			} else {
+				jeu.getJoueurActuel().piocher(jeu.getCarteDepuisTas());
+				effetTop.setaPioche(true);
+				effetTop.setContinu(true);
+			}
 		}
 
 	}

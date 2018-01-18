@@ -9,6 +9,7 @@ import enumeration.*;
 import exception.SaisiNonValideException;
 import joueur.*;
 import ui.Accueil;
+import uiTexte.VueTexte;
 import variante.*;
 
 import java.util.*;
@@ -57,10 +58,12 @@ public class Jeu extends Observable implements Runnable {
 	private static int methodeCompte;
 	private static boolean croissante = true;
 	private static Scanner scanner;
+	
 
 	public static void main(String[] args) {
 		Jeu j = Jeu.getJeu();
 		Accueil accueil = new Accueil(j);
+		
 
 	}
 
@@ -69,6 +72,7 @@ public class Jeu extends Observable implements Runnable {
 		 * this.tas = new TasDeCarte(); this.joueurs = new LinkedList<Joueur>();
 		 * 
 		 */
+		
 		this.joueursGagne = new ArrayList<Joueur>();
 		this.nbCartePiocher = 0;
 		// scanner = new Scanner(System.in);
@@ -95,6 +99,7 @@ public class Jeu extends Observable implements Runnable {
 				e.printStackTrace();
 			}
 		}
+		variante.addEffet(tasDeCarteEnAttente.getTasDeCarte(), joueurs);
 		while (!this.jeuTermine()) {
 			Iterator<Joueur> it = getJoueurs().iterator();
 			while (it.hasNext()) {
@@ -262,7 +267,9 @@ public class Jeu extends Observable implements Runnable {
 			break;
 		case 2:
 			variante = new Variante2(this);
+			break;
 		}
+
 	}
 
 	public void initialiser() {
@@ -535,7 +542,6 @@ public class Jeu extends Observable implements Runnable {
 				// verifier si la carte est bonne(pas besoin alors)
 				Carte c = this.getJoueurActuel().poserUneCarte(carteCandidate, this.getJoueurActuel().getCartes());
 				jeu.getJoueurActuel().getCartes().remove(c);
-				System.out.println("remove c");
 				System.out.println(this.getJoueurActuel().toString() + " pose " + c.toString());
 				this.setCarteActuelle(c);
 				this.getTasDeCartePosee().addCartePosee(c);

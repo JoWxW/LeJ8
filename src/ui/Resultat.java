@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Iterator;
 import java.util.Observable;
 import java.util.Observer;
@@ -11,6 +13,7 @@ import java.util.Observer;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
@@ -22,6 +25,7 @@ import joueur.Joueur;
 public class Resultat implements Observer {
 	private JFrame frame;
 	private JPanel window;
+	private JButton quitter;
 	private JPanel bg;
 	private JPanel windowCenter;
 	private JPanel windowNorth;
@@ -74,6 +78,8 @@ public class Resultat implements Observer {
 				JLabel res = new JLabel(jo.toString() + "  :  " + jo.calculerPoint());
 				windowCenter.add(res);
 			}
+			
+			
 		}
 		
 		
@@ -83,6 +89,8 @@ public class Resultat implements Observer {
 		frame = new JFrame("Resultat");
 		window = new JPanel();
 		bg = new JPanel();
+		quitter = new JButton("Quitter");
+		quitter.addActionListener(new QuitterListener());
 		/*
 		 * commencer.addActionListener(this); quitter.addActionListener(this);
 		 */
@@ -144,7 +152,17 @@ public class Resultat implements Observer {
 		frame.setLayeredPane(layeredPane);
 		frame.setLocationRelativeTo(frame.getOwner());
 		frame.setResizable(false);
+		
+		windowSouth.add(quitter);
 
+	}
+	
+	class QuitterListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			System.exit(0);
+		}
 	}
 
 

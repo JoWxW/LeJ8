@@ -14,6 +14,7 @@ import joueur.JoueurPhysique;
 import ui.Game;
 import ui.Parametrer;
 import ui.Resultat;
+import uiTexte.VueTexte;
 
 public class JeuControleur {
 
@@ -41,12 +42,15 @@ public class JeuControleur {
 		jeu.initialiser();
 		jeu.setParametrerTermine(true);
 		Game game = new Game(jeu);
+		VueTexte vueTexte = new VueTexte(jeu);
 		jeu.add(game);
 		Iterator<Effet> it = jeu.getEffetDeJeu().iterator();
 		while(it.hasNext()) {
 			Effet e = it.next();
 			e.add(game);
+			e.add(vueTexte);
 		}
+		
 
 		// derouler();
 
@@ -69,12 +73,13 @@ public class JeuControleur {
 
 	public void joueurPhysiquePoser(String id) {
 		if (jeu.getEffetEnAttente().isEmpty()) {
+			if(id.equals("0-4"))System.out.println("oui");
 			LinkedList<Carte> cartes = jeu.getJoueurActuel().getCartes();
 			Iterator<Carte> it = cartes.iterator();
 			Carte carteChoisie;
-			while (it.hasNext()) {
+			while (it.hasNext()) {               
 				Carte c = it.next();
-				if (c.getId() == id) {
+				if (id.equals(c.getId())) {
 					carteChoisie = c;
 					jeu.getJoueurActuel().poserCarteChoisie(carteChoisie);
 					jeu.setCarteActuelle(carteChoisie);
@@ -116,6 +121,7 @@ public class JeuControleur {
 
 	public void setVariante(int variante) {
 		jeu.setVariante(variante);
+		Jeu.setVersionDeVariante(variante);;
 	}
 
 }

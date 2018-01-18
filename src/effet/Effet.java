@@ -22,6 +22,7 @@ public abstract class Effet extends Observable implements Runnable {
 	private boolean active = false;
 	private boolean mort = false;
 	private boolean continu = false;
+	private boolean aPioche = false;
 	private boolean changed =false;
 	private ArrayList<Observer> observers;
 
@@ -87,6 +88,7 @@ public abstract class Effet extends Observable implements Runnable {
 
 	public void declarer() {
 		System.out.println("La carte a effectue son superpower: " + this.nom + " !");
+
 		//this.setChanged(true);
 		//this.notifyObservers(this.getNom());
 	}
@@ -121,5 +123,13 @@ public abstract class Effet extends Observable implements Runnable {
 
 	public void setObservers(ArrayList<Observer> observers) {
 		this.observers = observers;
+	}
+
+	public boolean isaPioche() {
+		return aPioche;
+	}
+
+	public void setaPioche(boolean aPioche) {
+		this.aPioche = aPioche;
 	}
 }

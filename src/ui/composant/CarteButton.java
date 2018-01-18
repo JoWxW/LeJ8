@@ -2,6 +2,8 @@ package ui.composant;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.awt.image.PixelGrabber;
 import java.awt.image.RescaleOp;
@@ -29,9 +31,9 @@ public class CarteButton extends JButton {
 		buttonWidth = image.getWidth();
 		buttonHeight = image.getHeight();
 
-		// ¶ÁÈ¡Í¼Æ¬Êý¾Ý
+		// ï¿½ï¿½È¡Í¼Æ¬ï¿½ï¿½ï¿½ï¿½
 		pixels = new int[buttonWidth * buttonHeight];
-		// ×¥È¡ÏñËØÊý¾Ý
+		// ×¥È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		PixelGrabber pg = new PixelGrabber(image, 0, 0, buttonWidth, buttonHeight, pixels, 0, buttonWidth);
 		try {
 			pg.grabPixels();
@@ -39,7 +41,7 @@ public class CarteButton extends JButton {
 			e.printStackTrace();
 		}
 
-		// ±ØÐëÉèÖÃ£¡·ñÔò»áÓÐ²ÐÓ°£¡
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð²ï¿½Ó°ï¿½ï¿½
 		this.setOpaque(false);
 
 		this.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
@@ -52,9 +54,9 @@ public class CarteButton extends JButton {
 		buttonWidth = image.getWidth();
 		buttonHeight = image.getHeight();
 
-		// ¶ÁÈ¡Í¼Æ¬Êý¾Ý
+		// ï¿½ï¿½È¡Í¼Æ¬ï¿½ï¿½ï¿½ï¿½
 		pixels = new int[buttonWidth * buttonHeight];
-		// ×¥È¡ÏñËØÊý¾Ý
+		// ×¥È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		PixelGrabber pg = new PixelGrabber(image, 0, 0, buttonWidth, buttonHeight, pixels, 0, buttonWidth);
 		try {
 			pg.grabPixels();
@@ -62,7 +64,7 @@ public class CarteButton extends JButton {
 			e.printStackTrace();
 		}
 
-		// ±ØÐëÉèÖÃ£¡·ñÔò»áÓÐ²ÐÓ°£¡
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð²ï¿½Ó°ï¿½ï¿½
 		this.setOpaque(false);
 
 		this.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
@@ -72,12 +74,12 @@ public class CarteButton extends JButton {
 			 float[] scales = {0.5f,0.5f,0.5f,0.5f };
              float[] offsets = new float[4];
              RescaleOp rop = new RescaleOp(scales, offsets, null);
-             // Ö´ÐÐ
+             // Ö´ï¿½ï¿½
              rop.filter(image,image);
 		}
 	}
 
-	// ¶ÁÈ¡Í¼Æ¬ÎÄ¼þ
+	// ï¿½ï¿½È¡Í¼Æ¬ï¿½Ä¼ï¿½
 	public BufferedImage loadImage(String filename) {
 		File file = new File(filename);
 
@@ -92,7 +94,7 @@ public class CarteButton extends JButton {
 		}
 	}
 
-	// ¸²¸Ç´Ë·½·¨»æÖÆ×Ô¶¨ÒåµÄÍ¼Æ¬
+	// ï¿½ï¿½ï¿½Ç´Ë·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½Í¼Æ¬
 	public void paintComponent(Graphics g) {
 		g.drawImage(image, 0, 0, this);
 		/*
@@ -101,13 +103,13 @@ public class CarteButton extends JButton {
 		 */
 	}
 
-	// ¸²¸Ç´Ë·½·¨»æÖÆ×Ô¶¨ÒåµÄ±ß¿ò
+	// ï¿½ï¿½ï¿½Ç´Ë·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½Ä±ß¿ï¿½
 	public void paintBorder(Graphics g) {
-		// ²»Òª±ß¿ò
+		// ï¿½ï¿½Òªï¿½ß¿ï¿½
 	}
 
 	public boolean contains(int x, int y) {
-		// ²»ÅÐ¶¨µÄ»°»áÔ½½ç£¬ÔÚ×é¼þÖ®ÍâÒ²»á¼¤·¢Õâ¸ö·½·¨
+		// ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½Ä»ï¿½ï¿½ï¿½Ô½ï¿½ç£¬ï¿½ï¿½ï¿½ï¿½ï¿½Ö®ï¿½ï¿½Ò²ï¿½á¼¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if (!super.contains(x, y))
 			return false;
 
@@ -121,16 +123,10 @@ public class CarteButton extends JButton {
 		}
 	}
 
-	// ´¦Àí½øÈë¡¢Àë¿ªÍ¼Æ¬·¶Î§µÄÏûÏ¢
-	/*
-	 * class MouseHandler extends MouseAdapter { public void mouseExited(MouseEvent
-	 * e){ mouseOn = false; repaint(); } public void mouseEntered(MouseEvent e){
-	 * mouseOn = true; repaint(); } public void mousePressed(MouseEvent e){ mouseOn
-	 * = false; mousePressed = true; repaint(); } public void
-	 * mouseReleased(MouseEvent e){ //·ÀÖ¹ÔÚ°´Å¥Ö®ÍâµÄµØ·½ËÉ¿ªÊó±ê if(contains(e.getX(),
-	 * e.getY())) mouseOn = true; else mouseOn = false;
-	 * 
-	 * mousePressed = false; repaint(); } }
-	 */
+
+
+	
+
+	
 
 }

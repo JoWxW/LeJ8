@@ -153,10 +153,10 @@ public abstract class Joueur {
 		StringBuffer s = new StringBuffer();
 		s.append("Joueur ");
 		s.append(this.nom);
-		int nbCarte = this.cartes.size();
+		//int nbCarte = this.cartes.size();
 		// s.append(" id ");
 		// s.append(this.id);
-		s.append(" " + nbCarte);
+		//s.append(" " + nbCarte);
 		return s.toString();
 	}
 

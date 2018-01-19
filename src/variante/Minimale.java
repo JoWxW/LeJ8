@@ -11,8 +11,8 @@ import joueur.Joueur;
 import java.util.*;
 
 /**
- * @author wxw
- *
+ * La variante de version minimale
+ * @see Variante
  */
 public class Minimale extends Variante {
 	
@@ -24,6 +24,7 @@ public class Minimale extends Variante {
 		this.setNumero("0");
 	}
 
+	@Override
 	public void addEffet(LinkedList<Carte> tas,ArrayList<Joueur> joueurs) {
 		FairePiocher fairePiocher = new FairePiocher(2);
 		this.getJeu().getEffetDeJeu().add(fairePiocher);

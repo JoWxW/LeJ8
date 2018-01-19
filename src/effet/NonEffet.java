@@ -6,8 +6,7 @@ package effet;
 import jeu.Jeu;
 
 /**
- * @author wxw
- *
+ * L'effet general pour une carte qui n'a pas de effet
  */
 public class NonEffet extends Effet {
 	public NonEffet() {

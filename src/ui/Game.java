@@ -30,64 +30,67 @@ import effet.Effet;
 import effet.FairePiocher;
 import jeu.Jeu;
 import ui.composant.CarteButton;
-
+/**affiche l'interface gaphique principale sur laquelle le joueur joue ses cartes avec les joueurs virtuels*/
 public class Game implements Observer {
 
+	/**le frame fondamental*/
 	private JFrame frame;
+	/**un cadre qui contient tous les elements*/
 	private JPanel window;
-	private JPanel popup;
+	/**l'image au fond*/
 	private JPanel bg;
+	/**button pour piocher une carte*/
 	private JButton piocher;
+	/**une liste des panel qui representent les joueurs virtuels*/
 	private JPanel[] joueurs;
+	/**un sous-cadre au centre*/
 	private JPanel windowCenter;
+	/**un sous-cadre au nord*/
 	private JPanel windowNorth;
+	/**un sous-cadre au sud*/
 	private JPanel windowSouth;
+	/**un sous-cadre a l'est*/
 	private JPanel windowEast;
+	/**un sous-cadre a l'ouest*/
 	private JPanel windowWest;
+	/**un controleur de jeu qui fait le lien entre l'interface graphique et le jeu
+	 * @see JeuControleur*/
 	private JeuControleur jeuControleur;
+	/** un controleur d'effet qui fait le lien entre cette l'interface graphique et l'effet*/
 	private EffetControleur effetControleur;
+	/**un entier qui stocke le nombre de joueurs*/
 	private int nbJoueurs;
+	/**un JLabel qui represente la carte actuelle*/
 	private JLabel carteActuelle;
+	/**un sous-cadre qui represente la partie de joueur physique*/
 	private JPanel carteMainPanel;
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Jeu j = Jeu.getJeu();
-					Game game = new Game(j);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
 
-	}
-
+	/**@param j le jeu pour fournir des informations et pour effectuer des modifications*/
 	public Game(Jeu j) {
 		initialiser(j);
 
 	}
 
+	/**Methode pour initialiser le frame
+	 * Ce frame est compose par plusieurs sous-cadres qui represente une partie de jeu, par exemple les jouerus virtuels, le joueur physique
+	 * Chaque sous-cadre est compose par les composants elementaires comme JLabel, JButton et CarteButton que nous avons defini
+	 * @see CarteButton*/
 	public void initialiser(Jeu j) {
 		jeuControleur = new JeuControleur(j);
 		effetControleur = new EffetControleur(j);
 		frame = new JFrame("Game");
 		window = new JPanel();
-		popup = new JPanel();
+
 		bg = new JPanel();
-		/*
-		 * commencer.addActionListener(this); quitter.addActionListener(this);
-		 */
 
 		frame.setSize(800, 600);
 		frame.setBackground(new Color(Integer.decode("#1f8387")));
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
-		
-		popup.setOpaque(false);
-		popup.setPreferredSize(new Dimension(800,600));
-		
+
+
+
 
 		ImageIcon image = new ImageIcon("sources/fond.jpg");
 		/*
@@ -137,7 +140,6 @@ public class Game implements Observer {
 		window.add(windowCenter, BorderLayout.CENTER);
 		layeredPane.add(window, JLayeredPane.MODAL_LAYER);
 		layeredPane.add(bg, JLayeredPane.DEFAULT_LAYER);
-		layeredPane.add(popup, JLayeredPane.POPUP_LAYER);
 
 		frame.setLayeredPane(layeredPane);
 		frame.setLocationRelativeTo(frame.getOwner());
@@ -176,11 +178,10 @@ public class Game implements Observer {
 		carteMainPanel.setPreferredSize(new Dimension(800, 160));
 		windowSouth.add(buttonPanel, BorderLayout.NORTH);
 		windowSouth.add(carteMainPanel, BorderLayout.SOUTH);
-		// classe interne pour definir la carte
-		// classe extends JButton implements MouseListener
-		// JButton[] cartesEnMain = new JButton[nbCarte];
+
 	}
 
+	/**classe interne qui repond a l'appuie sur le button Piocher et appelle le controleur pour realiser cette action dans jeu*/
 	class piocherListener implements ActionListener {
 
 		@Override
@@ -191,6 +192,7 @@ public class Game implements Observer {
 
 	}
 
+	/**classe interne qui repond a l'appuie sur une carte pour la poser et appelle le controleur pour realiser cette action dans jeu*/
 	class PoserListener implements ActionListener {
 
 		@Override
@@ -202,16 +204,9 @@ public class Game implements Observer {
 
 	}
 
-	class CarteListener implements ActionListener {
 
-		@Override
-		public void actionPerformed(ActionEvent arg0) {
-			// TODO Auto-generated method stub
 
-		}
-
-	}
-
+	@Override
 	public void update(Observable o, Object arg) {
 		if (o instanceof Jeu) {
 			Jeu j = (Jeu) o;
@@ -258,30 +253,15 @@ public class Game implements Observer {
 				carteMainPanel.updateUI();
 				windowSouth.updateUI();
 			}else if(arg == "FairePiocher"){
-				
-			}else  {
-				//显示effet
-				System.out.println(arg);
-				ImageIcon icoCartes = new ImageIcon("sources/cards.png");
-				JLabel cartesImage = new JLabel(icoCartes);
-				JLabel effet = new JLabel(arg.toString());
-				effet.setFont(new Font("Dialog",1,15));
-				effet.setForeground(Color.WHITE);
-				popup.add(effet);
-				popup.add(cartesImage);
-				popup.repaint();
-				try {
-					Thread.sleep(500);
-				}catch(Exception ex) {
-					ex.printStackTrace();
-				}
-				popup.removeAll();
-				popup.repaint();
+
 			}
+
 
 		}
 	}
 
+	/**construit les carte en main de joueur physique comme un panel
+	 * @return retourne le JPanel representant les cartes de joueur physique*/
 	public JPanel construireCarteEnMain(Jeu j) {
 		piocher.setVisible(false);
 		JPanel carteMain = new JPanel();
@@ -300,7 +280,8 @@ public class Game implements Observer {
 		carteMain.setPreferredSize(new Dimension(800, 160));
 		return carteMain;
 	}
-
+	/**construit les cartes candidates, c'est-a-dire les cartes que le joueur peut jouer dans ce tour,S de joueur physique comme un panel
+	 * @return retourne le JPanel representant les cartes candidates de joueur physique*/
 	public JPanel construireCarteCandidate(Jeu j) {
 		piocher.setVisible(true);
 		JPanel carteMain = new JPanel();
@@ -320,7 +301,10 @@ public class Game implements Observer {
 		carteMain.setPreferredSize(new Dimension(800, 160));
 		return carteMain;
 	}
-	
+
+	/**construit les cartes de joueur physique quand il est attaque par l'effet FairePiocher
+	@see FairePiocher
+	@retur retourne les cartes de joueur physique dans ce cas  */
 	public JPanel construireCarteFairePiocher(Jeu j) {
 		piocher.setVisible(true);
 		JPanel carteMain = new JPanel();
@@ -353,6 +337,7 @@ public class Game implements Observer {
 		return carteMain;
 	}
 
+  /**methode qui liste les joueurs virtuels en fonction de nombre de joueurs*/
 	public void listerJoueurV(Jeu j) {
 		windowNorth.removeAll();
 		ImageIcon ico = new ImageIcon("sources/1-1.png");

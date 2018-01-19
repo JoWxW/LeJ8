@@ -9,8 +9,7 @@ import exception.SaisiNonValideException;
 import jeu.*;
 
 /**
- * @author wxw
- *
+ * L'effet qui oblige le joueur actuel de rejouer
  */
 public class ObligeRejouer extends Effet {
 	private Thread thread;

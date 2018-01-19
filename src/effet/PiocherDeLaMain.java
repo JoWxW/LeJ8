@@ -6,7 +6,7 @@ import carte.Carte;
 import exception.SaisiNonValideException;
 import jeu.Jeu;
 import joueur.Joueur;
-//par defaut piocher une carte
+/**L'effet qui oblige un joueur au choix de piocher un certain nombre de carte de joueur actuel*/
 public class PiocherDeLaMain extends Effet {
 	private int nbCarte;
 

@@ -9,8 +9,8 @@ import joueur.Joueur;
 
 import java.util.*;
 /**
- * @author wxw
- *
+ * La variante 5
+ * @see Variante
  */
 public class Variante5 extends Variante{
 	public Variante5(Jeu j){

@@ -2,10 +2,11 @@ package effet;
 
 import exception.SaisiNonValideException;
 import jeu.Jeu;
-
-public class ChangerSensAvecRejouer extends ChangerSens {
+/**L'effet qui change le sens de jeu et permet de rejouer losqu'il y a seulement 2 joueurs
+ * @see ChangerSens*/ 
+public class ChangerSensAvecRejouer extends ChangerSens { 
 	
-
+	/**Constructeur de classe*/
 	public ChangerSensAvecRejouer() {
 		super();
 		this.setNom("Changer de sens(rejouer s'il y a 2 joueurs)");

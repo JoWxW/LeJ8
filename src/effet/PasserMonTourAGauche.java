@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import exception.SaisiNonValideException;
 import jeu.Jeu;
 import joueur.Joueur;
-
+/**L'effet qui fait passe le tour de joueur actuel au joueur a gauche*/
 public class PasserMonTourAGauche extends Effet {
 	public PasserMonTourAGauche() {
 		super();

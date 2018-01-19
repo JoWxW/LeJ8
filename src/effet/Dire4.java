@@ -2,9 +2,10 @@ package effet;
 
 import exception.SaisiNonValideException;
 import jeu.Jeu;
-
+/**L'effet qui oblige le joueur de dire 4 quand il pose une carte 4*/
 public class Dire4 extends Effet {
 
+	/**Constructeur de classe*/
 	public Dire4() {
 		super();
 		this.setNom("Dire 4");

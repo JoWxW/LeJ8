@@ -13,19 +13,27 @@ import javax.swing.JPanel;
 
 import action.Action;
 import action.NoAction;
-
+/**Classe abstracte qui definit de manirer generale un joueur et ses comportements et actions principaux*/
 public abstract class Joueur {
-
+	/**id de joueur*/
 	private String id;
+	/**le point de joueur a la fin de jeu*/
 	private int point = 0;
+	/**le nom de joueur*/
 	private String nom;
+	/**la place de joueur par rapport a son point a la fin*/
 	private int place = 0;
+	/** une action qu'un joueur fait a la fin de chaque tour, annoncer par exemple*/
 	private Action myAction;
-	// carte a la main(diagramme de classe)
+	/**liste des cartes a la main de joueur*/
 	private LinkedList<Carte> cartes = new LinkedList<Carte>();
+	/**liste des cartes qui peuvent etre posees dans un tour*/
 	private LinkedList<Carte> carteCandidate = new LinkedList<Carte>();
+	/**boolean qui indique si le joueur a pose une carte*/
 	private boolean pose = false;
+	/**boolean qui indique si le joueur a pioche*/
 	private boolean pioche = false;
+	/**boolean qui indique si le tour de joueur est termine*/
 	private boolean tourTermine = false;
 	
 	

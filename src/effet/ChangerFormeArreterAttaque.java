@@ -7,16 +7,20 @@ import exception.SaisiNonValideException;
 import jeu.Jeu;
 
 /**
- * @author wxw
- *
+ * L'effet qui changer la forme et arreter l'attaque sur le joueur soi-meme
+ * @see ArreterAttaque
+ * @see ChangerForme
+ * @see Effet
  */
 public class ChangerFormeArreterAttaque extends Effet {
+	/**Constructeur de classe*/
 	public ChangerFormeArreterAttaque() {
 		super();
 		this.setNom("Changer de forme et arrete les attaques");
 	}
 
 	@Override
+	/**@see ChangerFormeArreterAttaque*/
 	public Jeu validerSuperpower(Jeu j)  {
 		this.declarer();
 		ArreterAttaque aa = new ArreterAttaque();

@@ -14,16 +14,18 @@ import enumeration.Forme;
 import jeu.Jeu;
 
 /**
- * @author wxw
- *
+ * L'effet qui changer le forme a la couleur dont le joueur possede le plus
+ * @see Effet
  */
 public class ChangerForme extends Effet {
+	/**Constructeur de classe*/
 	public ChangerForme() {
 		super();
 		this.setNom("Changer Forme");
 	}
 
 	@Override
+	/**@see ChangerForme*/
 	public Jeu validerSuperpower(Jeu j) {
 		this.declarer();
 		// C'est mieux de tranformer la couleur a ce que le joueur possede le plus

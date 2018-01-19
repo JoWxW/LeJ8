@@ -3,8 +3,10 @@ package effet;
 import exception.SaisiNonValideException;
 import jeu.Jeu;
 
+/**L'effet qui permet le joueur de poser tous les carte de cette forme*/
 public class DeMemeCouleur extends Effet {
 	
+	/**Constructeur de classe*/
 	public DeMemeCouleur() {
 		super();
 		this.setNom("Poser toutes les cartes de meme couleur");

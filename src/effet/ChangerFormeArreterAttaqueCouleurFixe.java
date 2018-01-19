@@ -8,14 +8,21 @@ import exception.SaisiNonValideException;
 import jeu.Jeu;
 import joueur.Joueur;
 
+/**
+ * L'effet qui change la forme a la forme de la carte posee et arrete l'attaque sur le joueur
+ * @see ChangerForme
+ * @see ArreterAttaque*/
 public class ChangerFormeArreterAttaqueCouleurFixe extends Effet {
 
+	/**Constructeur de classe*/
 	public ChangerFormeArreterAttaqueCouleurFixe() {
 		super();
 		this.setNom("Arreter une attaque et changer le forme a couleur fixe");
 	}
 
 	@Override
+	/**
+	 * @see ChangerFormeArreterAttaqueCouleurFixe*/
 	public Jeu validerSuperpower(Jeu j)  {
 		ArreterAttaque a = new ArreterAttaque();
 		j = a.validerSuperpower(j);

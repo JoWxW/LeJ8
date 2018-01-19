@@ -7,9 +7,10 @@ import carte.Carte;
 import exception.SaisiNonValideException;
 import jeu.Jeu;
 import joueur.*;
-
+/**L'effet qui permet le joueur de donner deux cartes a un joueur au choix*/
 public class DonnerDeuxCartes extends Effet {
 
+	/**Constructeur de classe*/
 	public DonnerDeuxCartes() {
 		super();
 		this.setNom("Donner deux cartes a joueur au choix");

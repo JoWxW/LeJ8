@@ -12,13 +12,12 @@ import jeu.Jeu;
 import joueur.Joueur;
 
 /**
- * @author wxw
- *
- */
+ * L'effet qui fait le joueur suivant piocher deux cartes sauf que le joueur suivant pose une autre carte de meme valeur
+ * @see FairePiocher*/
 public class FairePiocherOuMeme extends FairePiocher{
 	public FairePiocherOuMeme(int nbCarte){
 		super(nbCarte);
-		this.setNom("Faire piocher " + nbCarte + " cartes �� moins que poser une autre carte de m��me valeur");
+		this.setNom("Faire piocher " + nbCarte + " cartes �� moins que poser une autre carte de meme valeur");
 	}
 	
 	public Jeu validerSuperpower(Jeu j){

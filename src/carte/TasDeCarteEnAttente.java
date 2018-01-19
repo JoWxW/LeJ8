@@ -8,22 +8,22 @@ import jeu.*;
 import java.util.*;
 
 /**
- * @author wxw
+ *  <b>Description</b>
+ *  La classe modélise le tas des carte qui seront piochées
  *
  */
-// jeu锟叫ｏ拷每一锟街匡拷始之前verifier la taille de tas de carte, taille<5(?) 锟斤拷锟絚artes
-// posees锟斤拷锟斤拷平锟斤拷锟�
+
 public class TasDeCarteEnAttente {
-	// constante 锟斤拷 voir dans la classe Carte
+	
 	public final static int sizeValeurs = Valeur.size;
 	public final static int sizeFormes = Forme.size;
-	// constante 锟斤拷 voir dans la classe Jeu
-	// public final static int Jeu.jeux = 2;
-	// public final static int avecJoker = 1;
-
+	
+	/**le nombre de cartes en total dans cette partie de jeu, qui se varie en fonction de paramètrer du jeu*/
 	private int nbDeCarte;
+	/**la Collection qui représente les cartes peut être piocher*/
 	private LinkedList<Carte> carteEnAttente;
 
+	/**Le constructeur de la classe TasDeCarteEnAttente*/
 	public TasDeCarteEnAttente() {
 		this.nbDeCarte = Jeu.getNombreDeJeux() * (52 + Jeu.getAvecJoker() * 2);
 		this.carteEnAttente = new LinkedList<Carte>();
@@ -33,7 +33,6 @@ public class TasDeCarteEnAttente {
 			this.carteEnAttente.add(j);
 		}
 
-		// 锟斤拷师锟斤拷锟斤拷锟狡硷拷锟斤拷锟斤拷锟斤拷锟绞斤拷锟絝or循锟斤拷锟斤拷锟斤拷说锟斤拷visible
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 13; j++) {
 				Valeur v = Valeur.values()[j];
@@ -64,6 +63,7 @@ public class TasDeCarteEnAttente {
 		return c;
 	}
 
+	/**mélanger les cartes*/
 	public void melanger() {
 		for (int i = 0; i < this.nbDeCarte; i++) {
 			int position = (int) Math.round((Math.random() * (this.nbDeCarte - 1)));
@@ -73,19 +73,13 @@ public class TasDeCarteEnAttente {
 
 	}
 
+	/**Ajouter les cartes dans le tas de cartes posées au tas de cartes à être piochées*/
 	public void addCartesPosees(TasDeCartePosee cp) {
 		this.carteEnAttente.addAll(cp.getCartePosee());
 	}
 
+	
 	public String toString() {
 		return this.carteEnAttente.toString();
-	}
-
-	public static void main(String[] args) {
-		// Carte c = new Carte(Forme.carreau, Valeur.AS);
-		// System.out.println(c.toString());
-		TasDeCarteEnAttente tdc = new TasDeCarteEnAttente();
-		tdc.melanger();
-		System.out.println(tdc.getTailleDeTas() + tdc.toString());
 	}
 }

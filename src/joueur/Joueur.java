@@ -36,39 +36,29 @@ public abstract class Joueur {
 	/**boolean qui indique si le tour de joueur est termine*/
 	private boolean tourTermine = false;
 	
-	
-
+	/**constructeur de Joueur*/
 	public Joueur() {
 	}
 
+	/**@param id id de joueur
+	 * @param nom nom de joueur*/
 	public Joueur(String id, String nom) {
 		this.setId(id);
 		this.setNom(nom);
 		setMyAction(new NoAction());
 	}
 
-	// piocher une carte
-	public void piocher(Carte j) {
-		cartes.add(j);
+	/**joueur pioche une carte
+	 * @param carte carte piochee par le joueur */
+	public void piocher(Carte carte) {
+		cartes.add(carte);
 	}
 
-	// Verifier si le joueur a une carte correte a la main, retourne true s'il l'a
-	// inutile?
-	public boolean aCarteCorrecte(Carte c) {
-		Iterator<Carte> it = cartes.iterator();
-		boolean res = false;
-		while (it.hasNext()) {
-			Carte maCarte = it.next();
-			if (maCarte.getForme().equals(c.getForme()) || maCarte.getValeur().equals(c.getValeur())) {
-				res = true;
-				break;
-			}
-		}
-		return res;
-	}
 
-	// get les carte candidates pour ce tour par rapport a la carte preccedante
-	// dans ce cas, la carte precedante ne sera jamais une carte avec effet
+	/** get les carte candidates pour ce tour par rapport a la carte actuelle
+	 dans ce cas, la carte precedante ne sera jamais une carte avec effet
+	 @param c carte actuelle sur la table
+	 @return liste des cartes candidates qui peuvent etre posees par rapport a la carte actuelle*/
 	public LinkedList<Carte> getCarteCandidate(Carte c) {
 		LinkedList<Carte> carteCandidate = new LinkedList<Carte>();
 		Iterator<Carte> it = getCartes().iterator();
@@ -83,37 +73,36 @@ public abstract class Joueur {
 
 	}
 
-	// poser une carte, il faut redefinir dans la classe fille
+	/**joueur pose une carte
+	 * @param c carte que le joueur a pose*/
 	public void poserUneCarte(Carte c) {
 		this.getCartes().remove(c);
 
 	}
 	
+	/**joueur pose une carte au choix
+	 * @param c carte choisie par joueur*/
 	public void poserCarteChoisie(Carte c) {
 		this.cartes.remove(c);
 	}
 
-	//
-	// methode abstrait??????
-	//
+    /**methode abstracte permettant le joueur de poser une carte entre les cartes candidates
+     * @param carteCandidates liste des cartes qui peuvent etre posees par rapport a la carte actuelle
+     * @param myCartes liste des cartes de joueur
+     * @return la carte choisie*/
 	public abstract Carte poserUneCarte(LinkedList<Carte> carteCandidate, LinkedList<Carte> myCartes);
 
-	// annoncer carte ou contre carte
-	//
+	/**joueur annonce quand il n'a qu'une seule carte*/
 	public void annoncer() {
 		if (this.getCartes().size() == 1) {
 			System.out.println(this.toString() + " annonce Carte");
 		}
 	}
 
-	// calculer le point en fonction de la facon de compter et retourner le point de
-	// ce joueur
-	// compte positif comme mode1,compte negatif comme mode0
+	/** calculer le point en fonction de la facon de compter et retourner le point de ce joueur compte positif comme mode 1,compte negatif comme mode 0
+	 * @return le point de joueur*/
 	public int calculerPoint() {
-		/*
-		 * if (Jeu.getMethodeCompte() == 1) { if (place == 1) { point += 50; } else if
-		 * (place == 2) { point += 20; } else if (place == 3) { point += 10; } } else
-		 */ if (Jeu.getMethodeCompte() == 0) {
+		if (Jeu.getMethodeCompte() == 0) {
 			Iterator<Carte> it = cartes.iterator();
 			while (it.hasNext()) {
 				Carte myCarte = it.next();
@@ -147,8 +136,9 @@ public abstract class Joueur {
 
 	}
 
+	/**retourne un boolean pour verifier se le joueur a gagne, c'est-a-dire il n'a pas de carte en main
+	 * @return true si le joueur a gagne, false sinon*/
 	public boolean aGagne() {
-		// boolean res;
 		if (cartes.isEmpty()) {
 			return true;
 		} else {
@@ -161,10 +151,7 @@ public abstract class Joueur {
 		StringBuffer s = new StringBuffer();
 		s.append("Joueur ");
 		s.append(this.nom);
-		//int nbCarte = this.cartes.size();
-		// s.append(" id ");
-		// s.append(this.id);
-		//s.append(" " + nbCarte);
+	
 		return s.toString();
 	}
 

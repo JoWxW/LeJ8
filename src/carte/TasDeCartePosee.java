@@ -6,11 +6,12 @@ package carte;
 import java.util.*;
 
 /**
- * @author wxw
- *
+ * <b>Description</b>
+ *  La classe modélise le tas des carte qui sont posées sur la table
  */
 
 public class TasDeCartePosee {
+	/**La collection des cartes posée sur le table*/
 	private LinkedList<Carte> cartePosee;
 
 	public TasDeCartePosee() {
@@ -32,6 +33,7 @@ public class TasDeCartePosee {
 		this.cartePosee.add(cartePosee);
 	}
 
+	/**vider le tas*/
 	public void clearCartePosee() {
 		this.cartePosee.clear();
 	}

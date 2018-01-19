@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package jeu;
 
@@ -15,41 +15,49 @@ import variante.*;
 import java.util.*;
 
 /**
- * @author wxw
+ *  <b>Description</b>
+ *  <p>La classe qui gère le déroulement du jeu</p>
+ *  Observée par l'interface graphique
+ *  Mise dans le Thread
  *
  */
 public class Jeu extends Observable implements Runnable {
+	/**le jeu déroule*/
 	private static Jeu jeu;
-	// <<<<<<< HEAD
-
+	/**le tas de carte posée à la table par des joueurs*/
 	private TasDeCartePosee tasDeCartePosee;
+	/**le tas de carte*/
 	private TasDeCarteEnAttente tasDeCarteEnAttente;
+	/**la collection de participants, plusieurs joueurs virtuels et un joueur physque*/
 	private ArrayList<Joueur> joueurs;
+	/**la collection de joueurs gagnés*/
 	private ArrayList<Joueur> joueursGagne;
+	/**le joueur qui est en train d'agir*/
 	private Joueur joueurActuel;
+	/**le nombre de cartes à piocher pour le joueur suivant*/
 	private int nbCartePiocher;
+	/**cette carte fait référence pour le joueur puisse poser une carte*/
 	private Carte carteActuelle;
+	/**le variante qui s'applique dans le jeu*/
 	private Variante variante;
+	/**la collection d'observers*/
 	private ArrayList<Observer> observers;
+	/**on enregistre les effets de façon "pile"*/
 	private ArrayList<Effet> effetEnAttente;
+	/**tous les effets dans ce jeu*/
 	private ArrayList<Effet> effetDeJeu;
-
+	/**si le jeu est en cours de s'exécuser*/
 	private boolean jeuEnCours = false;
+	/**si le processus pour paramétrer le jeu est terminé*/
 	private boolean parametrerTermine = false;
+	/**dès qu'un joueur joue, on le met en "true" pour indiquer qu'il faut notifier les observers*/
 	private boolean changed = false;
+	/**indiquer si un effet finit à s'effectuer*/
 	private boolean effetTermine = true;
+	/**le thread où on met le jeu*/
 	Thread thread;
 
-	// pour determiner la strategie pour les joueus virtuels
-	/*
-	 * =======
-	 * 
-	 * private TasDeCarte tas; private LinkedList<Joueur> joueurs; private
-	 * LinkedList<Joueur> joueursGagne; private Joueur joueurActuel; private int
-	 * nbCartePiocher; private Carte carteActuel; private boolean jeuEnCours;
-	 */
-
-	// compte point: 1 positive,0 negatif
+ /**les paramatrage du jeu*/
 	private static int nombreDeJeux;
 	private static int nombreDeJoueurs;
 	private static int avecJoker;
@@ -58,37 +66,40 @@ public class Jeu extends Observable implements Runnable {
 	private static int methodeCompte;
 	private static boolean croissante = true;
 	private static Scanner scanner;
-	
+
 
 	public static void main(String[] args) {
 		Jeu j = Jeu.getJeu();
 		Accueil accueil = new Accueil(j);
-		
+
 
 	}
 
+/**
+*le constructeur du jeu, on utilise le patron conception "Singleton" pour assurer qu'il existe un seul jeu déroule
+*/
 	private Jeu() {
-		/*
-		 * this.tas = new TasDeCarte(); this.joueurs = new LinkedList<Joueur>();
-		 * 
-		 */
-		
 		this.joueursGagne = new ArrayList<Joueur>();
 		this.nbCartePiocher = 0;
-		// scanner = new Scanner(System.in);
-		/*
-		 * scanner = new Scanner(System.in); =======
-		 */
 		this.jeuEnCours = false;
 		observers = new ArrayList<Observer>();
 		effetDeJeu = new ArrayList<Effet>();
 		effetEnAttente = new ArrayList<Effet>();
 		thread = new Thread(this);
 		thread.start();
-
 	}
 
-	@Override
+	public static Jeu getJeu() {
+		if (jeu == null) {
+			jeu = new Jeu();
+		}
+		return jeu;
+	}
+
+	/**
+	*
+	* gérer le déroulement du jeu et son interaction avec le GUI
+	*/
 	public void run() {
 		Jeu jeu = Jeu.getJeu();
 		while (!jeu.parametrerTermine) {
@@ -171,36 +182,12 @@ public class Jeu extends Observable implements Runnable {
 
 	}
 
-	public static Jeu getJeu() {
-		if (jeu == null) {
-			jeu = new Jeu();
-		}
-		return jeu;
-	}
 
-	/*
-	 * @Override public void run() { do { try { Thread.sleep(1000); } catch
-	 * (Exception e) { e.printStackTrace(); } } while (!jeuEnCours); do { try {
-	 * Thread.sleep(1000); } catch (Exception e) { e.printStackTrace(); } } while
-	 * (!parametrerTermine); this.initialiser(); while (!this.jeuTermine()) {
-	 * 
-	 * Iterator<Joueur> it = this.joueurs.iterator(); while (it.hasNext()) { Joueur
-	 * j = it.next(); if (j.aGagne()) { this.joueursGagne.add(j); it.remove(); } }
-	 * if (this.joueurs.size() == 1) { this.joueursGagne.add(this.joueurs.get(0));
-	 * break; } if (this.getTasDeCarteEnAttente().getTailleDeTas() > 0) {
-	 * joueurJoueUnTour(); this.renouvelerJouerActuel(); } else {
-	 * this.renouvelerTasDeCarteEnattente();
-	 * 
-	 * } } this.compterPoint(); Jeu.getScanner().close(); }
-	 */
-
+/**paraméter le jeu*/
 	public void paramtrerJeu() {
-		// Exception
 		if (jeuEnCours == false) {
-			// Scanner scanner = new Scanner(System.in);
 			Jeu.setNombreDeJeux(this.validerUneSaisie(
 					"Combien de jeux de cartes voulez vous joueur? Veuilliez saisir '1' ou '2'.", 1, 2));
-			// toujours avec joker?
 			Jeu.setAvecJoker(this.validerUneSaisie(
 					"Voulez-vous ajouter les carte 'Joker'? Veuilliez saisir '1' pour oui ou '0' pour non.", 0, 1));
 			if (this.nombreDeJeux == 1) {
@@ -215,10 +202,15 @@ public class Jeu extends Observable implements Runnable {
 					"Veuillez choisir le methode de compter, 1 pour compte positif, 0 pour compte negatif", 0, 1));
 			Jeu.setDifficulte(this.validerUneSaisie(
 					"Veuillez choisir la difficulte,1 pour simple,2 pour moyenne,3 pour difficile.", 1, 3));
-			// scanner.close();
 		}
 	}
 
+/**
+* valider une saisie
+* @param phrase le phrase s'affiche
+* @param min le bord inférieur
+* @param max le bord supérieur
+* @return res le résultat de saisie*/
 	public int validerUneSaisie(String phrase, int min, int max) {
 		try {
 			int res = demandeUser(phrase, max, min);
@@ -234,6 +226,14 @@ public class Jeu extends Observable implements Runnable {
 		}
 	}
 
+/**
+* demander à utilisateur de saisir
+* @param phrase le phrase s'affiche
+* @param min le bord inférieur
+* @param max le bord supérieur
+* @exception SaisiNonValideException exception spéciale
+* @see exception.SaisiNonValideException
+* @return resultat le résultat de saisie*/
 	public int demandeUser(String phrase, int max, int min) throws SaisiNonValideException {
 		System.out.println(phrase);
 		int resultat = scanner.nextInt();
@@ -244,34 +244,8 @@ public class Jeu extends Observable implements Runnable {
 		}
 
 	}
-	/*
-	 * public void setJoueurActuel(Joueur j){ this.joueurActuel = j; }
-	 * 
-	 * public Carte getCarteDepuisTas(){ Carte c = this.tas.getCarte(); return c;
-	 * >>>>>>> ca675586e93af1bb5753feb2ea35e89104768ce5 }
-	 */
 
-	public void setVariante(int i) {
-		switch (i) {
-		case 0:
-			variante = new Minimale(this);
-			break;
-		case 11:
-			variante = new Monclar(this);
-			break;
-		case 1:
-			variante = new Variante1(this);
-			break;
-		case 5:
-			variante = new Variante5(this);
-			break;
-		case 2:
-			variante = new Variante2(this);
-			break;
-		}
-
-	}
-
+/**initialiser le jeu*/
 	public void initialiser() {
 		jeuEnCours = true;
 		tasDeCarteEnAttente = new TasDeCarteEnAttente();
@@ -280,11 +254,9 @@ public class Jeu extends Observable implements Runnable {
 		tasDeCartePosee = new TasDeCartePosee();
 		initialiserJoueurs();
 		distribuerCarte();
-		// System.out.println("On a distrribue toutes les carte, c'est parti!");
-		// System.out.println("La carte actuelle est" + carteActuelle.toString());
-		// System.out.println("La joueur actuel est" + joueurActuel.toString());
 	}
 
+/**ajouter les joueurs dans la liste*/
 	public void initialiserJoueurs() {
 		joueurs = new ArrayList<Joueur>();
 		for (int i = 0; i < Jeu.getNombreDeJoueurs() - 1; i++) {
@@ -296,9 +268,7 @@ public class Jeu extends Observable implements Runnable {
 
 	}
 
-	// detetminer la premiere carte dans la carte actuelle
-	// supposons la distribution commence par place 0
-	// il vaut mieux refaire avec un random()
+	/**distribuer les cartes à joueurs*/
 	public void distribuerCarte() {
 		tasDeCarteEnAttente.melanger();
 		Iterator<Joueur> it = joueurs.iterator();
@@ -321,6 +291,9 @@ public class Jeu extends Observable implements Runnable {
 
 	}
 
+/**
+*@return res un boolean pour indiquer si la distribution de carte est terminee
+*/
 	public boolean distributionEstTerminee() {
 		boolean res = false;
 		int nbCarte = 8;
@@ -360,6 +333,8 @@ public class Jeu extends Observable implements Runnable {
 		return res;
 	}
 
+/**effectuer le processus de piocher certaines cartes
+*@param nbCarte le nombre de cartes à piocher*/
 	public void joueurPiocher(int nbCarte) {
 		Joueur jou = this.getJoueurActuel();
 		if (this.getTasDeCarteEnAttente().getTailleDeTas() < nbCarte) {
@@ -370,6 +345,8 @@ public class Jeu extends Observable implements Runnable {
 		}
 	}
 
+/**
+*@return un boolean qui indique si le jeu est terminé*/
 	public boolean jeuTermine() {
 		boolean res = false;
 		if (methodeCompte == 0) {
@@ -384,17 +361,11 @@ public class Jeu extends Observable implements Runnable {
 			if (this.joueursGagne.size() > 2) {
 				res = true;
 			}
-			// boolean res = false;
-			/*
-			 * Iterator<Joueur> it = joueurs.iterator(); int nbGagne = 0; int place = 1;
-			 * while (it.hasNext()) { Joueur j = it.next(); if (j.aGagne()) { nbGagne++;
-			 * j.setPlace(place); System.out.println(j.toString()+"est de place " + place);
-			 * place +=1; } } if (nbGagne >= 3) { return true; } else { return false; }
-			 */
 		}
 		return res;
 	}
 
+/**les joueurs(physique ou virtuels) annoncent automatique "uno" ou des annoncements spécifiques en fonction de variante*/
 	public void annoncer() {
 		Iterator<Joueur> it = joueurs.iterator();
 		while (it.hasNext()) {
@@ -405,12 +376,9 @@ public class Jeu extends Observable implements Runnable {
 		}
 	}
 
+/**calculer le point de chaque joueur*/
 	public void compterPoint() {
 		System.out.println("Point des joueurs");
-		/*
-		 * Iterator<Joueur> it = joueurs.iterator(); while (it.hasNext()) { Joueur j =
-		 * it.next(); System.out.println(j.toString() + " : " + j.calculerPoint()); }
-		 */
 		if (Jeu.methodeCompte == 0) {
 			Iterator<Joueur> it = joueurs.iterator();
 			while (it.hasNext()) {
@@ -431,16 +399,7 @@ public class Jeu extends Observable implements Runnable {
 		}
 	}
 
-	/*
-	 * public void setCarteActuel(Carte c){ this.carteActuel = c; } public Carte
-	 * getCarteActuel(){ return this.carteActuel; }
-	 * 
-	 * public void setNbJeux() { String nbJeux =
-	 * demandeUser("Combien de jeux de cartes voulez vous joueur? Veuilliez saissir '1' ou '2'."
-	 * ); if(nbJeux == "1") { Jeu.NOMBRE_DE_JEUX = 1; }else if(nbJeux == "2"){
-	 * Jeu.NOMBRE_DE_JEUX = 2; }else { //Exception? >>>>>>>
-	 * ca675586e93af1bb5753feb2ea35e89104768ce5 } }
-	 */
+	/**renouveller le joueur sous contrainte de la direction*/
 	public void renouvelerJouerActuel() {
 		this.getJoueurActuel().getMyAction().agir(this.getJoueurActuel());
 		int i = joueurs.indexOf(joueurActuel);
@@ -461,11 +420,13 @@ public class Jeu extends Observable implements Runnable {
 		}
 	}
 
+/**recharcher le tas de cartes en attentes*/
 	public void renouvelerTasDeCarteEnattente() {
 		this.getTasDeCarteEnAttente().addCartesPosees(this.getTasDeCartePosee());
 		this.getTasDeCartePosee().clearCartePosee();
 	}
 
+/**gérer le déroulement du jeu*/
 	public void derouler() {
 		this.paramtrerJeu();
 		this.initialiser();
@@ -495,25 +456,6 @@ public class Jeu extends Observable implements Runnable {
 				System.out.println(this.getJoueurs());
 				nb++;
 				joueurJoueUnTour();
-				/*
-				 * LinkedList<Carte> carteCandidate =
-				 * this.getJoueurActuel().getCarteCandidate(this.getCarteActuelle());
-				 * System.out.println("------Carte Acteulle------" + this.carteActuelle); if
-				 * (carteCandidate.size() == 0) {
-				 * this.getJoueurActuel().piocher(this.getCarteDepuisTas());
-				 * System.out.println(this.getJoueurActuel().toString() + " pioche"); } else {
-				 * try { // verifier si la carte est bonne(pas besoin alors) Carte c =
-				 * this.getJoueurActuel().poserUneCarte(carteCandidate,
-				 * this.getJoueurActuel().getCartes()); //
-				 * jeu.getJoueurActuel().getCartes().remove(c);
-				 * System.out.println(this.getJoueurActuel().toString() + " pose " +
-				 * c.toString()); this.setCarteActuelle(c);
-				 * this.getTasDeCartePosee().addCartePosee(c); // zhege juzi keneng youwenti
-				 * c.getEffectValide().validerSuperpower(this); System.out.println("���ƣ� " +
-				 * this.joueurActuel.getCartes());
-				 * 
-				 * } catch (SaisiNonValideException e) { e.printStackTrace(); } }
-				 */
 				this.renouvelerJouerActuel();
 			} else {
 				this.renouvelerTasDeCarteEnattente();
@@ -531,6 +473,7 @@ public class Jeu extends Observable implements Runnable {
 
 	}
 
+/**gérer les actions pour qu'un joueur joue un tour*/
 	public void joueurJoueUnTour() {
 		LinkedList<Carte> carteCandidate = this.getJoueurActuel().getCarteCandidate(this.getCarteActuelle());
 		System.out.println("------Carte Acteulle------" + this.carteActuelle);
@@ -539,15 +482,12 @@ public class Jeu extends Observable implements Runnable {
 			System.out.println(this.getJoueurActuel().toString() + " pioche");
 		} else {
 			try {
-				// verifier si la carte est bonne(pas besoin alors)
 				Carte c = this.getJoueurActuel().poserUneCarte(carteCandidate, this.getJoueurActuel().getCartes());
 				jeu.getJoueurActuel().getCartes().remove(c);
 				System.out.println(this.getJoueurActuel().toString() + " pose " + c.toString());
 				this.setCarteActuelle(c);
 				this.getTasDeCartePosee().addCartePosee(c);
-				// zhege juzi keneng youwenti
 				c.getEffectValide().validerSuperpower(this);
-				// System.out.println("Carte a la main�� " + this.joueurActuel.getCartes());
 				System.out.println("       ");
 				this.changed = true;
 				jeu.notifyObservers("carteActuelle");
@@ -559,7 +499,6 @@ public class Jeu extends Observable implements Runnable {
 		}
 	}
 
-	// Observable
 	public void add(Observer o) {
 		if (observers.contains(o)) {
 			return;
@@ -584,7 +523,7 @@ public class Jeu extends Observable implements Runnable {
 		this.changed = false;
 	}
 
-	// setter et getter
+	/**setter et getter*/
 	public boolean isChanged() {
 		return this.changed;
 	}
@@ -694,38 +633,6 @@ public class Jeu extends Observable implements Runnable {
 		Jeu.versionDeVariante = versionDeVariante;
 	}
 
-	/*
-	 * ======= public void initialiserJeu() { if(this.jeuEnCours == false){
-	 * this.parametrerJeu();
-	 * 
-	 * //Joueurs
-	 * 
-	 * JoueurPhysique jp = new JoueurPhysique(); this.joueurs.add(jp); for(int i =
-	 * 1; i<Jeu.NOMBRE_DE_JOUEURS; i++){ JoueurVirtuel jv = new JoueurVirtuel();
-	 * this.joueurs.add(jv); } this.melangerJoueurs(); Joueur joueurInitial =
-	 * this.joueurs.get(0); this.setJoueurActuel(joueurInitial);
-	 * 
-	 * //Tas de cartes //ne pas prendre en compte les exigences de nombre de carte
-	 * dans certaines variantes this.tas.melanger(); this.distribuerCarte(); Carte
-	 * carteInitiale = this.tas.getCarte(); this.setCarteActuel(carteInitiale); }
-	 * 
-	 * }
-	 * 
-	 * public void parametrerJeu(){ //Exception Scanner scanner = new
-	 * Scanner(System.in); Jeu.NOMBRE_DE_JEUX = this.
-	 * demandeUser("Combien de jeux de cartes voulez vous joueur? Veuilliez saisir '1' ou '2'."
-	 * , scanner); Jeu.AVEC_JOKER = this.
-	 * demandeUser("Voulez-vous ajouter les carte 'Joker'? Veuilliez saisir '1' pour oui ou '0' pour non."
-	 * , scanner); Jeu.NOMBRE_DE_JOUEURS = this.
-	 * demandeUser("Veuillez saisir le nombre de joueurs en total dans votre jeu.",
-	 * scanner); for(Variante v : Variante.values()){ System.out.println(v + " : " +
-	 * v.getNumero() + "\n"); } Jeu.NUMERO_DE_VERSION_DE_VARIANTE =
-	 * this.demandeUser("Veuillez choisir la version de variante.", scanner);
-	 * Jeu.METHODE_COMPTE = this.
-	 * demandeUser("Quel est la m��thode de compter les points? Veuillez saisir '1' pour compte positif, '2' pour compte n��gatif"
-	 * , scanner); scanner.close(); >>>>>>> ca675586e93af1bb5753feb2ea35e89104768ce5
-	 * }
-	 */
 	public ArrayList<Joueur> getJoueurs() {
 		return this.joueurs;
 	}
@@ -798,31 +705,24 @@ public class Jeu extends Observable implements Runnable {
 		return this.effetTermine;
 	}
 
-	/*
-	 * public void setNbJeux() { String nbJeux =
-	 * demandeUser("Combien de jeux de cartes voulez vous joueur? Veuilliez saissir '1' ou '2'."
-	 * ); if(nbJeux == "1") { Jeu.NOMBRE_DE_JEUX = 1; }else if(nbJeux == "2"){
-	 * Jeu.NOMBRE_DE_JEUX = 2; }else { //Exception? } }
-	 * 
-	 * public void setAvecJoker() { String avecJoker =
-	 * demandeUser("Voulez-vous ajouter les carte 'Joker'? Veuilliez saissir 'oui' ou 'non'."
-	 * ); if(avecJoker == "oui") { Jeu.AVEC_JOKER = 2; }else if(avecJoker == "non"){
-	 * Jeu.AVEC_JOKER = 0; }else { //Exception? } }
-	 */
+	public void setVariante(int i) {
+		switch (i) {
+		case 0:
+			variante = new Minimale(this);
+			break;
+		case 11:
+			variante = new Monclar(this);
+			break;
+		case 1:
+			variante = new Variante1(this);
+			break;
+		case 5:
+			variante = new Variante5(this);
+			break;
+		case 2:
+			variante = new Variante2(this);
+			break;
+		}
 
-	/*
-	 * ======= public void melangerJoueurs(){ for (int i=0; i <
-	 * Jeu.NOMBRE_DE_JOUEURS; i++){ int position =
-	 * (int)Math.round((Jeu.NOMBRE_DE_JOUEURS - 1) * Math.random()); Joueur j =
-	 * this.joueurs.pop(); this.joueurs.add(position, j); } } public void
-	 * distribuerCarte(){ if(this.jeuEnCours == false){ Iterator<Joueur> it =
-	 * this.joueurs.iterator(); while (!this.tas.estVide()) { if (it.hasNext()) {
-	 * Joueur j = it.next(); Carte c = tas.getCarte(); j.piocher(c); // test de
-	 * distribution des cartes /* System.out.println("Carte " +c.toString() + " a "
-	 * + j.toString()); System.out.println("Nombre " + cartes.getCartes().size());
-	 */
-	/*
-	 * } else { it = joueurs.iterator(); } } } } >>>>>>>
-	 * ca675586e93af1bb5753feb2ea35e89104768ce5
-	 */
+	}
 }

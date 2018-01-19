@@ -1,10 +1,8 @@
-/**
- * 
- */
 package enumeration;
 
 /**
- * @author wxw
+ *  <b>Description</b>
+ *  La couleur de la carte
  *
  */
 public enum Forme {

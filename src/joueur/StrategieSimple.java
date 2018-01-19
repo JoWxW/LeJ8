@@ -3,10 +3,12 @@ package joueur;
 import java.util.*;
 import carte.*;
 
+/**
+ * <b>Description</b>
+ * Dans ce strat茅gie, on choisit al茅atoirement la carte 脿 poser de cartes qui peuvent 锚tre pos茅e selon les contraintes*/
 public class StrategieSimple implements StrategieDeJoueur {
-	// 从carte candidate 中随机选一张出牌
 	@Override
-	// 这个effet是一张全新的牌，就是集中代表了当前玩家所面对的牌，花色、点数、是否有功能，有哪种功能，都在游戏进行时根据之前的情况赋值
+	
 	public Carte poser(LinkedList<Carte> carteCandidate, LinkedList<Carte> myCartes) {
 		if (carteCandidate.isEmpty()) {
 			return null;

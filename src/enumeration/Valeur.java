@@ -4,7 +4,9 @@
 package enumeration;
 
 /**
- * @author wxw
+ * /**
+ *  <b>Description</b>
+ *  La valeur de la carte
  *
  */
 public enum Valeur {

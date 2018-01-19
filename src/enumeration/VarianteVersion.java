@@ -4,7 +4,9 @@
 package enumeration;
 
 /**
- * @author wxw
+ * /**
+ *  <b>Description</b>
+ *  La numéro de la version de variante s'applique au jeu
  *
  */
 public enum VarianteVersion {

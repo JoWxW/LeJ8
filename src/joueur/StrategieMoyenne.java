@@ -4,10 +4,10 @@ import java.util.*;
 
 import carte.Carte;
 
+/**
+ * <b>Description</b>
+ * Dans ce stratégie, on  selectionne la carte avec effet s'il y en a, sinon poser ce qui est de forme la plus frequente*/
 public class StrategieMoyenne implements StrategieDeJoueur {
-	// selectionner la carte avec effet s'il y en a, sinon poser ce qui est de forme
-	// la plus frequente
-
 	@Override
 	public Carte poser(LinkedList<Carte> carteCandidate, LinkedList<Carte> myCartes) {
 		if (carteCandidate.isEmpty()) {

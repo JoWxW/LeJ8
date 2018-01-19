@@ -28,7 +28,7 @@ public class Jeu extends Observable implements Runnable {
 	private TasDeCartePosee tasDeCartePosee;
 	/**le tas de carte*/
 	private TasDeCarteEnAttente tasDeCarteEnAttente;
-	/**la collection de participants, plusieurs joueurs visuels et un joueur physque*/
+	/**la collection de participants, plusieurs joueurs virtuels et un joueur physque*/
 	private ArrayList<Joueur> joueurs;
 	/**la collection de joueurs gagnés*/
 	private ArrayList<Joueur> joueursGagne;
@@ -97,7 +97,7 @@ public class Jeu extends Observable implements Runnable {
 	}
 
 	/**
-	* 
+	*
 	* gérer le déroulement du jeu et son interaction avec le GUI
 	*/
 	public void run() {
@@ -365,7 +365,7 @@ public class Jeu extends Observable implements Runnable {
 		return res;
 	}
 
-/**les joueurs(physique ou visuels) annoncent automatique "uno" ou des annoncements spécifiques en fonction de variante*/
+/**les joueurs(physique ou virtuels) annoncent automatique "uno" ou des annoncements spécifiques en fonction de variante*/
 	public void annoncer() {
 		Iterator<Joueur> it = joueurs.iterator();
 		while (it.hasNext()) {

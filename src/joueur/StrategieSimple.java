@@ -3,6 +3,9 @@ package joueur;
 import java.util.*;
 import carte.*;
 
+/**
+ * <b>Description</b>
+ * Dans ce stratégie, on choisit aléatoirement la carte à poser de cartes qui peuvent être posée selon les contraintes*/
 public class StrategieSimple implements StrategieDeJoueur {
 	@Override
 	

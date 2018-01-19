@@ -73,7 +73,8 @@ public class TasDeCarteEnAttente {
 
 	}
 
-	/**Ajouter les cartes dans le tas de cartes posées au tas de cartes à être piochées*/
+	/**Ajouter les cartes dans le tas de cartes posées au tas de cartes à être piochées
+	 * @param cp le tas de cartes posées*/
 	public void addCartesPosees(TasDeCartePosee cp) {
 		this.carteEnAttente.addAll(cp.getCartePosee());
 	}

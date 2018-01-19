@@ -125,7 +125,7 @@ public class Carte {
 	}
 
 	/**
-	 * @param effet
+	 * @param effectValide
 	 *            the effectValide to set
 	 */
 	public void setEffectValide(Effet effectValide) {
@@ -133,7 +133,7 @@ public class Carte {
 	}
 	
 	/**
-	 * @param effet
+	 * @param e
 	 *            rajouter l'effet à la liste des effets
 	 *            the effectValide to set
 	 */

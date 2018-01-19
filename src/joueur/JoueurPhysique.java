@@ -8,6 +8,9 @@ import effet.Effet;
 import exception.*;
 import jeu.*;
 
+/**
+ * <b>Description</b>
+ * la classe gère les actions de joueur physique*/
 public class JoueurPhysique extends Joueur {
 
 	public JoueurPhysique() {
@@ -15,9 +18,13 @@ public class JoueurPhysique extends Joueur {
 
 	public JoueurPhysique(String id, String nom) {
 		super(id, nom);
-		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * faire arrêtre les actions d'un joueur physique
+	 * @param j le jeu actuel
+	 * @exception JeuDejaArreteException exception spécifique
+	 * @see exception.JeuDejaArreteException*/
 	public void arreter(Jeu j) throws JeuDejaArreteException {
 		if (j.isJeuEnCours()) {
 			j.setJeuEnCours(false);
@@ -27,63 +34,20 @@ public class JoueurPhysique extends Joueur {
 
 	}
 
-	// ce methode est inutile?
-	public void parametrer() {
-
-	}
-
+/**
+ * permettre au joueur de poser une carte
+ * @param carteCandidate les cartes peuvent être posées selon les contraintes
+ * @param myCartes les cartes possédées par le joueur
+ * @return carte que l'on décide à poser*/
 	public Carte poserUneCarte(LinkedList<Carte> carteCandidate, LinkedList<Carte> myCartes) {
-		//listerCarteCandidate(carteCandidate);
-		// Scanner scanner = new Scanner(System.in);
-		//System.out.println("Choisissez une carte a jouer(numero)");
-
-		// get index par utilisateur(Exception pour une valeur non entier)
-
 		int position =0;
-		// scanner.close();
-		// ajouter une exception ou pas
-		//if (position >= 0 && position <= carteCandidate.size() - 1) {
-			// out.close();
-			Carte carteChoisie = carteCandidate.get(position);
-			myCartes.remove(carteChoisie);
-			/*if (!(carteChoisie.getEffet().size() == 0)) {
-				Effet effetValide = choisirEffet(carteChoisie);
-				carteChoisie.setEffectValide(effetValide);
-				return carteChoisie;
-
-			} else {*/
-				return carteChoisie;
-			//}
-	    //}
-
+		Carte carteChoisie = carteCandidate.get(position);
+		myCartes.remove(carteChoisie);
+		return carteChoisie;
 	}
-	
-    
 
-	/*public Effet choisirEffet(Carte carteChoisie) {
-		System.out.println("Cette carte a plusieurs effets");
-		Iterator<Effet> ie = carteChoisie.getEffet().iterator();
-		StringBuffer info = new StringBuffer();
-		info.append("Les effects a choisir:  ");
-		int j = 0;
-		while (ie.hasNext()) {
-			Effet e = ie.next();
-			info.append("[n.");
-			info.append(j);
-			info.append(" ");
-			info.append(e.toString());
-			info.append(" ]  ");
-			j++;
-		}
-		System.out.println(info.toString());
-		System.out.println("Veuillez choisir un effet(numero)");
-		// il faut verifier le saisi
-		int n = Jeu.getScanner().nextInt();
-		Effet effetValide = carteChoisie.getEffet().get(n);
-		return effetValide;
-
-	}*/
-
+/**afficher les cartes joueable à l'utilisateur
+ *@param carteCandidate les cartes jouables */
 	public void listerCarteCandidate(LinkedList<Carte> carteCandidate) {
 		Iterator<Carte> it = carteCandidate.iterator();
 		StringBuffer s = new StringBuffer();

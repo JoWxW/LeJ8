@@ -10,26 +10,19 @@ import java.util.*;
 import enumeration.*;
 
 /**
- * @author wxw
- *
+ * L'effet qui fait arreter une attaque sur le joueur soi-meme
+ * @see Effet
  */
 public class ArreterAttaque extends Effet {
+	/**Constructeur de classe*/
 	public ArreterAttaque() {
 		super();
 		this.setNom("Arreter les attaques");
 	}
 
+	@Override
+	/**@see ArreterAttaque*/
 	public Jeu validerSuperpower(Jeu j) {
-		/*
-		 * Joueur joueur = j.getJoueurActuel(); LinkedList<Carte> cartes =
-		 * joueur.getCartes(); Iterator<Carte> itC = cartes.iterator(); ArrayList<Carte>
-		 * cartesTarget = new ArrayList<Carte>(); while(itC.hasNext()){ Carte c =
-		 * itC.next(); if(c.getValeur() == this.valeur){ cartesTarget.add(c); } }
-		 * 
-		 * Iterator<Carte> itCT = cartesTarget.iterator(); while(itCT.hasNext()){ Carte
-		 * c = itCT.next(); if(!joueur.getCartesCandidates().contains(c)){
-		 * joueur.addCarteCandidate(c); } }
-		 */
 		if (j.getNbCartePiocher() > 0) {
 			this.declarer();
 			j.setNbcartePiocher(0);

@@ -12,52 +12,51 @@ import exception.SaisiNonValideException;
 import jeu.Jeu;
 
 /**
- * @author wxw
- *
+ * Classe mere decrivant de maniere generale l'effet d'une carte 
  */
 public abstract class Effet extends Observable implements Runnable {
+	/**le nom d'effet*/
 	private String nom;
-	// ����һ��attaque������������ͳ�ƣ�����и��õĽ���취��ɾ��
-	private int carteAttaque;
+	/**indique si l'effet est active pour commencer le thread*/
 	private boolean active = false;
+	/**indique si l'effet est dans son cycle de vie*/
 	private boolean mort = false;
+	/**indique si le thread peut sortir de son boucle de wait*/
 	private boolean continu = false;
+	/**indique si le joueur physique a pioche une carte*/
 	private boolean aPioche = false;
+	/**indique s'il y un changement a notify les observers*/
 	private boolean changed =false;
+	/**la liste des observers*/
 	private ArrayList<Observer> observers;
-
+	/**contructeur de la calsse Effet*/
 	public Effet() {
 		setObservers(new ArrayList<Observer>());
 	}
+	
+	/**declare l'effet valide*/
+	public void declarer() {
+		System.out.println("La carte valide son superpower: " + this.getNom() );
+	}
 
 	/**
-	 * @param nom
-	 * @throws SaisiNonValideException
+	 * Methode abstracte qui valide l'effet
+	 * Cette methode est implementee par chaque classe fille en respectant leur propre fonctionnalite
+	 * @param j le jeu pour founir des informations et pour realiser des modifications  
 	 */
-
 	public abstract Jeu validerSuperpower(Jeu j);
-
-	public void add(Observer o) {
-		observers.add(o);
-	}
 	
-	public void notifyObservers(Object arg) {
-		if (!changed) {
+	public void add(Observer o) {
+		if (observers.contains(o)) {
 			return;
 		}
-		Iterator<Observer> it = observers.iterator();
-		while (it.hasNext()) {
-			Observer o = it.next();
-			o.update(this, arg);
-		}
-		this.clearChanged();
+		observers.add(o);
+	}
 
-	}
 	
-	public void clearChanged() {
-		this.changed = false;
-	}
 	
+
+	// setters et getters
 	public void setChanged(boolean b) {
 		this.changed=b;
 	}
@@ -66,31 +65,13 @@ public abstract class Effet extends Observable implements Runnable {
 		return nom;
 	}
 
-	/**
-	 * @param nom
-	 *            the nom to set
-	 */
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
 
-	public int getCarteAttaque() {
-		return carteAttaque;
-	}
-
-	public void setCarteAttaque(int carteAttaque) {
-		this.carteAttaque = carteAttaque;
-	}
 
 	public String toString() {
 		return this.nom;
-	}
-
-	public void declarer() {
-		System.out.println("La carte a effectue son superpower: " + this.nom + " !");
-
-		//this.setChanged(true);
-		//this.notifyObservers(this.getNom());
 	}
 
 	public boolean isActive() {

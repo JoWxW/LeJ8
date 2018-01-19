@@ -21,34 +21,30 @@ import javax.swing.JPanel;
 
 import jeu.Jeu;
 import joueur.Joueur;
-
+/**Affiche le resultat dans le frame*/
 public class Resultat implements Observer {
+	/**le frame fondamental*/
 	private JFrame frame;
+	/**un cadre qui contient tous les elements*/
 	private JPanel window;
+	/**un button pour quitter*/
 	private JButton quitter;
+	/**l'image au fond*/
 	private JPanel bg;
+	/**un sous-cadre au centre*/
 	private JPanel windowCenter;
+	/**un sous-cadre au nord*/
 	private JPanel windowNorth;
+	/**un sous-cadre au sud*/
 	private JPanel windowSouth;
+	/**un sous-cadre a l'est*/
 	private JPanel windowEast;
+	/**un sous-cadre a l'ouest*/
 	private JPanel windowWest;
 	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Jeu j = Jeu.getJeu();
-					Resultat resultat = new Resultat(j);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-		
-		
-	}
-	
-	
+	/**
+	 * constructeur de Resultat 
+	 * @param j une reference de jeu*/
 	public Resultat(Jeu j) {
 		initialiser();
 		windowCenter.setLayout(new BoxLayout(windowCenter,BoxLayout.Y_AXIS));
@@ -85,6 +81,7 @@ public class Resultat implements Observer {
 		
 	}
 
+	/**methode permettant d'initialiser le frame en ajoutant l'image au fond et les composants dans les sous-cadres*/
 	public void initialiser() {
 		frame = new JFrame("Resultat");
 		window = new JPanel();
@@ -157,6 +154,8 @@ public class Resultat implements Observer {
 
 	}
 	
+	/**Classe interne qui implemente Actionlistener repond a l'appuie de button Quitter
+	 * @see ActionListener*/
 	class QuitterListener implements ActionListener{
 
 		@Override

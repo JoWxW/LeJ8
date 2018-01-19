@@ -1,5 +1,5 @@
 package exception;
-
+/**L'exceptin sera levee quand le joueur physique saisi une valeur incoherente */
 public class SaisiNonValideException extends Exception {
 	private static final long serialVersionUID = 1L;
 

@@ -10,42 +10,36 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-import controller.ButtonCommencerControleur;
+
 import controller.JeuControleur;
 import jeu.Jeu;
 import ui.composant.Fenetre;
-
+/**Affiche un frame d'accueil*/
 public class Accueil implements Runnable{
-//test
+
 	private static final long serialVersionUID = 1L;
+	/**le frame fondamental*/
 	private JFrame frame;
+	/**un cadre qui contient tous les elements*/
 	private JPanel window;
+	/**l'image au fond*/
 	private JPanel bg;
+	/**l'image de logo*/
 	private JLabel logo;
+	/**le button pour commencer*/
 	private JButton commencer;
+	/**le button pour quitter le jeu*/
 	private JButton quitter;
+	/**le controleur qui fait le lien entre le jeu et cette interface graphique*/
 	private JeuControleur jeuControleur;
+	/**le jeu pour fournir des informations et pour effectuer des modifications*/
 	private Jeu j;
+	/**le thread de cette interface graphique*/
 	private Thread thread;
 
-	public static void main(String[] args) {
-		
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-				    Jeu j = Jeu.getJeu();
-					new Accueil(j);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				
-			}
-		});
-
-	}
-	
-	
-
+	/**constructeur de Accueil 
+	 * initialise le frame en posant plusieurs sous-cadre dans un cadre window
+	 * un sous-cadre est un ensemble des composants elementaires*/
 	public Accueil(Jeu jeu) {
 		thread= new Thread(this);
 		thread.start();
@@ -59,11 +53,7 @@ public class Accueil implements Runnable{
 		quitter.setPreferredSize(new Dimension(150, 30));
 		window = new JPanel();
 		bg = new JPanel();
-		// commencer.addActionListener(this);
-		// quitter.addActionListener(this);
-		
-		//ajouter controleur
-		//new ButtonCommencerControleur(j,commencer);
+
 
 		frame.setSize(800, 600);
 		frame.setBackground(new Color(Integer.decode("#1f8387")));
@@ -99,7 +89,8 @@ public class Accueil implements Runnable{
 		frame.setResizable(false);
 
 	}
-	
+
+	/**classe interne qui implemente ActionListener qui commence le jeu en appelant le controleur pour y reagir*/
 	class CommencerListener implements ActionListener {
 
 		@Override
@@ -110,12 +101,12 @@ public class Accueil implements Runnable{
 		}
 
 	}
-	
+
 	@Override
 	public void run() {
 		//frame.repaint();
-		
+
 	}
 
-	
+
 }

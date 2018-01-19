@@ -6,7 +6,8 @@ package effet;
 import exception.SaisiNonValideException;
 import jeu.Jeu;
 import joueur.Joueur;
-
+/**L'effet qui fait le joueur suivant piocher deux cartes sans recours
+ * @see FairePiocher*/
 public class FairePiocherSansRecours extends FairePiocher {
 	private int nbCarte;
 

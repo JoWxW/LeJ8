@@ -12,18 +12,19 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
-
+/**Classe qui definit un button de l'interface graphique*/
 public class CarteButton extends JButton {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private BufferedImage image;
+	/**definit la hauteur du button*/
 	private int buttonHeight;
+	/**definit la largeur*/
 	private int buttonWidth;
+	/**un tableau des puxels*/
 	private int[] pixels;
 
+	/**@param id id de la carte correspondante
+	 * @see Carte*/
 	public CarteButton(String id) {
 		this.setActionCommand(id);
 		image = loadImage("sources/" + id + ".gif");
@@ -31,9 +32,7 @@ public class CarteButton extends JButton {
 		buttonWidth = image.getWidth();
 		buttonHeight = image.getHeight();
 
-		// ��ȡͼƬ����
 		pixels = new int[buttonWidth * buttonHeight];
-		// ץȡ��������
 		PixelGrabber pg = new PixelGrabber(image, 0, 0, buttonWidth, buttonHeight, pixels, 0, buttonWidth);
 		try {
 			pg.grabPixels();
@@ -41,22 +40,20 @@ public class CarteButton extends JButton {
 			e.printStackTrace();
 		}
 
-		// �������ã�������в�Ӱ��
 		this.setOpaque(false);
-
 		this.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
-		// this.addMouseListener(new MouseHandler());
 	}
 
+	/**Constructeur de CarteButton
+	 * @param id id de la carte correspondante
+	 * @param candidate boolean qui indique si la carte est une carte candidate de joueur*/
 	public CarteButton(String id, boolean candidate) {
 		this.setActionCommand(id);
 		image = loadImage("sources/" + id + ".gif");
 		buttonWidth = image.getWidth();
 		buttonHeight = image.getHeight();
 
-		// ��ȡͼƬ����
 		pixels = new int[buttonWidth * buttonHeight];
-		// ץȡ��������
 		PixelGrabber pg = new PixelGrabber(image, 0, 0, buttonWidth, buttonHeight, pixels, 0, buttonWidth);
 		try {
 			pg.grabPixels();
@@ -64,22 +61,20 @@ public class CarteButton extends JButton {
 			e.printStackTrace();
 		}
 
-		// �������ã�������в�Ӱ��
 		this.setOpaque(false);
 
 		this.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
-		// this.addMouseListener(new MouseHandler());
 
 		if (!candidate) {
 			 float[] scales = {0.5f,0.5f,0.5f,0.5f };
              float[] offsets = new float[4];
              RescaleOp rop = new RescaleOp(scales, offsets, null);
-             // ִ��
              rop.filter(image,image);
 		}
 	}
 
-	// ��ȡͼƬ�ļ�
+	/**introduise l'image dans le repertoire sources selon le nom de fichier
+	 * @param filename le nom du fichier*/
 	public BufferedImage loadImage(String filename) {
 		File file = new File(filename);
 
@@ -94,27 +89,22 @@ public class CarteButton extends JButton {
 		}
 	}
 
-	// ���Ǵ˷��������Զ����ͼƬ
+	@Override
 	public void paintComponent(Graphics g) {
 		g.drawImage(image, 0, 0, this);
-		/*
-		 * if(mouseOn) g.drawImage(image_over, 0, 0, this); else if(mousePressed)
-		 * g.drawImage(image_pressed, 0, 0, this);
-		 */
 	}
 
-	// ���Ǵ˷��������Զ���ı߿�
+	@Override
 	public void paintBorder(Graphics g) {
-		// ��Ҫ�߿�
+		
 	}
+	
 
+	@Override
 	public boolean contains(int x, int y) {
-		// ���ж��Ļ���Խ�磬�����֮��Ҳ�ἤ���������
 		if (!super.contains(x, y))
 			return false;
-
 		int alpha = (pixels[(buttonWidth * y + x)] >> 24) & 0xff;
-
 		repaint();
 		if (alpha == 0) {
 			return false;

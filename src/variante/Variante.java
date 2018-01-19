@@ -11,17 +11,19 @@ import jeu.Jeu;
 import joueur.Joueur;
 
 /**
- * @author wxw
- *
+ * Classe mere de la variante qui definit de maniere generale les fonctionnalites d'une variante
  */
 public abstract class Variante {
+	/**le nom d'une variante*/
 	private String nom;
+	/**le numero d'une variante qui represente une identification*/
 	private String numero;
+	/**le jeu pour fournir des informations et pour effectuer des modifications*/
 	private Jeu jeu;
 
 	/**
-	 * @param nom
-	 * @param numero
+	 * @param nom nom de variante
+	 * @param numero le numero d'une variante qui represente une identification
 	 */
 	public Variante(String nom, String numero) {
 		this.nom = nom;
@@ -31,9 +33,12 @@ public abstract class Variante {
 	public Variante(Jeu j) {
 		this.setJeu(j);
 	}
-
+	
+	/**methode abstracte permettant d'ajouter aux cartes les effets corresondants*/
 	public abstract void addEffet(LinkedList<Carte> tas,ArrayList<Joueur> joueurs);
 
+	
+	//getter et setter
 	/**
 	 * @return the nom
 	 */

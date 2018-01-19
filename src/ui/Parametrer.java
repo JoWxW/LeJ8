@@ -26,46 +26,43 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import controller.ButtonLancerControleur;
 import controller.JeuControleur;
 import jeu.Jeu;
-
+/**Affiche l'interface graphique sur laquelle le joueur joue les carte et le jeu deroule*/
 public class Parametrer extends JPanel implements Observer {
 
 	private static final long serialVersionUID = 1L;
+	/**le frame fondamental*/
 	private JFrame frame;
+	/**un cadre qui contient tous les elements*/
 	private JPanel window;
+	/**l'image au fond*/
 	private JPanel bg;
+	/**un panel qui contient JLabel et JRadioButton pour choisir le jeu de carte*/
 	private JPanel jeuDeCartePanel;
+	/**un panel qui contient JLabel et JRadioButton pour determiner si l'on joue avec joker*/
 	private JPanel avecJokerPanel;
+	/**un panel qui contient JLabel et JSlider pour choisir le nombre de joueur*/
 	private JPanel nbJoueurPanel;
+	/**un panel qui contient JLabel et JRadioButton pour choisir la methode de compter*/
 	private JPanel compterPanel;
+	/**un panel qui contient JLabel et JComboBox pour choisir la variante*/
 	private JPanel variantePanel;
+	/**un panel qui contient JLabel et JComboBox pour choisir la difficulte*/
 	private JPanel difficultePanel;
-	// JLabel logo;
 
+    /**un JButton pour lancer le jeu*/
 	private JButton lancer;
+	/**un JButton pour quitter le jeu*/
 	private JButton quitter;
-
+	/**un controleur de jeu qui fait le lien entre l'interface graphique et le jeu
+	 * @see JeuControleur*/
 	private JeuControleur jeuControleur;
 
-	public static void main(String[] args) {
-
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Jeu j = Jeu.getJeu();
-					JeuControleur jeuControleur = new JeuControleur();
-					Parametrer parametrer = new Parametrer(j);
-					j.add(parametrer);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-
-	}
-
+	/**methode pour initialiser le frame sue lequel on peut parametrer le jeu
+	 * Ce frame est compose par 2 phases de composants.
+	 * Chaque sous-cadres est compose par les composants elementaires comme JLabel, JButton, JRadioButton, etc.
+	 * @param j le jeu pour fournir des informations et pour effectuer des modifications*/
 	public Parametrer(Jeu j) {
 		jeuControleur = new JeuControleur(j);
 		frame = new JFrame("Parametrer");
@@ -237,6 +234,7 @@ public class Parametrer extends JPanel implements Observer {
 		frame.setResizable(false);
 	}
 
+	/**classe interne qui recupere le choix de joueur physique par RadioButton*/
 	class RadioButtonListener implements ActionListener {
 
 		@Override
@@ -266,6 +264,7 @@ public class Parametrer extends JPanel implements Observer {
 
 	}
 
+	/**classe interne qui recupere le choix de joueur physique par JCombobox pour choisir la variante*/
 	class VarianteComboBoxListener implements ActionListener {
 
 		@Override
@@ -293,7 +292,7 @@ public class Parametrer extends JPanel implements Observer {
 		}
 
 	}
-
+	/**classe interne qui recupere le choix de joueur physique par Comcobox* pour la difficulte */
 	class DifficulteComcoBoxListener implements ActionListener {
 
 		@Override
@@ -315,7 +314,7 @@ public class Parametrer extends JPanel implements Observer {
 		}
 
 	}
-
+	/**classe interne qui recupere le choix de joueur physique par JSlider pour le nombre de joueurs */
 	class NbJoueursListener implements ChangeListener {
 
 		@Override
@@ -337,6 +336,7 @@ public class Parametrer extends JPanel implements Observer {
 
 	}
 
+	/**classe interne qui recupere le choix de joueur physique par JSlider pour le nombre de joueurs */
 	class LancerListener implements ActionListener {
 
 		@Override
@@ -347,7 +347,7 @@ public class Parametrer extends JPanel implements Observer {
 
 	}
 
-	// a faire
+	/**classe interne qui repond a l'appuie sur le button Quitter*/
 	class QuitterListener implements ActionListener {
 
 		@Override

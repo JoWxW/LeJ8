@@ -8,7 +8,8 @@ import carte.Carte;
 import effet.*;
 import jeu.Jeu;
 import joueur.Joueur;
-
+/**La variante 1
+ * @see Variante*/
 public class Variante1 extends Variante {
 
 	public Variante1(Jeu j) {

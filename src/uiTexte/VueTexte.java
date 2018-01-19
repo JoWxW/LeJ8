@@ -9,18 +9,27 @@ import java.util.Observer;
 import controller.EffetControleur;
 import controller.JeuControleur;
 import jeu.Jeu;
-
+/**
+ * Classe permettant le joueur physique de jouer dans le console en respectant le patron de conception MVC*/
 public class VueTexte implements Observer, Runnable {
-
+	/**Chaine de caractere reservee pour le joueur physique de quitter le jeu*/
 	public static String QUITTER = "quit";
-	public static String COMMUTER = "C";
+	/**Chaine de caractere reservee pour indiquer l'attente de console pour une saisie de joueur physique*/
 	public static String PROMPT = "<";
+	/**le jeu pour fournir des informations et pour effectuer des modifications*/
 	private Jeu jeu;
+	/**controleur de jeu*/
 	private JeuControleur jeuControleur;
+	/**controleur d'effet*/
 	private EffetControleur effetControleur;
+	/**Le thread de cette vueTexte*/
 	private Thread t;
+	/**boolean qui indique si c'est le tour de joueur physique afin d'activer le processus de console*/
 	private boolean tourJoueurPhysique = false;
 
+	/**
+	 * Constructeur de VueTexte qui initilise le jeu, les controleurs et le thread
+	 * @param j le jeu pour fournir des informations et pour effectuer des modifications*/
 	public VueTexte(Jeu j) {
 		this.jeu = j;
 		this.jeu.add(this);
@@ -62,8 +71,8 @@ public class VueTexte implements Observer, Runnable {
 		System.exit(0);
 	}
 
+	/**Methode permettant de lire les chaines de caracteres saisies par le joueur physique*/
 	private String lireChaine() {
-
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		String resultat = null;
 		try {

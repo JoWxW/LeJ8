@@ -16,9 +16,7 @@ import joueur.Joueur;
 import joueur.JoueurPhysique;
 
 /**
- * @author wxw
- *
- */
+ * L'effet qui fait le joueur suivant pocher deux cartes */
 public class FairePiocher extends Effet {
 	private int nbCarte;
 	private Thread thread;

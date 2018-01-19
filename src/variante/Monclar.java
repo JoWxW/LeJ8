@@ -13,8 +13,8 @@ import jeu.Jeu;
 import joueur.Joueur;
 
 /**
- * @author wxw
- *
+ * La variante Monclar
+ * @see Variante
  */
 public class Monclar extends Variante {
 	public Monclar(Jeu j) {
@@ -23,6 +23,7 @@ public class Monclar extends Variante {
 		this.setNumero("11");
 	}
 
+	@Override
 	public void addEffet(LinkedList<Carte> tas,ArrayList<Joueur> joueurs) {
 		ObligeRejouer obligeRejouer = new ObligeRejouer();
 		this.getJeu().getEffetDeJeu().add(obligeRejouer);

@@ -8,9 +8,7 @@ import jeu.Jeu;
 import joueur.Joueur;
 
 /**
- * @author wxw
- *
- */
+ * L'effet qui permet de faire le joueur suivant passer son tour*/
 public class PasserSonTour extends Effet {
 
 	public PasserSonTour() {

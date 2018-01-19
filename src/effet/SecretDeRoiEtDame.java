@@ -7,7 +7,7 @@ import carte.Carte;
 import exception.SaisiNonValideException;
 import jeu.Jeu;
 import joueur.Joueur;
-
+/**L'effet qui permet le joueur de poser tous les carte de valeur Roi et Dame*/
 public class SecretDeRoiEtDame extends Effet {
 
 	public SecretDeRoiEtDame() {
@@ -18,7 +18,6 @@ public class SecretDeRoiEtDame extends Effet {
 	@Override
 	public Jeu validerSuperpower(Jeu j){
 		Joueur jou = j.getJoueurActuel();
-		// LinkedList<Carte> aPoser = new LinkedList<Carte>();
 		LinkedList<Carte> myCartes = jou.getCartes();
 		Iterator<Carte> it = myCartes.iterator();
 		while (it.hasNext()) {
@@ -31,22 +30,7 @@ public class SecretDeRoiEtDame extends Effet {
 		}
 		return j;
 
-		/*
-		 * j.renouvelerJouerActuel(); Joueur jou = j.getJoueurActuel(); Carte cartePosee
-		 * = j.getCarteActuelle(); LinkedList<Carte> myCarte; myCarte =
-		 * jou.getCarteCandidate(j.getCarteActuelle()); Iterator<Carte> it =
-		 * jou.getCartes().iterator(); while (it.hasNext()) { Carte c = it.next(); if
-		 * (cartePosee.getValeur().getId() == 12) { if (c.getValeur().getId() == 13) {
-		 * myCarte.add(c); } } else if (cartePosee.getValeur().getId() == 13) { if
-		 * (c.getValeur().getId() == 12) { myCarte.add(c); }
-		 * 
-		 * } } // yongxinde methode gaidiao Carte carteChoisie =
-		 * jou.poserUneCarte(myCarte, jou.getCartes());
-		 * jou.getCartes().remove(carteChoisie); j =
-		 * carteChoisie.getEffectValide().validerSuperpower(j);
-		 * 
-		 * return j;
-		 */
+
 	}
 
 	@Override

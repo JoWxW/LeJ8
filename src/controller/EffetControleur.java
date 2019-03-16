@@ -3,10 +3,10 @@ package controller;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-import carte.Carte;
-import effet.Effet;
-import effet.FairePiocher;
-import jeu.Jeu;
+import model.carte.Carte;
+import model.effet.Effet;
+import model.effet.FairePiocher;
+import model.jeu.Jeu;
 
 /**
  * Classe de controleur permettant de lier l'interface graphique et l'effet en respectant le patron de conception de MVC*/
@@ -22,8 +22,7 @@ public class EffetControleur {
 	}
 
 	/**
-	 * Methode permettant le faire continuer le processus(thread) de l'effet conrespondant
-	 * @see effetEnAttente*/
+	 * Methode permettant le faire continuer le processus(thread) de l'effet conrespondant*/
 	public void effetContinu() {
 		Effet effetTop = jeu.getEffetEnAttente().get(0);
 		effetTop.setContinu(true);

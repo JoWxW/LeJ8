@@ -2,4 +2,4 @@
 <<<<<<<=HEAD
 >>>>>>>=0136ec9f85779ead628430921979739fcad8785c
 eclipse.preferences.version=1
-encoding//src/carte/TasDeCarteEnAttente.java=UTF-8
+encoding//src/model/carte/TasDeCarteEnAttente.java=UTF-8

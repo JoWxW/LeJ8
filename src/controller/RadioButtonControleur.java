@@ -5,13 +5,12 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JRadioButton;
 
-import jeu.Jeu;
-import ui.Parametrer;
+import model.jeu.Jeu;
 
 public class RadioButtonControleur {
 	private Jeu jeu;
 	public RadioButtonControleur(Jeu j) {
-		jeu = j;
+		setJeu(j);
 	}
 	
 	public void add(JRadioButton radio) {
@@ -66,6 +65,14 @@ public class RadioButtonControleur {
 				}
 			}
 		});
+	}
+
+	public Jeu getJeu() {
+		return jeu;
+	}
+
+	public void setJeu(Jeu jeu) {
+		this.jeu = jeu;
 	}
 
 }

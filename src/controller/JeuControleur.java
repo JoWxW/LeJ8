@@ -5,16 +5,16 @@ import java.util.LinkedList;
 
 import javax.swing.JFrame;
 
-import carte.Carte;
-import effet.Effet;
 import exception.SaisiNonValideException;
-import jeu.Jeu;
-import joueur.Joueur;
-import joueur.JoueurPhysique;
-import ui.Game;
-import ui.Parametrer;
-import ui.Resultat;
-import uiTexte.VueTexte;
+import model.carte.Carte;
+import model.effet.Effet;
+import model.jeu.Jeu;
+import model.joueur.Joueur;
+import model.joueur.JoueurPhysique;
+import view.ui.Game;
+import view.ui.Parametrer;
+import view.ui.Resultat;
+import view.uiTexte.VueTexte;
 /**Classe lie le jeu et l'interface graphique en respectant le patron de conception de MVC*/
 public class JeuControleur {
 
